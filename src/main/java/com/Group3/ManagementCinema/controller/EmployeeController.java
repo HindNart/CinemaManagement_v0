@@ -47,7 +47,7 @@ public class EmployeeController {
         Employee employee = employeeService.getEmployeeById(id);
         // set employee as a model attribute to pre-populate the form
         model.addAttribute("employee", employee);
-        return "update_employee";
+        return "employee_update";
     }
     
     @GetMapping("/deleteEmployee/{id}")
