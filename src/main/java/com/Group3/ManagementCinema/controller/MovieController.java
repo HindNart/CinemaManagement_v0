@@ -47,7 +47,7 @@ public class MovieController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/showFormForUpdate/{id}")
+	@GetMapping("/showFormForUpdateMovie/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) {
 		// get movie from the service
 		Movie movie = movieService.getMovieById(id);

@@ -8,9 +8,9 @@
 </head>
 <body>
 <div class="container">
-<h1>Movie Management</h1>
+<h1>Quản lý phim</h1>
 <hr>
-<h2>Update Movie</h2>
+<h2>Cập nhật phim</h2>
 <form action="#" th:action="@{/saveMovie}" th:object="${movie}" method="POST">
 <!-- Add hidden form field to handle update -->
 <input type="hidden" th:field="*{id}">
