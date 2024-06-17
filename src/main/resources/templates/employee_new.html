@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Cinema Management System</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Cinema Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
-<h1>Quản lý nhan vien</h1>
-<hr>
-<h2>Lưu thông tin nhan vien</h2>
-<form action="#" th:action="@{/saveEmployee}" th:object="${employee}" method="POST">
-<input type="text" th:field="*{idNhanVien}" placeholder="Mã nhan vien" class="form-control mb-4 col-4">
-<input type="text" th:field="*{hoTenNV}" placeholder="Tên nhan vien" class="form-control mb-4 col-4">
-<input type="date" th:field="*{ngaySinhNV}" placeholder="Ngay sinh" class="form-control mb-4 col-4">
-<input type="text" th:field="*{diaChi}" placeholder="Dia chi" class="form-control mb-4 col-4">
-<input type="text" th:field="*{chucVu}" placeholder="Chuc vu" class="form-control mb-4 col-4">
-<input type="text" th:field="*{luong}" placeholder="Luong" class="form-control mb-4 col-4">
-<input type="text" th:field="*{caLam}" placeholder="Ca lam" class="form-control mb-4 col-4">
-<input type="date" th:field="*{sdt}" placeholder="So dien thoai" class="form-control mb-4 col-4">
-<button type="submit" class="btn btn-info col-2"> Lưu nhan vien</button>
-</form>
-<hr>
-<a th:href="@{/employees}"> Quay lại trang danh sách nhan vien</a>
-</div></body>
+    <h1>Quản lý nhân viên</h1>
+    <hr>
+    <h2>Lưu thông tin nhân viên</h2>
+    <form th:action="@{/saveEmployee}" th:object="${employee}" method="POST">
+        <input type="text" th:field="*{idNhanVien}" placeholder="Mã nhân viên" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{hoTenNV}" placeholder="Tên nhân viên" class="form-control mb-4 col-4">
+        <input type="date" th:field="*{ngaySinhNV}" placeholder="Ngày sinh" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{diaChi}" placeholder="Địa chỉ" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{chucVu}" placeholder="Chức vụ" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{luong}" placeholder="Lương" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{caLam}" placeholder="Ca làm" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{sdt}" placeholder="Số điện thoại" class="form-control mb-4 col-4">
+        <button type="submit" class="btn btn-info col-2"> Lưu nhân viên</button>
+    </form>
+    <hr>
+    <a th:href="@{/employees}"> Quay lại trang danh sách nhân viên</a>
+</div>
+</body>
 </html>
