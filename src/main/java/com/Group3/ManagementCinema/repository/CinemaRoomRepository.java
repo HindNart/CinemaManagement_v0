@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.Group3.ManagementCinema.entity.CinemaRoom;
 
 @Repository
-public interface CinemaRoomRepository extends JpaRepository<CinemaRoom, String> {}
+public interface CinemaRoomRepository extends JpaRepository<CinemaRoom, String> {
+	
+}
