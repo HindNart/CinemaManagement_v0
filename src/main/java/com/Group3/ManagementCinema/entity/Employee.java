@@ -15,7 +15,7 @@ public class Employee {
 
     @Column(name = "hoTenNV", nullable = false)
     private String hoTenNV;
-
+    
     @Column(name = "ngaySinhNV", nullable = false)
     private Date ngaySinhNV;
 
