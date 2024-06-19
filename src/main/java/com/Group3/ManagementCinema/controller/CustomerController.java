@@ -14,17 +14,16 @@ import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.service.CustomerService;
 
 @Controller
-@RequestMapping("/admin")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
     // Hiển thị danh sách khách hàng
-    @GetMapping("/adCustomer.html")
-    public String showCustomerList(Model model) {
-        model.addAttribute("listCustomer", customerService.getAllCustomers());
-        return "admin/adCustomer"; // Trả về template adCustomer.html trong thư mục templates/admin/
-    }
+//    @GetMapping("/adCustomer.html")
+//    public String showCustomerList(Model model) {
+//        model.addAttribute("listCustomer", customerService.getAllCustomers());
+//        return "admin/adCustomer"; // Trả về template adCustomer.html trong thư mục templates/admin/
+//    }
 
     // Hiển thị form thêm khách hàng mới
     @GetMapping("/showNewCustomerForm")
