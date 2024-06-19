@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="movie : ${movie}">
+                <tr>
                     <td th:text="${movie.id}"></td>
                     <td th:text="${movie.tenPhim}"></td>
                     <td th:text="${movie.theLoai}"></td>
@@ -38,7 +38,7 @@
                     <td th:text="${movie.ngayPH}"></td>
                     <td><img alt="" th:src="${movie.linkPoster}" width="100px"></td>
                     <td>
-                        <a th:href="@{/showFormForUpdate/{id}(id=${movie.id})}" class="btn btn-primary btn-sm">Update</a>
+                        <a th:href="@{/showFormForUpdateMovie/{id}(id=${movie.id})}" class="btn btn-primary btn-sm">Update</a>
                         <a th:href="@{/deleteMovie/{id}(id=${movie.id})}" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
