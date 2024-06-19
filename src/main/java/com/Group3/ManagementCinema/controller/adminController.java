@@ -20,7 +20,9 @@ import com.Group3.ManagementCinema.service.EmployeeService;
 public class adminController {
     @Autowired
     private CustomerService customerService;
+    @Autowired
     private EmployeeService employeeService;
+    @Autowired
     private CinemaRoomService cinemaroomService;
 
     // Hiển thị danh sách khách hàng
