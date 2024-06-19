@@ -102,14 +102,15 @@
 
     </div>
     <script>
-        function loadContent(fragment) {
-            fetch(fragment)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('content').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading content:', error));
-        }
+	    document.getElementById('load-cus').addEventListener('click', function (event) {
+	        event.preventDefault();
+	        fetch('/admin/adCustomer.html') // Đường dẫn tới adCustomer.html trong thư mục templates/admin/
+	            .then(response => response.text())
+	            .then(html => {
+	                document.getElementById('content').innerHTML = html;
+	            })
+	            .catch(error => console.error('Error loading content:', error));
+	    });
 
         const sidebarButtons = document.querySelectorAll('.sidebar-btn');
         sidebarButtons.forEach(button => {
