@@ -44,7 +44,7 @@ public class MovieController {
 	public String saveMovie(@ModelAttribute("movie") Movie movie) {
 		// save movie to database
 		movieService.saveMovie(movie);
-		return "redirect:/showAllMovies";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/showFormForUpdateMovie/{id}")
@@ -60,6 +60,6 @@ public class MovieController {
 	public String deleteMovie(@PathVariable(value = "id") String id) {
 		// call delete movie method
 		this.movieService.deleteMovieById(id);
-		return "redirect:/showAllMovies";
+		return "redirect:/";
 	}
 }

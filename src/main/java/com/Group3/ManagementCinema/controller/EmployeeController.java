@@ -13,6 +13,12 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
     
+    @GetMapping("/employees")
+    public String showEmployeeList(Model model) {
+        model.addAttribute("listEmployees", employeeService.getAllEmployees());
+        return "employees"; // Trả về template adEmployee.html trong thư mục templates/admin/
+    }
+    
     @GetMapping("/showNewEmployeeForm")
     public String showNewEmployeeForm(Model model) {
         // create model attribute to bind form data
@@ -32,7 +38,7 @@ public class EmployeeController {
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {
         // save employee to database
         employeeService.saveEmployee(employee);
-        return "redirect:/employees";
+        return "redirect:/";
     }
     
     @GetMapping("/showFormForUpdateEmployee/{id}")
@@ -48,6 +54,6 @@ public class EmployeeController {
     public String deleteEmployee(@PathVariable(value = "id") String id) {
         // call delete employee method
         employeeService.deleteEmployeeById(id);
-        return "redirect:/employees";
+        return "redirect:/";
     }
 }

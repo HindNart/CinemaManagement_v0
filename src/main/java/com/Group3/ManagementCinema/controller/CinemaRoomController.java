@@ -41,7 +41,7 @@ public class CinemaRoomController {
 	@PostMapping("/saveCinemaRoom")
 	public String saveCinemaRoom(@ModelAttribute("cinemaRoom") CinemaRoom cinemaRoom) {
 		cinemaRoomService.saveCinemaRoom(cinemaRoom);
-		return "redirect:/showCinemaRoom";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/showFormForUpdateCinemaRoom/{id}")
@@ -54,6 +54,6 @@ public class CinemaRoomController {
 	@GetMapping("/deleteCinemaRoom/{id}")
 	public String deleteCinemaRoom(@PathVariable(value = "id") String id) {
 		this.cinemaRoomService.deleteCinemaRoomById(id);
-		return "redirect:/showCinemaRoom";
+		return "redirect:/";
 	}
 }
