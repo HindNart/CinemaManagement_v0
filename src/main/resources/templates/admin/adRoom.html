@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -28,23 +28,24 @@
         <div class="scroll-table">
             <table class="main-content-list">
                 <thead>
-                    <th>Mã phòng chiếu</th>
-                    <th>Số lượng ghế</th>
-                    <th>Loại phòng</th>
-                    <th></th>
-                </thead>
-                <tr class="table-row">
-                    <td>PC01</td>
-                    <td>64</td>
-                    <td>3D</td>
-                    <td><i class="bi bi-gear-fill"></i></td>
-                </tr>
-                <tr class="table-row">
-                    <td>PC02</td>
-                    <td>64</td>
-                    <td>3D</td>
-                    <td><i class="bi bi-gear-fill"></i></td>
-                </tr>
+	                <tr>
+	                    <th>Mã phòng chiếu</th>
+	                    <th>Số lượng ghế</th>
+	                    <th>Loại phòng</th>
+	                    <th>Chức năng</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="room : ${listCinemaRooms}">
+	                    <td th:text="${room.id}"></td>
+	                    <td th:text="${room.soLuongGhe}"></td>
+	                    <td th:text="${room.loaiPhong}"></td>
+	                    <td>
+	                        <a th:href="@{/showFormForUpdateCinemaRoom/{id}(id=${room.id})}" class="btn btn-primary btn-sm">Update</a>
+	                        <a th:href="@{/deleteCinemaRoom/{id}(id=${room.id})}" class="btn btn-danger btn-sm">Delete</a>
+	                    </td>
+	                </tr>
+	            </tbody>
             </table>
         </div>
 

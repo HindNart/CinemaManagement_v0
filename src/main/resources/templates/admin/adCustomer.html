@@ -24,14 +24,16 @@
         <div class="scroll-table">
             <table class="main-content-list">
                 <thead>
-                    <th>Mã khách hàng</th>
-                    <th>Họ tên</th>
-                    <th>Số điện thoại</th>
-                    <th>Điểm</th>
-                    <th></th>
+	                <tr>
+	                    <th>Mã khách hàng</th>
+	                    <th>Họ tên</th>
+	                    <th>Số điện thoại</th>
+	                    <th>Điểm</th>
+	                    <th>Chức năng</th>
+                    </tr>
                 </thead>
                 <tbody>
-                	<tr th:each="customer : ${listCustomer}" class="table-row">
+                	<tr th:each="customer : ${listCustomers}" class="table-row">
 	                    <td th:text="${customer.idKhach}"></td>
 	                    <td th:text="${customer.tenKhach}"></td>
 	                    <td th:text="${customer.sdt}"></td>
@@ -41,22 +43,6 @@
 	                        <a th:href="@{/deleteCustomer/{id}(id=${customer.idKhach})}" class="btn btn-danger btn-sm">Delete</a>
 	                    </td>
                 	</tr>
-                    <!--  <tr >
-                        <td>KH01</td>
-                        <td>Doan Ba Huy</td>
-                        <td>Bắc Ninh</td>
-                        <td>0398659203</td>
-                        <td>20000</td>
-                        <td><i class="bi bi-gear-fill"></i></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>KH02</td>
-                        <td>Doan Ba Huy</td>
-                        <td>Bắc Ninh</td>
-                        <td>0398659203</td>
-                        <td>1000</td>
-                        <td><i class="bi bi-gear-fill"></i></td>
-                    </tr>-->
                 </tbody>
             </table>
         </div>

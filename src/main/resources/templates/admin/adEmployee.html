@@ -24,17 +24,20 @@
     <div class="scroll-table">
         <table class="main-content-list">
             <thead>
-                <th>Mã nhân viên</th>
-                <th>Họ tên</th>
-                <th>Địa chỉ</th>
-                <th>Năm sinh</th>
-                <th>Lương</th>
-                <th>Số điện thoại</th>
-                <th>Ca làm việc</th>
-                <th></th>
+                <tr>
+                    <th>Mã nhân viên</th>
+                    <th>Tên nhân viên</th>
+                    <th>Ngày sinh</th>
+                    <th>Địa chỉ</th>
+                    <th>Chức vụ</th>
+                    <th>Lương</th>
+                    <th>Ca làm</th>
+                    <th>Số điện thoại</th>
+                    <th>Chức năng</th>
+                </tr>
             </thead>
             <tbody>
-                <tr th:each="Employee : ${listEmployees}"  class="table-row">
+                <tr th:each="Employee : ${listEmployees}">
                     <td th:text="${Employee.idNhanVien}"></td>
                     <td th:text="${Employee.hoTenNV}"></td>
                     <td th:text="${Employee.ngaySinhNV}"></td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -28,55 +28,36 @@
         <div class="scroll-table">
             <table class="main-content-list">
                 <thead>
-                    <th>Mã phim</th>
-                    <th>Tên phim</th>
-                    <th>Thể loại</th>
-                    <th>Đánh giá</th>
-                    <th>Đạo diễn</th>
-                    <th>Diễn viên chính</th>
-                    <th>Ngày phát hành</th>
-                    <th>Thời lượng</th>
-                    <th class="film-description">Mô tả</th>
-                    <th></th>
-                </thead>
-                <tr class="table-row">
-                    <td>P01</td>
-                    <td>Harry Potter và hòn đá cuội</td>
-                    <td>Phiêu lưu, Hành Động</td>
-                    <td>9.4</td>
-                    <td>Chris Columbus</td>
-                    <td>Daniel Radcliffe, Emma Waston, Rupert Grint</td>
-                    <td>2001</td>
-                    <td>152 phút</td>
-                    <td>
-                        <p class="film-description">Harry Potter và Hòn đá Phù thủy là
-                            một bộ phim giả
-                            tưởng năm 2001 được đạo
-                            diễn bởi Chris Colombus và được phát hành bởi
-                            Warner Bros. Pictures, dựa theo cuốn tiểu thuyết cùng tên năm 1997 của nhà văn Anh J. K.
-                            Rowling.</p>
-                    </td>
-                    <td><i class="bi bi-gear-fill"></i></td>
-                </tr>
-                <tr class="table-row">
-                    <td>P01</td>
-                    <td>Harry Potter và hòn đá cuội</td>
-                    <td>Phiêu lưu, Hành Động</td>
-                    <td>9.4</td>
-                    <td>Chris Columbus</td>
-                    <td>Daniel Radcliffe, Emma Waston, Rupert Grint</td>
-                    <td>2001</td>
-                    <td>152 phút</td>
-                    <td>
-                        <p class="film-description">Harry Potter và Hòn đá Phù thủy là
-                            một bộ phim giả
-                            tưởng năm 2001 được đạo
-                            diễn bởi Chris Colombus và được phát hành bởi
-                            Warner Bros. Pictures, dựa theo cuốn tiểu thuyết cùng tên năm 1997 của nhà văn Anh J. K.
-                            Rowling.</p>
-                    </td>
-                    <td><i class="bi bi-gear-fill"></i></td>
-                </tr>
+	                <tr>
+	                    <th>Mã phim</th>
+	                    <th>Tên phim</th>
+	                    <th>Thể loại</th>
+	                    <th>Đạo diễn</th>
+	                    <th>Diễn viên</th>
+	                    <th>Thời lượng</th>
+	                    <th>Mô tả</th>
+	                    <th>Ngày phát hành</th>
+	                    <th>Poster</th>
+	                    <th>Chức năng</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="movie : ${listMovies}">
+	                    <td th:text="${movie.id}"></td>
+	                    <td th:text="${movie.tenPhim}"></td>
+	                    <td th:text="${movie.theLoai}"></td>
+	                    <td th:text="${movie.daoDien}"></td>
+	                    <td th:text="${movie.dienVien}"></td>
+	                    <td th:text="${movie.thoiLuong}"></td>
+	                    <td th:text="${movie.moTa}"></td>
+	                    <td th:text="${movie.ngayPH}"></td>
+	                    <td><img alt="" th:src="${movie.linkPoster}" width="100px"></td>
+	                    <td>
+	                        <a th:href="@{/showFormForUpdateMovie/{id}(id=${movie.id})}" class="btn btn-primary btn-sm">Update</a>
+	                        <a th:href="@{/deleteMovie/{id}(id=${movie.id})}" class="btn btn-danger btn-sm">Delete</a>
+	                    </td>
+	                </tr>
+	            </tbody>
             </table>
         </div>
     </div>
