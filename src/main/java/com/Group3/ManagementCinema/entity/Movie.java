@@ -1,21 +1,14 @@
 package com.Group3.ManagementCinema.entity;
 
 import java.sql.Date;
+import java.util.Set;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="phim")
 public class Movie {
-//	`idPhim` varchar(10) NOT NULL,
-//	  `tenPhim` varchar(50) NOT NULL,
-//	  `theLoai` varchar(100) NOT NULL,
-//	  `daoDien` varchar(30) NOT NULL,
-//	  `dienVien` varchar(100) NOT NULL,
-//	  `thoiLuong` int(11) NOT NULL,
-//	  `moTa` text NOT NULL,
-//	  `ngayPH` date NOT NULL,
-//	  `linkHinhAnh` text NOT NULL
+
 	@Id
 	@Column(name = "idPhim")
 	private String id;
@@ -44,6 +37,10 @@ public class Movie {
 	@Column(name = "linkPoster", nullable = false, length = 600)
 	private String linkPoster;
 
+//	Create references 
+	@OneToMany(mappedBy = "phim")
+    private Set<MovieSchedule> movieSchedules;
+	
 	public String getId() {
 		return id;
 	}

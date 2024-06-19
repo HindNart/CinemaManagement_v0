@@ -13,13 +13,13 @@ public class MovieSchedule {
 	@Column(name = "idLichChieu")
 	private String idLichChieu;
 	
-	@OneToMany
-	@Column(name = "idPhongChieu")
-	private String idPhongChieu;
-	
-	@OneToMany
-	@Column(name = "idPhim")
-	private String idPhim;
+	@ManyToOne
+    @JoinColumn(name = "idPhong", nullable = false)
+    private CinemaRoom phongChieu;
+    
+    @ManyToOne
+    @JoinColumn(name = "idPhim", nullable = false)
+    private Movie phim;
 	
 	@Column(name = "thoigianBD")
 	private Time thoigianBD;
@@ -39,19 +39,19 @@ public class MovieSchedule {
 	}
 
 	public String getIdPhongChieu() {
-		return idPhongChieu;
+		return phongChieu.getId();
 	}
 
 	public void setIdPhongChieu(String idPhongChieu) {
-		this.idPhongChieu = idPhongChieu;
+		phongChieu.setId(idPhongChieu); 
 	}
-
+	
 	public String getIdPhim() {
-		return idPhim;
+		return phim.getId();
 	}
 
 	public void setIdPhim(String idPhim) {
-		this.idPhim = idPhim;
+		phim.setId(idPhim);;
 	}
 
 	public Time getThoigianBD() {
@@ -78,12 +78,12 @@ public class MovieSchedule {
 		this.ngayChieu = ngayChieu;
 	}
 
-	public MovieSchedule(String idLichChieu, String idPhongChieu, String idPhim, Time thoigianBD, Time thoigianKT,
+	public MovieSchedule(String idLichChieu, CinemaRoom phongChieu, Movie phim, Time thoigianBD, Time thoigianKT,
 			Date ngayChieu) {
 		super();
 		this.idLichChieu = idLichChieu;
-		this.idPhongChieu = idPhongChieu;
-		this.idPhim = idPhim;
+		this.phongChieu = phongChieu;
+		this.phim = phim;
 		this.thoigianBD = thoigianBD;
 		this.thoigianKT = thoigianKT;
 		this.ngayChieu = ngayChieu;
