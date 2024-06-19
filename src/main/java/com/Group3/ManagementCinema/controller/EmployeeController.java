@@ -13,12 +13,6 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
     
-    @GetMapping("/employees")
-    public String showAllEmployees(Model model){
-        model.addAttribute("listEmployees", employeeService.getAllEmployees());
-        return "employees";
-    }
-    
     @GetMapping("/showNewEmployeeForm")
     public String showNewEmployeeForm(Model model) {
         // create model attribute to bind form data

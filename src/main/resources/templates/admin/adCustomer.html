@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý rạp phim</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-</head>
-
 <body>
     <div class="main-content-cus">
         <div class="main-title flex spc-btw" style="align-items:center;">
@@ -20,7 +16,7 @@
                 </div>
                 <div class="add-btn">
                     <div class="add-emp">
-                        <a href="/showNewCustomerForm">Thêm khách hàng</a>
+                        <a th:href="@{/showNewCustomerForm}">Thêm khách hàng</a>
                     </div>
                 </div>
             </div>
@@ -30,13 +26,22 @@
                 <thead>
                     <th>Mã khách hàng</th>
                     <th>Họ tên</th>
-                    <th>Email</th>
                     <th>Số điện thoại</th>
                     <th>Điểm</th>
                     <th></th>
                 </thead>
                 <tbody>
-                    <tr class="table-row">
+                	<tr th:each="customer : ${listCustomer}" class="table-row">
+	                    <td th:text="${customer.idKhach}"></td>
+	                    <td th:text="${customer.tenKhach}"></td>
+	                    <td th:text="${customer.sdt}"></td>
+						<td th:text="${customer.diem}"></td>                    
+	                    <td>
+	                        <a th:href="@{/showFormForUpdateCustomer/{id}(id=${customer.idKhach})}" class="btn btn-primary btn-sm">Update</a>
+	                        <a th:href="@{/deleteCustomer/{id}(id=${customer.idKhach})}" class="btn btn-danger btn-sm">Delete</a>
+	                    </td>
+                	</tr>
+                    <!--  <tr >
                         <td>KH01</td>
                         <td>Doan Ba Huy</td>
                         <td>Bắc Ninh</td>
@@ -51,7 +56,7 @@
                         <td>0398659203</td>
                         <td>1000</td>
                         <td><i class="bi bi-gear-fill"></i></td>
-                    </tr>
+                    </tr>-->
                 </tbody>
             </table>
         </div>
