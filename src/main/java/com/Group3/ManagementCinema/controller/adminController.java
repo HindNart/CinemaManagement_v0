@@ -43,5 +43,10 @@ public class adminController {
         model.addAttribute("listCinemaRoom", cinemaroomService.getAllCinemaRooms());
         return "admin/adRoom"; // Trả về template adCustomer.html trong thư mục templates/admin/
     }
+    @GetMapping("/adSchedule.html")
+    public String showScheduleList(Model model) {
+//        model.addAttribute("listSchedule", scheduleService.getAllSchedules());
+        return "admin/adSchedule"; // Trả về template adCustomer.html trong thư mục templates/admin/
+    }
 }
 

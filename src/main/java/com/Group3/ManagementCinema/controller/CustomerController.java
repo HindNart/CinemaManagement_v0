@@ -37,7 +37,7 @@ public class CustomerController {
     @GetMapping("/searchCustomer")
     public String searchCustomer(@RequestParam("id") String id, Model model) {
         Customer customer = customerService.getCustomerById(id);
-        model.addAttribute("customer", customer);
+        model.addAttribute("listCustomer", customer);
         return "cusSearch"; // Trả về template cusSearch.html trong thư mục templates/
     }
 
@@ -45,7 +45,7 @@ public class CustomerController {
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
         customerService.saveCustomer(customer);
-        return "redirect:/admin/adCustomer.html"; // Sau khi lưu, chuyển hướng lại danh sách khách hàng
+        return "redirect:/cusSearch"; // Sau khi lưu, chuyển hướng lại danh sách khách hàng
     }
 
     // Hiển thị form cập nhật thông tin khách hàng
@@ -60,6 +60,6 @@ public class CustomerController {
     @GetMapping("/deleteCustomer/{id}")
     public String deleteCustomer(@PathVariable(value = "id") String id) {
         customerService.deleteCustomerById(id);
-        return "redirect:/admin/adCustomer.html"; // Sau khi xóa, chuyển hướng lại danh sách khách hàng
+        return "redirect:/"; // Sau khi xóa, chuyển hướng lại danh sách khách hàng
     }
 }

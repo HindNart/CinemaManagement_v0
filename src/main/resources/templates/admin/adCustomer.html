@@ -11,8 +11,11 @@
         <div class="main-title flex spc-btw" style="align-items:center;">
             <div class="">Danh sách khách hàng</div>
             <div class="flex">
-                <div class="search-bar"><input type="text" name="search-bar" id="">
-                    <i class="bi bi-search"></i>
+                <div class="search-bar">
+                	<form th:action="@{/searchCustomer}"><input type="text" name="id">
+                    <button>
+                    	<i style="margin-right:10px;" class="bi bi-search"></i></button>
+                    </form>
                 </div>
                 <div class="add-btn">
                     <div class="add-emp">
@@ -41,22 +44,6 @@
 	                        <a th:href="@{/deleteCustomer/{id}(id=${customer.idKhach})}" class="btn btn-danger btn-sm">Delete</a>
 	                    </td>
                 	</tr>
-                    <!--  <tr >
-                        <td>KH01</td>
-                        <td>Doan Ba Huy</td>
-                        <td>Bắc Ninh</td>
-                        <td>0398659203</td>
-                        <td>20000</td>
-                        <td><i class="bi bi-gear-fill"></i></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>KH02</td>
-                        <td>Doan Ba Huy</td>
-                        <td>Bắc Ninh</td>
-                        <td>0398659203</td>
-                        <td>1000</td>
-                        <td><i class="bi bi-gear-fill"></i></td>
-                    </tr>-->
                 </tbody>
             </table>
         </div>
