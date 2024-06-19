@@ -41,7 +41,7 @@ public class Movie {
 	@Column(name = "ngayPH", nullable = false)
 	private Date ngayPH;
 	
-	@Column(name = "linkPoster", nullable = false, length = 600)
+	@Column(name = "linkPoster", nullable = false)
 	private String linkPoster;
 
 	public String getId() {

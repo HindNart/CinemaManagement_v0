@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Search Employee Result</title>
@@ -8,7 +8,9 @@
 </head>
 <body>
     <div class="container my-4">
-        <h1>Employee Search Result</h1>
+    	<h1>Quản lý nhân viên</h1>
+		<hr>
+        <h2>Kết quả tìm kiếm nhân viên</h2>
         <table class="table table-striped table-responsive-md">
             <thead>
                 <tr>
@@ -32,10 +34,14 @@
                     <td th:text="${employee.luong}"></td>
                     <td th:text="${employee.caLam}"></td>
                     <td th:text="${employee.sdt}"></td>
+                    <td>
+                        <a th:href="@{/showFormForUpdateEmployee/{id}(id=${employee.idNhanVien})}" class="btn btn-primary btn-sm">Update</a>
+                        <a th:href="@{/deleteEmployee/{id}(id=${employee.idNhanVien})}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <a th:href="@{/employees}" class="btn btn-primary">Back to Employee List</a>
+        <a class="btn btn-success" th:href="@{/employees}"> Quay lại</a>
     </div>
 </body>
 </html>
