@@ -15,6 +15,7 @@ import com.Group3.ManagementCinema.service.CinemaRoomService;
 import com.Group3.ManagementCinema.service.CustomerService;
 import com.Group3.ManagementCinema.service.EmployeeService;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
+import com.Group3.ManagementCinema.service.MovieService;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,6 +28,8 @@ public class adminController {
     private CinemaRoomService cinemaroomService;
     @Autowired
     private MovieScheduleService moviescheduleService;
+    @Autowired
+    private MovieService movieService;
 
     // Hiển thị danh sách khách hàng
     @GetMapping("/adCustomer.html")
@@ -43,12 +46,17 @@ public class adminController {
     
     @GetMapping("/adRoom.html")
     public String showRoomList(Model model) {
-        model.addAttribute("listCinemaRoom", cinemaroomService.getAllCinemaRooms());
+        model.addAttribute("listCinemaRooms", cinemaroomService.getAllCinemaRooms());
         return "admin/adRoom"; // Trả về template adCustomer.html trong thư mục templates/admin/
     }
     @GetMapping("/adSchedule.html")
     public String showScheduleList(Model model) {
         model.addAttribute("listSchedule", moviescheduleService.getAllMovieSchedules());
+        return "admin/adSchedule"; // Trả về template adCustomer.html trong thư mục templates/admin/
+    }
+    @GetMapping("/adMovie.html")
+    public String showMovieList(Model model) {
+        model.addAttribute("listMovie", movieService.getAllMovies());
         return "admin/adSchedule"; // Trả về template adCustomer.html trong thư mục templates/admin/
     }
 }

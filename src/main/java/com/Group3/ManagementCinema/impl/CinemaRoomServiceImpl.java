@@ -52,13 +52,6 @@ public class CinemaRoomServiceImpl implements CinemaRoomService {
 
 	@Override
 	public List<CinemaRoom> findByRoom(String keyword) {
-		try {
-            int soLuongGhe = Integer.parseInt(keyword);
-            return cinemaRoomRepository.findByLoaiPhongContainingOrSoLuongGhe(keyword,soLuongGhe);
-        } catch (NumberFormatException e) {
-            // Xử lý ngoại lệ nếu không thể chuyển đổi keyword sang int
-            e.printStackTrace();
-            return null; // Hoặc có thể trả về một danh sách rỗng hoặc thông báo lỗi khác tùy vào yêu cầu
-        }
+        return cinemaRoomRepository.findByLoaiPhongContaining(keyword);
 	}
 }

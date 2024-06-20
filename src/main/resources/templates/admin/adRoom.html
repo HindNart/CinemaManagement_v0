@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -15,12 +15,15 @@
         <div class="main-title flex spc-btw" style="align-items:center;">
             <div class="">Danh sách phòng chiếu</div>
             <div class="flex">
-                <div class="search-bar"><input type="text" name="search-bar" id="">
-                    <i class="bi bi-search"></i>
+                <div class="search-bar">
+                	<form th:action="@{/searchCinemaRoom}"><input type="text" name="id">
+                    <button>
+                    	<i style="margin-right:10px;" class="bi bi-search"></i></button>
+                    </form>
                 </div>
                 <div class="add-btn">
                     <div class="add-emp">
-                        <a href="#">Thêm phòng chiếu</a>
+                        <a th:href="@{/showNewCinemaRoomForm}">Thêm phòng chiếu</a>
                     </div>
                 </div>
             </div>
@@ -33,18 +36,17 @@
                     <th>Loại phòng</th>
                     <th></th>
                 </thead>
-                <tr class="table-row">
-                    <td>PC01</td>
-                    <td>64</td>
-                    <td>3D</td>
-                    <td><i class="bi bi-gear-fill"></i></td>
+                <tbody>
+                <tr th:each="room : ${listCinemaRooms}">
+                    <td th:text="${room.id}"></td>
+                    <td th:text="${room.soLuongGhe}"></td>
+                    <td th:text="${room.loaiPhong}"></td>
+                    <td>
+                        <a th:href="@{/showFormForUpdateCinemaRoom/{id}(id=${room.id})}" class="btn btn-primary btn-sm">Update</a>
+                        <a th:href="@{/deleteCinemaRoom/{id}(id=${room.id})}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
                 </tr>
-                <tr class="table-row">
-                    <td>PC02</td>
-                    <td>64</td>
-                    <td>3D</td>
-                    <td><i class="bi bi-gear-fill"></i></td>
-                </tr>
+            </tbody>
             </table>
         </div>
 
