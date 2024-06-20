@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,7 +16,13 @@ public class CinemaRoom {
 	
 	@Column(name = "loaiPhong", nullable = false)
 	private String loaiPhong;
-
+	
+	@OneToMany(mappedBy = "phongChieu")
+    private Set<MovieSchedule> movieSchedules;
+	
+	@OneToMany(mappedBy = "phongChieu")
+    private Set<Chair> chair;
+    
 	public String getId() {
 		return id;
 	}
