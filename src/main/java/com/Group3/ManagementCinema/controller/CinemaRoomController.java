@@ -31,6 +31,12 @@ public class CinemaRoomController {
 		return "cinemaRoom_new";
 	}
 	
+//	@GetMapping("/searchCinemaRoom")
+//	public String searchCinemaRoom(@RequestParam("id") String id, Model model) {
+//		model.addAttribute("cinemaRoom", cinemaRoomService.getCinemaRoomById(id));
+//		return "cinemaRoom_search";
+//	}
+	
 	@GetMapping("/searchCinemaRoom")
 	public String searchCinemaRoom(@RequestParam("id") String id, Model model) {
 		model.addAttribute("cinemaRoom", cinemaRoomService.findCinemaRoom(id));

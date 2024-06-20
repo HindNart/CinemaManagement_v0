@@ -50,4 +50,9 @@ public class MovieServiceImpl implements MovieService {
 	// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<Movie> searchMovie(String key) {
+		// TODO Auto-generated method stub
+		return movieRepository.findByDaoDienContainingOrDienVienContainingOrTenPhimContainingOrTheLoaiContaining(key, key, key, key);
+	}
 }
