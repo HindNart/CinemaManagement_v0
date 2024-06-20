@@ -9,5 +9,5 @@ import com.Group3.ManagementCinema.entity.CinemaRoom;
 
 @Repository
 public interface CinemaRoomRepository extends JpaRepository<CinemaRoom, String> {
-	List<CinemaRoom> findBySoLuongGheContainingOrLoaiPhong(int soLuongGheKeyword, String loaiPhongKeyword);
+	List<CinemaRoom> findByLoaiPhongContainingOrSoLuongGhe(String loaiPhongKeyword, int soLuongGheKeyword);
 }

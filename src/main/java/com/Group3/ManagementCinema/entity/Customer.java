@@ -3,7 +3,7 @@ package com.Group3.ManagementCinema.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table  
+@Table(name="khachHang")
 public class Customer {
 	@Id
 	@Column(name = "idKhach")

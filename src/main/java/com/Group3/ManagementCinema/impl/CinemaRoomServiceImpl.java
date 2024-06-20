@@ -51,6 +51,6 @@ public class CinemaRoomServiceImpl implements CinemaRoomService {
 
 	@Override
 	public List<CinemaRoom> findCinemaRoom(String keyword) {
-		return cinemaRoomRepository.findBySoLuongGheContainingOrLoaiPhong(Integer.parseInt(keyword), keyword);
+		return cinemaRoomRepository.findByLoaiPhongContainingOrSoLuongGhe(keyword, Integer.parseInt(keyword));
 	}
 }

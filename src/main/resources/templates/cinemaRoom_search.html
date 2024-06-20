@@ -22,13 +22,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td th:text="${cinemaRoom.id}"></td>
-                    <td th:text="${cinemaRoom.soLuongGhe}"></td>
-                    <td th:text="${cinemaRoom.loaiPhong}"></td>
+                <tr th:each="room : ${cinemaRoom}">
+                    <td th:text="${room.idPhong}"></td>
+                    <td th:text="${room.soLuongGhe}"></td>
+                    <td th:text="${room.loaiPhong}"></td>
                     <td>
-                        <a th:href="@{/showFormForUpdateCinemaRoom/{id}(id=${cinemaRoom.id})}" class="btn btn-primary btn-sm"><i class="bi bi-gear-fill"></i></a>
-                        <a th:href="@{/deleteCinemaRoom/{id}(id=${cinemaRoom.id})}" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
+                        <a th:href="@{/showFormForUpdateCinemaRoom/{id}(id=${room.idPhong})}" class="btn btn-primary btn-sm"><i class="bi bi-gear-fill"></i></a>
+                        <a th:href="@{/deleteCinemaRoom/{id}(id=${room.idPhong})}" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
                     </td>
                 </tr>
             </tbody>
