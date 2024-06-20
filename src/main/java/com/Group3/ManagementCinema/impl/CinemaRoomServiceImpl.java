@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.Group3.ManagementCinema.entity.CinemaRoom;
+import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.repository.CinemaRoomRepository;
 import com.Group3.ManagementCinema.service.CinemaRoomService;
 
@@ -47,5 +48,17 @@ public class CinemaRoomServiceImpl implements CinemaRoomService {
 	public Page< CinemaRoom > findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
 	// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<CinemaRoom> findByRoom(String keyword) {
+		try {
+            int soLuongGhe = Integer.parseInt(keyword);
+            return cinemaRoomRepository.findByLoaiPhongContainingOrSoLuongGhe(keyword,soLuongGhe);
+        } catch (NumberFormatException e) {
+            // Xử lý ngoại lệ nếu không thể chuyển đổi keyword sang int
+            e.printStackTrace();
+            return null; // Hoặc có thể trả về một danh sách rỗng hoặc thông báo lỗi khác tùy vào yêu cầu
+        }
 	}
 }
