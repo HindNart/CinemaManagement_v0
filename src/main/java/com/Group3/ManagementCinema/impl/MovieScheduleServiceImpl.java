@@ -40,14 +40,6 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
       
 		movieScheduleRepository.save(movieSchedule);
 	}
-	
-//	public void addMovieSchedule(String idLichChieu, String phongChieuId, String phimId, Time thoigianBD, Time thoigianKT, Date ngayChieu) {
-//        CinemaRoom phongChieu = cinemaRoomRepository.findById(phongChieuId).orElseThrow(() -> new RuntimeException("CinemaRoom not found"));
-//        Movie phim = movieRepository.findById(phimId).orElseThrow(() -> new RuntimeException("Movie not found"));
-//
-//        MovieSchedule movieSchedule = new MovieSchedule(idLichChieu, phongChieu, phim, thoigianBD, thoigianKT, ngayChieu);
-//        movieScheduleRepository.save(movieSchedule);
-//    }
 
 	@Override
 	public MovieSchedule getMovieScheduleById(String id) {

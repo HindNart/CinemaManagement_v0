@@ -93,5 +93,4 @@ public class MovieSchedule {
 		this.thoigianKT = thoigianKT;
 		this.ngayChieu = ngayChieu;
 	}
-	
 }
