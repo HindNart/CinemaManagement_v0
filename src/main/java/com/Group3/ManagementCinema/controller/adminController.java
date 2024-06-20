@@ -14,10 +14,10 @@ import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.service.CinemaRoomService;
 import com.Group3.ManagementCinema.service.CustomerService;
 import com.Group3.ManagementCinema.service.EmployeeService;
+import com.Group3.ManagementCinema.service.MovieScheduleService;
 import com.Group3.ManagementCinema.service.MovieService;
 
 @Controller
-@RequestMapping("/admin")
 public class adminController {
     @Autowired
     private CustomerService customerService;
@@ -27,30 +27,21 @@ public class adminController {
     private CinemaRoomService cinemaroomService;
     @Autowired
     private MovieService movieService;
-
-    // Hiển thị danh sách khách hàng
-    @GetMapping("/adCustomer.html")
-    public String showCustomerList(Model model) {
-        model.addAttribute("listCustomers", customerService.getAllCustomers());
-        return "admin/adCustomer"; // Trả về template adCustomer.html trong thư mục templates/admin/
-    }
-    
-    @GetMapping("/adEmployee.html")
-    public String showEmployeeList(Model model) {
-        model.addAttribute("listEmployees", employeeService.getAllEmployees());
-        return "admin/adEmployee"; // Trả về template adEmployee.html trong thư mục templates/admin/
-    }
-    
-    @GetMapping("/adMovie.html")
-    public String showMovieList(Model model) {
-        model.addAttribute("listMovies", movieService.getAllMovies());
-        return "admin/adMovie"; // Trả về template adMovie.html trong thư mục templates/admin/
-    }
-    
-    @GetMapping("/adRoom.html")
-    public String showRoomList(Model model) {
-        model.addAttribute("listCinemaRooms", cinemaroomService.getAllCinemaRooms());
-        return "admin/adRoom"; // Trả về template adRoom.html trong thư mục templates/admin/
+    @Autowired
+    private MovieScheduleService moviescheduleService;
+    @GetMapping("/")
+    public String countCustomers(Model model) {
+        long customerCount = customerService.countCustomers();
+        model.addAttribute("customerCount", customerCount);
+	    long cinemaRoomCount = cinemaroomService.countCinemaRoom();
+	    model.addAttribute("cinemaRoomCount", cinemaRoomCount);
+	    long employeeCount = employeeService.countEmployee();
+	    model.addAttribute("employeeCount", employeeCount);
+        long movieCount = movieService.countMovie();
+        model.addAttribute("movieCount", movieCount);	
+        long movieScheduleCount = moviescheduleService.countMovieSchedule();
+        model.addAttribute("movieScheduleCount", movieScheduleCount);	
+        return "index.html";  // Trả về tên view (index)
     }
 }
 

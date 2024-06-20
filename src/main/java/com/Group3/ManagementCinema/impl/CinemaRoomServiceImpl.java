@@ -15,7 +15,9 @@ import com.Group3.ManagementCinema.service.CinemaRoomService;
 public class CinemaRoomServiceImpl implements CinemaRoomService {
 	@Autowired
 	private CinemaRoomRepository cinemaRoomRepository;
-	
+	public long countCinemaRoom() {
+        return cinemaRoomRepository.count();
+    }
 	@Override
 	public List < CinemaRoom > getAllCinemaRooms() {
 		return cinemaRoomRepository.findAll();
