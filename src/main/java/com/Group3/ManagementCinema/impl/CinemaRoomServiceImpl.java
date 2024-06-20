@@ -48,4 +48,9 @@ public class CinemaRoomServiceImpl implements CinemaRoomService {
 	// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<CinemaRoom> findCinemaRoom(String keyword) {
+		return cinemaRoomRepository.findBySoLuongGheContainingOrLoaiPhong(Integer.parseInt(keyword), keyword);
+	}
 }

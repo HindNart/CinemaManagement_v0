@@ -13,13 +13,13 @@
         <div class="main-title flex spc-btw" style="align-items:center;">
             <div class="">Danh sách khách hàng</div>
             <div class="flex">
+                <div class="search-bar">
+                	<form th:action="@{/searchCustomer}"><input type="text" name="id">
+                    <button>
+                    	<i style="margin-right:10px;" class="bi bi-search"></i></button>
+                    </form>
+                </div>
             
-            	<form th:action="@{/searchCustomer}" method="GET" class="row g-3 mb-4">
-		            <div class="search-bar"><input type="text" name="id" id="">
-	                    <button type="submit" class="btn btn-info"><i class="bi bi-search" style= "margin-right:10px"></i></button>
-	                </div>
-		        </form>
-                
                 <div class="add-btn">
                     <div class="add-emp">
                         <a th:href="@{/showNewCustomerForm}">Thêm khách hàng</a>
