@@ -1,6 +1,5 @@
 package com.Group3.ManagementCinema.impl;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,11 +31,11 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	}
 
 	@Override
-	public void saveMovieSchedule(String idLichChieu, String phongChieuId, String phimId, Time thoigianBD, Time thoigianKT, Date ngayChieu) {
+	public void saveMovieSchedule(String idLichChieu, String phongChieuId, String phimId, String thoigianBD, String thoigianKT, Date ngayChieu) {
 		CinemaRoom phongChieu = cinemaRoomRepository.findById(phongChieuId).orElseThrow(() -> new RuntimeException("CinemaRoom not found"));
 		Movie phim = movieRepository.findById(phimId).orElseThrow(() -> new RuntimeException("Movie not found"));
 
-		MovieSchedule movieSchedule = new MovieSchedule(idLichChieu, phongChieu, phim, thoigianBD, thoigianKT, (java.sql.Date) ngayChieu);
+		MovieSchedule movieSchedule = new MovieSchedule(idLichChieu, phongChieu, phim, thoigianBD, thoigianKT, ngayChieu);
       
 		movieScheduleRepository.save(movieSchedule);
 	}
@@ -63,6 +62,12 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	public Page<MovieSchedule> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void saveMovieSchedule(MovieSchedule movieSchedule) {
+		this.movieScheduleRepository.save(movieSchedule);
+		
 	}
 	
 	

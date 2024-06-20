@@ -1,7 +1,6 @@
 package com.Group3.ManagementCinema.entity;
 
 import java.sql.Date;
-import java.sql.Time;
 
 import jakarta.persistence.*;
 
@@ -22,10 +21,10 @@ public class MovieSchedule {
     private Movie phim;
 	
 	@Column(name = "thoigianBD")
-	private Time thoigianBD;
+	private String thoigianBD;
 	
 	@Column(name = "thoigianKT")
-	private Time thoigianKT;
+	private String thoigianKT;
 	
 	@Column(name = "ngayChieu")
 	private Date ngayChieu;
@@ -54,19 +53,19 @@ public class MovieSchedule {
 		this.phim = phim;
 	}
 
-	public Time getThoigianBD() {
+	public String getThoigianBD() {
 		return thoigianBD;
 	}
 
-	public void setThoigianBD(Time thoigianBD) {
+	public void setThoigianBD(String thoigianBD) {
 		this.thoigianBD = thoigianBD;
 	}
 
-	public Time getThoigianKT() {
+	public String getThoigianKT() {
 		return thoigianKT;
 	}
 
-	public void setThoigianKT(Time thoigianKT) {
+	public void setThoigianKT(String thoigianKT) {
 		this.thoigianKT = thoigianKT;
 	}
 
@@ -83,14 +82,14 @@ public class MovieSchedule {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MovieSchedule(String idLichChieu, CinemaRoom phongChieu, Movie phim, Time thoigianBD, Time thoigianKT,
-			Date ngayChieu) {
+	public MovieSchedule(String idLichChieu, CinemaRoom phongChieu, Movie phim, String thoigianBD, String thoigianKT,
+			java.util.Date ngayChieu) {
 		super();
 		this.idLichChieu = idLichChieu;
 		this.phongChieu = phongChieu;
 		this.phim = phim;
 		this.thoigianBD = thoigianBD;
 		this.thoigianKT = thoigianKT;
-		this.ngayChieu = ngayChieu;
+		this.ngayChieu = (Date) ngayChieu;
 	}
 }

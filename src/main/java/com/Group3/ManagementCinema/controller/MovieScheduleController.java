@@ -41,7 +41,8 @@ public class MovieScheduleController {
 	
 	@PostMapping("/saveMovieSchedule")
 	public String saveMovieSchedule(@ModelAttribute("movieSchedule") MovieSchedule movieSchedule) {
-		movieScheduleService.saveMovieSchedule(movieSchedule.getIdLichChieu(),
+		movieScheduleService.saveMovieSchedule(
+				movieSchedule.getIdLichChieu(),
 	            movieSchedule.getPhongChieu().getIdPhong(),
 	            movieSchedule.getPhim().getIdPhim(),
 	            movieSchedule.getThoigianBD(),
