@@ -26,8 +26,8 @@
 	   	    <tbody>
 	   	    	<tr th:each="schedule : ${movieSchedule}">
 	            	<td th:text="${schedule.idLichChieu}"></td>
-	                <td th:text="${schedule.phongChieu}"></td>
-	                <td th:text="${schedule.phim}"></td>
+	                <td th:text="${schedule.phongChieu.idPhong}"></td>
+	                <td th:text="${schedule.phim.tenPhim}"></td>
 	                <td th:text="${schedule.thoigianBD}"></td>
 	                <td th:text="${schedule.thoigianKT}"></td>
                     <td th:text="${schedule.ngayChieu}"></td>
