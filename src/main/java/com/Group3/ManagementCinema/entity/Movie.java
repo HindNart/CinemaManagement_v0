@@ -1,6 +1,7 @@
 package com.Group3.ManagementCinema.entity;
 
 import java.sql.Date;
+import java.util.Set;
 
 import jakarta.persistence.*;
 

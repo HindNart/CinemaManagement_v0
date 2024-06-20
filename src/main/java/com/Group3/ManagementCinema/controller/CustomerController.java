@@ -10,12 +10,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Group3.ManagementCinema.entity.Customer;
+import com.Group3.ManagementCinema.service.CinemaRoomService;
 import com.Group3.ManagementCinema.service.CustomerService;
+import com.Group3.ManagementCinema.service.EmployeeService;
+import com.Group3.ManagementCinema.service.MovieScheduleService;
+import com.Group3.ManagementCinema.service.MovieService;
 
 @Controller
 public class CustomerController {
-    @Autowired
+	@Autowired
     private CustomerService customerService;
+    @Autowired
+    private EmployeeService employeeService;
+    @Autowired
+    private CinemaRoomService cinemaroomService;
+    @Autowired
+    private MovieScheduleService moviescheduleService;
+    @Autowired
+    private MovieService movieService;  
+
 
     // Hiển thị danh sách khách hàng
     @GetMapping("/showCus")

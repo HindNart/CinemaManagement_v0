@@ -13,4 +13,5 @@ public interface CinemaRoomService  {
 	List<CinemaRoom> findCinemaRoom(String keyword);
 	void deleteCinemaRoomById(String id);
 	Page<CinemaRoom> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+	long countCinemaRoom();
 }

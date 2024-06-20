@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity

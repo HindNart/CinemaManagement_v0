@@ -24,7 +24,10 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	private CinemaRoomRepository cinemaRoomRepository;
 	@Autowired
     private MovieRepository movieRepository;
-
+	@Override
+	public long countMovieSchedule() {
+        return movieScheduleRepository.count();
+    }
 	@Override
 	public List<MovieSchedule> getAllMovieSchedules() {
 		return movieScheduleRepository.findAll();

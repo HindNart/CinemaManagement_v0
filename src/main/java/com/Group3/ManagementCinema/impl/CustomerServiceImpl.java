@@ -15,7 +15,9 @@ import com.Group3.ManagementCinema.service.CustomerService;
 public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+	public long countCustomers() {
+        return customerRepository.count();
+    }
 	@Override
 	public List < Customer > getAllCustomers() {
 		return customerRepository.findAll();

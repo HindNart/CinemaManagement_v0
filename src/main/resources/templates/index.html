@@ -61,11 +61,11 @@
                 <div class="mlr-20  flex">
                     <div class="total-emp db-card">
                         <p>Số lượng nhân viên</p>
-                        <p><b>10</b></p>
+                        <p><b th:text="${employeeCount}"></b></p>
                     </div>
                     <div class="total-cus db-card">
                         <p>Số lượng khách hàng</p>
-                        <p><b>10</b></p>
+                        <p><b th:text="${customerCount}"></b></p>
                     </div>
                     <div class="total-acc db-card">
                         <p>Số lượng tài khoản</p>
@@ -77,15 +77,15 @@
                 <div class="mlr-20  flex">
                     <div class="total-movie db-card">
                         <p>Số lượng phim</p>
-                        <p><b>10</b></p>
+                        <p><b th:text="${movieCount}"></b></p>
                     </div>
                     <div class="total-room db-card">
                         <p>Số lượng phòng</p>
-                        <p><b>10</b></p>
+                        <p><b th:text="${cinemaRoomCount}"></b></p>
                     </div>
                     <div class="total-sche db-card">
                         <p>Số lượng lịch chiếu</p>
-                        <p><b>10</b></p>
+                        <p><b th:text="${movieScheduleCount}"></b></p>
                     </div>
                 </div>
             </div>

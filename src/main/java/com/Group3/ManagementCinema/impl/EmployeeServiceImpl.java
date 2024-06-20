@@ -15,7 +15,9 @@ import com.Group3.ManagementCinema.service.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeRepository EmployeeRepository;
-	
+	public long countEmployee() {
+        return EmployeeRepository.count();
+    }
 	@Override
 	public List < Employee > getAllEmployees() {
 		return EmployeeRepository.findAll();

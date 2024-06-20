@@ -15,7 +15,9 @@ import com.Group3.ManagementCinema.service.MovieService;
 public class MovieServiceImpl implements MovieService {
 	@Autowired
 	private MovieRepository movieRepository;
-	
+	public long countMovie() {
+        return movieRepository.count();
+    }
 	@Override
 	public List < Movie > getAllMovies() {
 		return movieRepository.findAll();
