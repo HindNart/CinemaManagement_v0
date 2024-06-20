@@ -15,7 +15,7 @@ public class Employee {
 
     @Column(name = "hoTenNV", nullable = false)
     private String hoTenNV;
-
+    
     @Column(name = "ngaySinhNV", nullable = false)
     private Date ngaySinhNV;
 
@@ -98,4 +98,23 @@ public class Employee {
     public void setSdt(String sdt) {
         this.sdt = sdt;
     }
+
+    
+	public Employee() {
+		super();
+	}
+
+	public Employee(String idNhanVien, String hoTenNV, Date ngaySinhNV, String diaChi, String chucVu, float luong,
+			int caLam, String sdt) {
+		super();
+		this.idNhanVien = idNhanVien;
+		this.hoTenNV = hoTenNV;
+		this.ngaySinhNV = ngaySinhNV;
+		this.diaChi = diaChi;
+		this.chucVu = chucVu;
+		this.luong = luong;
+		this.caLam = caLam;
+		this.sdt = sdt;
+	}
+    
 }
