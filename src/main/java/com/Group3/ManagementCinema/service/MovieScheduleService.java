@@ -14,4 +14,5 @@ public interface MovieScheduleService {
 	void saveMovieSchedule(MovieSchedule movieSchedule);
 	void saveMovieSchedule(String idLichChieu, String phongChieuId, String phimId, String thoigianBD, String thoigianKT,
 			java.util.Date ngayChieu);
+	long countMovieSchedule();
 }

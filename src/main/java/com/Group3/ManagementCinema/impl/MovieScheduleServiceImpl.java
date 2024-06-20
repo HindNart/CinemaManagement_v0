@@ -1,5 +1,6 @@
 package com.Group3.ManagementCinema.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.Group3.ManagementCinema.entity.CinemaRoom;
+import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
+import com.Group3.ManagementCinema.repository.CinemaRoomRepository;
+import com.Group3.ManagementCinema.repository.MovieRepository;
 import com.Group3.ManagementCinema.repository.MovieScheduleRepository;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
 
@@ -19,7 +24,10 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	private CinemaRoomRepository cinemaRoomRepository;
 	@Autowired
     private MovieRepository movieRepository;
-
+	@Override
+	public long countMovieSchedule() {
+        return movieScheduleRepository.count();
+    }
 	@Override
 	public List<MovieSchedule> getAllMovieSchedules() {
 		return movieScheduleRepository.findAll();
