@@ -11,5 +11,6 @@ public interface CustomerService {
 	void saveCustomer(Customer customer);
 	Customer getCustomerById(String id);
 	void deleteCustomerById(String id);
+	List<Customer> findBykhach(String keyword);
 	Page<Customer> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

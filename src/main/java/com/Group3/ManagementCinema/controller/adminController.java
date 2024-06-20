@@ -14,6 +14,7 @@ import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.service.CinemaRoomService;
 import com.Group3.ManagementCinema.service.CustomerService;
 import com.Group3.ManagementCinema.service.EmployeeService;
+import com.Group3.ManagementCinema.service.MovieScheduleService;
 import com.Group3.ManagementCinema.service.MovieService;
 
 @Controller
@@ -26,35 +27,36 @@ public class adminController {
     @Autowired
     private CinemaRoomService cinemaroomService;
     @Autowired
+    private MovieScheduleService moviescheduleService;
+    @Autowired
     private MovieService movieService;
 
     // Hiển thị danh sách khách hàng
     @GetMapping("/adCustomer.html")
     public String showCustomerList(Model model) {
-        model.addAttribute("listCustomers", customerService.getAllCustomers());
+        model.addAttribute("listCustomer", customerService.getAllCustomers());
         return "admin/adCustomer"; // Trả về template adCustomer.html trong thư mục templates/admin/
     }
     
     @GetMapping("/adEmployee.html")
     public String showEmployeeList(Model model) {
         model.addAttribute("listEmployees", employeeService.getAllEmployees());
-        return "admin/adEmployee"; // Trả về template adEmployee.html trong thư mục templates/admin/
-    }
-    
-    @GetMapping("/adMovie.html")
-    public String showMovieList(Model model) {
-        model.addAttribute("listMovies", movieService.getAllMovies());
-        return "admin/adMovie"; // Trả về template adMovie.html trong thư mục templates/admin/
+        return "admin/adEmployee"; // Trả về template adCustomer.html trong thư mục templates/admin/
     }
     
     @GetMapping("/adRoom.html")
     public String showRoomList(Model model) {
         model.addAttribute("listCinemaRooms", cinemaroomService.getAllCinemaRooms());
-        return "admin/adRoom"; // Trả về template adRoom.html trong thư mục templates/admin/
+        return "admin/adRoom"; // Trả về template adCustomer.html trong thư mục templates/admin/
     }
     @GetMapping("/adSchedule.html")
     public String showScheduleList(Model model) {
-//        model.addAttribute("listSchedule", scheduleService.getAllSchedules());
+        model.addAttribute("listSchedule", moviescheduleService.getAllMovieSchedules());
+        return "admin/adSchedule"; // Trả về template adCustomer.html trong thư mục templates/admin/
+    }
+    @GetMapping("/adMovie.html")
+    public String showMovieList(Model model) {
+        model.addAttribute("listMovie", movieService.getAllMovies());
         return "admin/adSchedule"; // Trả về template adCustomer.html trong thư mục templates/admin/
     }
 }

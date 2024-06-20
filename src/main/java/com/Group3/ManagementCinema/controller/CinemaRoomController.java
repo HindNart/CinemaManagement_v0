@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,7 @@ public class CinemaRoomController {
 	
 	@GetMapping("/searchCinemaRoom")
 	public String searchCinemaRoom(@RequestParam("id") String id, Model model) {
-		CinemaRoom cinemaRoom = cinemaRoomService.getCinemaRoomById(id);
+		List <CinemaRoom> cinemaRoom = cinemaRoomService.findByRoom(id);
 		model.addAttribute("cinemaRoom", cinemaRoom);
 		return "cinemaRoom_search";
 	}
@@ -41,7 +43,7 @@ public class CinemaRoomController {
 	@PostMapping("/saveCinemaRoom")
 	public String saveCinemaRoom(@ModelAttribute("cinemaRoom") CinemaRoom cinemaRoom) {
 		cinemaRoomService.saveCinemaRoom(cinemaRoom);
-		return "redirect:/showCinemaRoom";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/showFormForUpdateCinemaRoom/{id}")
@@ -54,6 +56,6 @@ public class CinemaRoomController {
 	@GetMapping("/deleteCinemaRoom/{id}")
 	public String deleteCinemaRoom(@PathVariable(value = "id") String id) {
 		this.cinemaRoomService.deleteCinemaRoomById(id);
-		return "redirect:/showCinemaRoom";
+		return "redirect:/";
 	}
 }

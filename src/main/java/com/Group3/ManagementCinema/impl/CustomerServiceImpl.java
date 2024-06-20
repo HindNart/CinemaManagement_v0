@@ -48,4 +48,8 @@ public class CustomerServiceImpl implements CustomerService {
 	// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<Customer> findBykhach(String keyword) {
+        return customerRepository.findBytenKhachContainingOrSdtContaining(keyword, keyword);
+    }
 }

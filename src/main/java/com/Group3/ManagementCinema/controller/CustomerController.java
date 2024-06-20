@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +38,7 @@ public class CustomerController {
     // Tìm kiếm khách hàng theo ID
     @GetMapping("/searchCustomer")
     public String searchCustomer(@RequestParam("id") String id, Model model) {
-        Customer customer = customerService.getCustomerById(id);
+        List<Customer> customer = customerService.findBykhach(id);
         model.addAttribute("listCustomer", customer);
         return "cusSearch"; // Trả về template cusSearch.html trong thư mục templates/
     }
@@ -45,7 +47,7 @@ public class CustomerController {
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
         customerService.saveCustomer(customer);
-        return "redirect:/cusSearch"; // Sau khi lưu, chuyển hướng lại danh sách khách hàng
+        return "redirect:/"; // Sau khi lưu, chuyển hướng lại danh sách khách hàng
     }
 
     // Hiển thị form cập nhật thông tin khách hàng
