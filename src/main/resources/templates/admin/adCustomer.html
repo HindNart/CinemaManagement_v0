@@ -11,8 +11,11 @@
         <div class="main-title flex spc-btw" style="align-items:center;">
             <div class="">Danh sách khách hàng</div>
             <div class="flex">
-                <div class="search-bar"><input type="text" name="search-bar" id="">
-                    <i class="bi bi-search"></i>
+                <div class="search-bar">
+                	<form th:action="@{/searchCustomer}"><input type="text" name="id">
+                    <button>
+                    	<i style="margin-right:10px;" class="bi bi-search"></i></button>
+                    </form>
                 </div>
                 <div class="add-btn">
                     <div class="add-emp">
