@@ -18,11 +18,19 @@ public class MovieScheduleController {
 	@Autowired
 	private MovieScheduleService movieScheduleService;// display list of movies
 	
-	@GetMapping("/movieSchedule")
+	@GetMapping("/movieSchedules")
 	public String viewMovieSchedule(Model model) {
-		model.addAttribute("listMovieSchedule", movieScheduleService.getAllMovieSchedules());
-		return "movieSchedule";
+		model.addAttribute("listMovieSchedules", movieScheduleService.getAllMovieSchedules());
+		return "movieSchedules";
 	}
+	
+	@GetMapping("/showNewMovieScheduleForm")
+    public String showNewMovieScheduleForm(Model model) {
+        // create model attribute to bind form data
+        MovieSchedule movieSchedule = new MovieSchedule();
+        model.addAttribute("movieSchedule", movieSchedule);
+        return "movieSchedule_new";
+    }
 	
 	@GetMapping("/searchMovieSchedule")
 	public String searchMovieSchedule(@RequestParam("id") String id, Model model) {
@@ -33,8 +41,13 @@ public class MovieScheduleController {
 	
 	@PostMapping("/saveMovieSchedule")
 	public String saveMovieSchedule(@ModelAttribute("movieSchedule") MovieSchedule movieSchedule) {
-		// save movie to database
-		movieScheduleService.saveMovieSchedule(movieSchedule);
+		movieScheduleService.saveMovieSchedule(
+				movieSchedule.getIdLichChieu(),
+	            movieSchedule.getPhongChieu().getIdPhong(),
+	            movieSchedule.getPhim().getIdPhim(),
+	            movieSchedule.getThoigianBD(),
+	            movieSchedule.getThoigianKT(),
+	            movieSchedule.getNgayChieu());
 		return "redirect:/";
 	}
 	

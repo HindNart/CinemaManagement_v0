@@ -9,26 +9,20 @@ import jakarta.persistence.*;
 public class CinemaRoom {
 	@Id
 	@Column(name = "idPhong")
-	private String id;
+	private String idPhong;
 	
 	@Column(name = "soLuongGhe", nullable = false)
 	private int soLuongGhe;
 	
 	@Column(name = "loaiPhong", nullable = false)
 	private String loaiPhong;
-	
-	@OneToMany(mappedBy = "phongChieu")
-    private Set<MovieSchedule> movieSchedules;
-	
-	@OneToMany(mappedBy = "phongChieu")
-    private Set<Chair> chair;
-    
-	public String getId() {
-		return id;
+
+	public String getIdPhong() {
+		return idPhong;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdPhong(String idPhong) {
+		this.idPhong = idPhong;
 	}
 
 	public int getSoLuongGhe() {
@@ -52,10 +46,11 @@ public class CinemaRoom {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CinemaRoom(String id, int soLuongGhe, String loaiPhong) {
+	public CinemaRoom(String idPhong, int soLuongGhe, String loaiPhong) {
 		super();
-		this.id = id;
+		this.idPhong = idPhong;
 		this.soLuongGhe = soLuongGhe;
 		this.loaiPhong = loaiPhong;
 	}
+	
 }

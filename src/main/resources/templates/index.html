@@ -2,57 +2,128 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cinema Management System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý rạp phim</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <div class="container my-4">
-        <h1>Danh sách phim</h1>
-        <a th:href="@{/showNewMovieForm}" class="btn btn-primary btn-sm mb-3">Thêm phim</a>
-        
-        <form th:action="@{/searchMovie}" method="GET" class="row g-3 mb-4">
-            <div class="col-auto">
-                <input type="text" name="id" class="form-control" placeholder="Movie ID">
+    <div id="header">
+        <div class="flex spc-btw">
+            <div class="logo">
+                <a th:href="@{/}"><img src="/img/film.png" alt=""></a>
             </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-info">Tìm kiếm phim</button>
+            <div class="user flex">
+                <div class="user-avt">
+                    <img class="brr-50" src="/img/phim1.jpg" alt="" width="50px" height="50px">
+                </div>
+                <div class="user-name nav-dropdown">
+                    Doan Ba Huy <i class="bi bi-chevron-compact-down"></i>
+                    <div class="dropdown-content">
+                        <a href="#">Thông tin</a>
+                        <a href="login.html">Đăng xuất</a>
+                    </div>
+                </div>
             </div>
-        </form>
-        
-        <table class="table table-striped table-responsive-md">
-            <thead>
-                <tr>
-                    <th>Mã phim</th>
-                    <th>Tên phim</th>
-                    <th>Thể loại</th>
-                    <th>Đạo diễn</th>
-                    <th>Diễn viên</th>
-                    <th>Thời lượng</th>
-                    <th>Mô tả</th>
-                    <th>Ngày phát hành</th>
-                    <th>Poster</th>
-                    <th>Chức năng</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="movie : ${listMovies}">
-                    <td th:text="${movie.id}"></td>
-                    <td th:text="${movie.tenPhim}"></td>
-                    <td th:text="${movie.theLoai}"></td>
-                    <td th:text="${movie.daoDien}"></td>
-                    <td th:text="${movie.dienVien}"></td>
-                    <td th:text="${movie.thoiLuong}"></td>
-                    <td th:text="${movie.moTa}"></td>
-                    <td th:text="${movie.ngayPH}"></td>
-                    <td><img alt="" th:src="${movie.linkPoster}" width="100px"></td>
-                    <td>
-                        <a th:href="@{/showFormForUpdate/{id}(id=${movie.id})}" class="btn btn-primary btn-sm">Update</a>
-                        <a th:href="@{/deleteMovie/{id}(id=${movie.id})}" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        </div>
     </div>
+
+    <div id="sidebar" class="width-15">
+        <a onclick="loadContent('/employees')" id="load-emp" class="text-white" href="">
+            <div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded"><i class="bi bi-people-fill"></i> Nhân viên
+            </div>
+        </a>
+        <a onclick="loadContent('/showCus')" id="load-cus" class="text-white" href="">
+            <div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded"><i class="bi bi-people-fill"></i> Khách
+                hàng</div>
+        </a>
+        <a onclick="loadContent('/movieSchedules')" id="load-sche" href="" class="text-white">
+            <div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded"><i class="bi bi-calendar-event-fill"></i>
+                Lịch chiếu</div>
+        </a>
+        <a onclick="loadContent('/showCinemaRoom')" id="load-room" class="text-white" href="">
+            <div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded"><i class="bi bi-columns-gap"></i> Phòng chiếu</div>
+        </a>
+        <a onclick="loadContent('/showAllMovies')" id="load-movie" class="text-white" href="">
+            <div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded"><i class="bi bi-film"></i> Phim</div>
+        </a>
+        <a onclick="loadContent('/admin/adStatis.html')" id="load-statis" class="text-white" href="">
+            <div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded"><i class="bi bi-file-earmark-bar-graph-fill"></i> Thống kê</div>
+        </a>
+    </div>
+    <div class="width-80">
+        <div id="content" class="main-content">
+            <div class="main-title">
+                <h2>Dashboard</h2>
+            </div>
+            <div class="db-item">
+                <div class="mlr-20  flex">
+                    <div class="total-emp db-card">
+                        <p>Số lượng nhân viên</p>
+                        <p><b>10</b></p>
+                    </div>
+                    <div class="total-cus db-card">
+                        <p>Số lượng khách hàng</p>
+                        <p><b>10</b></p>
+                    </div>
+                    <div class="total-acc db-card">
+                        <p>Số lượng tài khoản</p>
+                        <p><b>10</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="db-item">
+                <div class="mlr-20  flex">
+                    <div class="total-movie db-card">
+                        <p>Số lượng phim</p>
+                        <p><b>10</b></p>
+                    </div>
+                    <div class="total-room db-card">
+                        <p>Số lượng phòng</p>
+                        <p><b>10</b></p>
+                    </div>
+                    <div class="total-sche db-card">
+                        <p>Số lượng lịch chiếu</p>
+                        <p><b>10</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="db-item">
+                <div class="mlr-20  flex">
+                    <div class="total-statis db-card">
+                        <p>Doanh thu</p>
+                        <p><b>10</b></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        function loadContent(fragment) {
+            fetch(fragment)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading content:', error));
+        }
+
+        const sidebarButtons = document.querySelectorAll('.sidebar-btn');
+        sidebarButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                // Remove 'active' class from all sidebar buttons
+                sidebarButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add 'active' class to the clicked button
+                this.classList.add('active');
+            });
+        });
+    </script>
+
 </body>
 </html>

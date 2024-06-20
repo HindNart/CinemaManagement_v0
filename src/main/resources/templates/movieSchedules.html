@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý rạp phim</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <div class="main-content-cus">
+        <div class="main-title flex spc-btw" style="align-items:center;">
+            <div class="">Danh sách lịch chiếu phim</div>
+            <div class="flex">
+            
+            <form th:action="@{/searchMovieSchedule}" method="GET" class="row g-3 mb-4">
+	            <div class="search-bar">
+	            	<input type="text" name="id">
+	                <button type="submit" class="btn btn-info"><i class="bi bi-search" style= "margin-right:10px"></i></button>
+	            </div>
+	        </form>
+                
+            <div class="add-btn">
+   		        <div class="add-emp">
+   	            	<a th:href="@{/showNewMovieScheduleForm}" class="btn btn-primary btn-sm mb-3">Thêm lịch chiếu phim</a> 
+   	           	</div>
+          	</div>
+        	</div>
+        </div>
+        
+        <div class="scroll-table">
+            <table class="main-content-list">
+                <thead>
+	                <tr>
+	                    <th>Mã lịch chiếu phim</th>
+	                    <th>Phòng chiếu</th>
+	                    <th>Phim</th>
+	                    <th>Thời gian bắt đầu</th>
+	                    <th>Thời gian kết thúc</th>
+	                    <th>Ngày chiếu</th>
+	                    <th>Chức năng</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="schedule : ${listMovieSchedules}">
+	                    <td th:text="${schedule.idLichChieu}"></td>
+	                    <td th:text="${schedule.phongChieu.idPhong}"></td>
+	                    <td th:text="${schedule.phim.idPhim}"></td>
+	                    <td th:text="${schedule.thoigianBD}"></td>
+	                    <td th:text="${schedule.thoigianKT}"></td>
+	                    <td th:text="${schedule.ngayChieu}"></td>
+	                    <td>
+	                        <a th:href="@{/showFormForUpdateMovieSchedule/{id}(id=${schedule.idLichChieu})}" class="btn btn-primary btn-sm"><i class="bi bi-gear-fill"></i></a>
+	                        <a th:href="@{/deleteMovieSchedule/{id}(id=${schedule.idLichChieu})}" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
+	                    </td>
+	                </tr>
+	            </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

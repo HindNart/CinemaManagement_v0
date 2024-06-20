@@ -14,9 +14,9 @@ public class EmployeeController {
     private EmployeeService employeeService;
     
     @GetMapping("/employees")
-    public String showAllEmployees(Model model){
+    public String showEmployeeList(Model model) {
         model.addAttribute("listEmployees", employeeService.getAllEmployees());
-        return "employees";
+        return "employees"; // Trả về template adEmployee.html trong thư mục templates/admin/
     }
     
     @GetMapping("/showNewEmployeeForm")
@@ -38,7 +38,7 @@ public class EmployeeController {
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {
         // save employee to database
         employeeService.saveEmployee(employee);
-        return "redirect:/employees";
+        return "redirect:/";
     }
     
     @GetMapping("/showFormForUpdateEmployee/{id}")
@@ -54,6 +54,6 @@ public class EmployeeController {
     public String deleteEmployee(@PathVariable(value = "id") String id) {
         // call delete employee method
         employeeService.deleteEmployeeById(id);
-        return "redirect:/employees";
+        return "redirect:/";
     }
 }

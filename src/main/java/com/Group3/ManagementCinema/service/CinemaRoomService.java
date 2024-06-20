@@ -10,6 +10,7 @@ public interface CinemaRoomService  {
 	List<CinemaRoom> getAllCinemaRooms();
 	void saveCinemaRoom(CinemaRoom cinemaRoom);
 	CinemaRoom getCinemaRoomById(String id);
+	List<CinemaRoom> findCinemaRoom(String keyword);
 	void deleteCinemaRoomById(String id);
 	Page<CinemaRoom> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

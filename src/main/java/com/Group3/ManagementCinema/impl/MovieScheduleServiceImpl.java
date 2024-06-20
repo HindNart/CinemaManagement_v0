@@ -15,6 +15,10 @@ import com.Group3.ManagementCinema.service.MovieScheduleService;
 public class MovieScheduleServiceImpl implements MovieScheduleService {
 	@Autowired
 	private MovieScheduleRepository movieScheduleRepository;
+	@Autowired
+	private CinemaRoomRepository cinemaRoomRepository;
+	@Autowired
+    private MovieRepository movieRepository;
 
 	@Override
 	public List<MovieSchedule> getAllMovieSchedules() {
@@ -22,8 +26,13 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	}
 
 	@Override
-	public void saveMovieSchedule(MovieSchedule movieSchedule) {
-		this.movieScheduleRepository.save(movieSchedule);
+	public void saveMovieSchedule(String idLichChieu, String phongChieuId, String phimId, String thoigianBD, String thoigianKT, Date ngayChieu) {
+		CinemaRoom phongChieu = cinemaRoomRepository.findById(phongChieuId).orElseThrow(() -> new RuntimeException("CinemaRoom not found"));
+		Movie phim = movieRepository.findById(phimId).orElseThrow(() -> new RuntimeException("Movie not found"));
+
+		MovieSchedule movieSchedule = new MovieSchedule(idLichChieu, phongChieu, phim, thoigianBD, thoigianKT, ngayChieu);
+      
+		movieScheduleRepository.save(movieSchedule);
 	}
 
 	@Override
@@ -48,6 +57,12 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	public Page<MovieSchedule> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void saveMovieSchedule(MovieSchedule movieSchedule) {
+		this.movieScheduleRepository.save(movieSchedule);
+		
 	}
 	
 	

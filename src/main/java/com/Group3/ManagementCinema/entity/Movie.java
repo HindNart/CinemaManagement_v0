@@ -8,10 +8,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="phim")
 public class Movie {
-
 	@Id
 	@Column(name = "idPhim")
-	private String id;
+	private String idPhim;
 	
 	@Column(name = "tenPhim", nullable = false)
 	private String tenPhim;
@@ -34,19 +33,15 @@ public class Movie {
 	@Column(name = "ngayPH", nullable = false)
 	private Date ngayPH;
 	
-	@Column(name = "linkPoster", nullable = false, length = 600)
+	@Column(name = "linkPoster", nullable = false)
 	private String linkPoster;
 
-//	Create references 
-	@OneToMany(mappedBy = "phim")
-    private Set<MovieSchedule> movieSchedules;
-	
-	public String getId() {
-		return id;
+	public String getIdPhim() {
+		return idPhim;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdPhim(String idPhim) {
+		this.idPhim = idPhim;
 	}
 
 	public String getTenPhim() {
@@ -118,10 +113,10 @@ public class Movie {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Movie(String id, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,
+	public Movie(String idPhim, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,
 			String moTa, Date ngayPH, String linkPoster) {
 		super();
-		this.id = id;
+		this.idPhim = idPhim;
 		this.tenPhim = tenPhim;
 		this.theLoai = theLoai;
 		this.daoDien = daoDien;

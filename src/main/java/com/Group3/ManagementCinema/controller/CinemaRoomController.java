@@ -33,15 +33,14 @@ public class CinemaRoomController {
 	
 	@GetMapping("/searchCinemaRoom")
 	public String searchCinemaRoom(@RequestParam("id") String id, Model model) {
-		CinemaRoom cinemaRoom = cinemaRoomService.getCinemaRoomById(id);
-		model.addAttribute("cinemaRoom", cinemaRoom);
+		model.addAttribute("cinemaRoom", cinemaRoomService.findCinemaRoom(id));
 		return "cinemaRoom_search";
 	}
 	
 	@PostMapping("/saveCinemaRoom")
 	public String saveCinemaRoom(@ModelAttribute("cinemaRoom") CinemaRoom cinemaRoom) {
 		cinemaRoomService.saveCinemaRoom(cinemaRoom);
-		return "redirect:/showCinemaRoom";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/showFormForUpdateCinemaRoom/{id}")
@@ -54,6 +53,6 @@ public class CinemaRoomController {
 	@GetMapping("/deleteCinemaRoom/{id}")
 	public String deleteCinemaRoom(@PathVariable(value = "id") String id) {
 		this.cinemaRoomService.deleteCinemaRoomById(id);
-		return "redirect:/showCinemaRoom";
+		return "redirect:/";
 	}
 }

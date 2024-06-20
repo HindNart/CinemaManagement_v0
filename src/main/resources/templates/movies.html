@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý rạp phim</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <div class="main-content-cus">
+        <div class="main-title flex spc-btw" style="align-items:center;">
+            <div class="">Danh sách phim</div>
+            <div class="flex">
+            
+            <form th:action="@{/searchMovie}" method="GET" class="row g-3 mb-4">
+	            <div class="search-bar">
+	            	<input type="text" name="id">
+	                <button type="submit" class="btn btn-info"><i class="bi bi-search" style= "margin-right:10px"></i></button>
+	            </div>
+	        </form>
+                
+                
+                <div class="add-btn">
+                    <div class="add-emp">
+                    	<a th:href="@{/showNewMovieForm}" class="btn btn-primary btn-sm mb-3">Thêm phim</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-table">
+            <table class="main-content-list">
+                <thead>
+	                <tr>
+	                    <th>Mã phim</th>
+	                    <th>Tên phim</th>
+	                    <th>Thể loại</th>
+	                    <th>Đạo diễn</th>
+	                    <th>Diễn viên</th>
+	                    <th>Thời lượng</th>
+	                    <th>Mô tả</th>
+	                    <th>Ngày phát hành</th>
+	                    <th>Poster</th>
+	                    <th>Chức năng</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="movie : ${listMovies}">
+	                    <td th:text="${movie.idPhim}"></td>
+	                    <td th:text="${movie.tenPhim}"></td>
+	                    <td th:text="${movie.theLoai}"></td>
+	                    <td th:text="${movie.daoDien}"></td>
+	                    <td th:text="${movie.dienVien}"></td>
+	                    <td th:text="${movie.thoiLuong}"></td>
+	                    <td th:text="${movie.moTa}"></td>
+	                    <td th:text="${movie.ngayPH}"></td>
+	                    <td><img alt="" th:src="${movie.linkPoster}" width="100px"></td>
+	                    <td>
+	                        <a th:href="@{/showFormForUpdateMovie/{id}(id=${movie.idPhim})}" class="btn btn-primary btn-sm"><i class="bi bi-gear-fill"></i></a>
+	                        <a th:href="@{/deleteMovie/{id}(id=${movie.idPhim})}" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
+	                    </td>
+	                </tr>
+	            </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

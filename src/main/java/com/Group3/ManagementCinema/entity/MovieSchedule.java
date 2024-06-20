@@ -1,7 +1,6 @@
 package com.Group3.ManagementCinema.entity;
 
 import java.sql.Date;
-import java.sql.Time;
 
 import jakarta.persistence.*;
 
@@ -14,18 +13,18 @@ public class MovieSchedule {
 	private String idLichChieu;
 	
 	@ManyToOne
-    @JoinColumn(name = "idPhong", nullable = false)
+    @JoinColumn(name = "phong_chieu_idPhong", nullable = false)
     private CinemaRoom phongChieu;
     
     @ManyToOne
-    @JoinColumn(name = "idPhim", nullable = false)
+    @JoinColumn(name = "phim_idPhim", nullable = false)
     private Movie phim;
 	
 	@Column(name = "thoigianBD")
-	private Time thoigianBD;
+	private String thoigianBD;
 	
 	@Column(name = "thoigianKT")
-	private Time thoigianKT;
+	private String thoigianKT;
 	
 	@Column(name = "ngayChieu")
 	private Date ngayChieu;
@@ -38,35 +37,35 @@ public class MovieSchedule {
 		this.idLichChieu = idLichChieu;
 	}
 
-	public String getIdPhongChieu() {
-		return phongChieu.getId();
+	public CinemaRoom getPhongChieu() {
+		return phongChieu;
 	}
 
-	public void setIdPhongChieu(String idPhongChieu) {
-		phongChieu.setId(idPhongChieu); 
-	}
-	
-	public String getIdPhim() {
-		return phim.getId();
+	public void setPhongChieu(CinemaRoom phongChieu) {
+		this.phongChieu = phongChieu;
 	}
 
-	public void setIdPhim(String idPhim) {
-		phim.setId(idPhim);;
+	public Movie getPhim() {
+		return phim;
 	}
 
-	public Time getThoigianBD() {
+	public void setPhim(Movie phim) {
+		this.phim = phim;
+	}
+
+	public String getThoigianBD() {
 		return thoigianBD;
 	}
 
-	public void setThoigianBD(Time thoigianBD) {
+	public void setThoigianBD(String thoigianBD) {
 		this.thoigianBD = thoigianBD;
 	}
 
-	public Time getThoigianKT() {
+	public String getThoigianKT() {
 		return thoigianKT;
 	}
 
-	public void setThoigianKT(Time thoigianKT) {
+	public void setThoigianKT(String thoigianKT) {
 		this.thoigianKT = thoigianKT;
 	}
 
@@ -78,20 +77,19 @@ public class MovieSchedule {
 		this.ngayChieu = ngayChieu;
 	}
 
-	public MovieSchedule(String idLichChieu, CinemaRoom phongChieu, Movie phim, Time thoigianBD, Time thoigianKT,
-			Date ngayChieu) {
+	public MovieSchedule() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public MovieSchedule(String idLichChieu, CinemaRoom phongChieu, Movie phim, String thoigianBD, String thoigianKT,
+			java.util.Date ngayChieu) {
 		super();
 		this.idLichChieu = idLichChieu;
 		this.phongChieu = phongChieu;
 		this.phim = phim;
 		this.thoigianBD = thoigianBD;
 		this.thoigianKT = thoigianKT;
-		this.ngayChieu = ngayChieu;
+		this.ngayChieu = (Date) ngayChieu;
 	}
-
-	public MovieSchedule() {
-		super();
-	}
-	
-	
 }
