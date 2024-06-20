@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr th:each="movie : ${movie}">
                     <td th:text="${movie.idPhim}"></td>
                     <td th:text="${movie.tenPhim}"></td>
                     <td th:text="${movie.theLoai}"></td>

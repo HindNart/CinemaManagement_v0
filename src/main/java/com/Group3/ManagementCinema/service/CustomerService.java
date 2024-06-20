@@ -13,4 +13,5 @@ public interface CustomerService {
 	void deleteCustomerById(String id);
 	Page<Customer> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	long countCustomers();
+	List<Customer> searchCus(String key);
 }

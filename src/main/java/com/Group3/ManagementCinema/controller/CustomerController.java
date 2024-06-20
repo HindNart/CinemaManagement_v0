@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,25 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Group3.ManagementCinema.entity.Customer;
-import com.Group3.ManagementCinema.service.CinemaRoomService;
 import com.Group3.ManagementCinema.service.CustomerService;
-import com.Group3.ManagementCinema.service.EmployeeService;
-import com.Group3.ManagementCinema.service.MovieScheduleService;
-import com.Group3.ManagementCinema.service.MovieService;
 
 @Controller
 public class CustomerController {
 	@Autowired
     private CustomerService customerService;
-    @Autowired
-    private EmployeeService employeeService;
-    @Autowired
-    private CinemaRoomService cinemaroomService;
-    @Autowired
-    private MovieScheduleService moviescheduleService;
-    @Autowired
-    private MovieService movieService;  
-
 
     // Hiển thị danh sách khách hàng
     @GetMapping("/showCus")
@@ -46,9 +35,16 @@ public class CustomerController {
     }
 
     // Tìm kiếm khách hàng theo ID
+//    @GetMapping("/searchCustomer")
+//    public String searchCustomer(@RequestParam("id") String id, Model model) {
+//        Customer customer = customerService.getCustomerById(id);
+//        model.addAttribute("customer", customer);
+//        return "cusSearch"; // Trả về template cusSearch.html trong thư mục templates/
+//    }
+    
     @GetMapping("/searchCustomer")
     public String searchCustomer(@RequestParam("id") String id, Model model) {
-        Customer customer = customerService.getCustomerById(id);
+        List<Customer> customer = customerService.searchCus(id);
         model.addAttribute("customer", customer);
         return "cusSearch"; // Trả về template cusSearch.html trong thư mục templates/
     }

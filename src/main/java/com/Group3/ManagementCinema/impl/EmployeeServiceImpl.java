@@ -50,4 +50,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<Employee> searchEmp(String key) {
+		// TODO Auto-generated method stub
+		return EmployeeRepository.findByHoTenNVContaining(key);
+	}
 }

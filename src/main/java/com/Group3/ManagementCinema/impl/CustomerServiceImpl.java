@@ -50,4 +50,9 @@ public class CustomerServiceImpl implements CustomerService {
 	// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<Customer> searchCus(String key) {
+		// TODO Auto-generated method stub
+		return customerRepository.findByTenKhachContaining(key);
+	}
 }

@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,9 +35,16 @@ public class MovieController {
 		return "movie_new";
 	}
 	
+//	@GetMapping("/searchMovie")
+//	public String searchMovie(@RequestParam("id") String id, Model model) {
+//		Movie movie = movieService.getMovieById(id);
+//		model.addAttribute("movie", movie);
+//		return "movie_search";
+//	}
+	
 	@GetMapping("/searchMovie")
 	public String searchMovie(@RequestParam("id") String id, Model model) {
-		Movie movie = movieService.getMovieById(id);
+		List<Movie> movie = movieService.searchMovie(id);
 		model.addAttribute("movie", movie);
 		return "movie_search";
 	}

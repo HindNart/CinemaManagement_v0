@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +29,16 @@ public class EmployeeController {
         return "employee_new";
     }
 
+//    @GetMapping("/searchEmployee")
+//    public String searchEmployee(@RequestParam("id") String id, Model model) {
+//        Employee employee = employeeService.getEmployeeById(id);
+//        model.addAttribute("employee", employee);
+//        return "employee_search";
+//    }
+    
     @GetMapping("/searchEmployee")
     public String searchEmployee(@RequestParam("id") String id, Model model) {
-        Employee employee = employeeService.getEmployeeById(id);
+        List<Employee> employee = employeeService.searchEmp(id);
         model.addAttribute("employee", employee);
         return "employee_search";
     }
