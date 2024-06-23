@@ -1,0 +1,46 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(39, 127, 86) !important;
+
+}
+
+.clear {
+    clear: both;
+}
+
+.flex {
+    display: flex;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.float {
+    float: left;
+}
+
+.login-form {
+    display: flex;
+    width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    justify-content: space-around;
+}
+
+.login-btn {
+    float: right !important;
+    border: none !important;
+    background-color: #386462 !important;
+}
+
+.login-decor {}

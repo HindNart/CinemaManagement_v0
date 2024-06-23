@@ -1,0 +1,38 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.w-40 {
+    width: 50%;
+}
+
+.flex {
+    display: flex;
+}
+
+.spc-btw {
+    justify-content: space-evenly;
+}
+
+.container {
+    max-width: 65%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+img {
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.regis-content {
+    padding: 30px;
+}
+
+.text-red {
+    color: red;
+}

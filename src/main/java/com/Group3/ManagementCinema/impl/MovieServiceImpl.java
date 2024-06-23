@@ -15,7 +15,9 @@ import com.Group3.ManagementCinema.service.MovieService;
 public class MovieServiceImpl implements MovieService {
 	@Autowired
 	private MovieRepository movieRepository;
-	
+	public long countMovie() {
+        return movieRepository.count();
+    }
 	@Override
 	public List < Movie > getAllMovies() {
 		return movieRepository.findAll();
@@ -47,5 +49,10 @@ public class MovieServiceImpl implements MovieService {
 	public Page<Movie> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
 	// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public List<Movie> searchMovie(String key) {
+		// TODO Auto-generated method stub
+		return movieRepository.findByDaoDienContainingOrDienVienContainingOrTenPhimContainingOrTheLoaiContaining(key, key, key, key);
 	}
 }

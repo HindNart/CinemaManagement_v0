@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,9 @@ public class EmployeeController {
     private EmployeeService employeeService;
     
     @GetMapping("/employees")
-    public String showAllEmployees(Model model){
+    public String showEmployeeList(Model model) {
         model.addAttribute("listEmployees", employeeService.getAllEmployees());
-        return "employees";
+        return "employees"; // Trả về template adEmployee.html trong thư mục templates/admin/
     }
     
     @GetMapping("/showNewEmployeeForm")
@@ -27,9 +29,16 @@ public class EmployeeController {
         return "employee_new";
     }
 
+//    @GetMapping("/searchEmployee")
+//    public String searchEmployee(@RequestParam("id") String id, Model model) {
+//        Employee employee = employeeService.getEmployeeById(id);
+//        model.addAttribute("employee", employee);
+//        return "employee_search";
+//    }
+    
     @GetMapping("/searchEmployee")
     public String searchEmployee(@RequestParam("id") String id, Model model) {
-        Employee employee = employeeService.getEmployeeById(id);
+        List<Employee> employee = employeeService.searchEmp(id);
         model.addAttribute("employee", employee);
         return "employee_search";
     }
@@ -38,7 +47,7 @@ public class EmployeeController {
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {
         // save employee to database
         employeeService.saveEmployee(employee);
-        return "redirect:/employees";
+        return "redirect:/";
     }
     
     @GetMapping("/showFormForUpdateEmployee/{id}")
@@ -47,13 +56,13 @@ public class EmployeeController {
         Employee employee = employeeService.getEmployeeById(id);
         // set employee as a model attribute to pre-populate the form
         model.addAttribute("employee", employee);
-        return "update_employee";
+        return "employee_update";
     }
     
     @GetMapping("/deleteEmployee/{id}")
     public String deleteEmployee(@PathVariable(value = "id") String id) {
         // call delete employee method
         employeeService.deleteEmployeeById(id);
-        return "redirect:/employees";
+        return "redirect:/";
     }
 }

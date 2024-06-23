@@ -15,7 +15,9 @@ import com.Group3.ManagementCinema.service.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeRepository EmployeeRepository;
-	
+	public long countEmployee() {
+        return EmployeeRepository.count();
+    }
 	@Override
 	public List < Employee > getAllEmployees() {
 		return EmployeeRepository.findAll();
@@ -47,5 +49,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
 	// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public List<Employee> searchEmp(String key) {
+		// TODO Auto-generated method stub
+		return EmployeeRepository.findByHoTenNVContaining(key);
 	}
 }
