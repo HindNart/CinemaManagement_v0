@@ -13,7 +13,8 @@ public class Customer {
 	@Column(name = "sdt")
 	private String sdt;
 	@Column(name= "diem")
-	private int diem;
+	private int diem;	
+	
 	public String getIdKhach() {
 		return idKhach;
 	}
@@ -38,15 +39,15 @@ public class Customer {
 	public void setDiem(int diem) {
 		this.diem = diem;
 	}
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Customer(String idKhach, String tenKhach, String sdt, int diem) {
 		super();
 		this.idKhach = idKhach;
 		this.tenKhach = tenKhach;
 		this.sdt = sdt;
 		this.diem = diem;
-	}
-	public Customer() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 }

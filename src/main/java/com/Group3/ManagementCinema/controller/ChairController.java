@@ -21,14 +21,14 @@ public class ChairController {
 	@GetMapping("/chair")
 	public String viewchair(Model model) {
 		model.addAttribute("listchair", chairService.getAllChair());
-		return "chair";
+		return "/chair/chair";
 	}
 	
 	@GetMapping("/searchchair")
 	public String searchMovieSchedule(@RequestParam("id") int id, Model model) {
 		Chair chair = chairService.getChairById(id);
 		model.addAttribute("chair", chair);
-		return "chair_search";
+		return "/chair/chair_search";
 	}
 	
 	@PostMapping("/saveChair")
@@ -44,7 +44,7 @@ public class ChairController {
 		Chair chair = chairService.getChairById(id);
 		// set movie as a model attribute to pre-populate the form
 		model.addAttribute("chair", chair);
-		return "chair_update";
+		return "/chair/chair_update";
 	}
 	
 	@GetMapping("/deleteChair/{id}")

@@ -18,7 +18,7 @@ public class EmployeeController {
     @GetMapping("/employees")
     public String showEmployeeList(Model model) {
         model.addAttribute("listEmployees", employeeService.getAllEmployees());
-        return "employees"; // Trả về template adEmployee.html trong thư mục templates/admin/
+        return "/employee/employees"; // Trả về template adEmployee.html trong thư mục templates/admin/
     }
     
     @GetMapping("/showNewEmployeeForm")
@@ -26,7 +26,7 @@ public class EmployeeController {
         // create model attribute to bind form data
         Employee employee = new Employee();
         model.addAttribute("employee", employee);
-        return "employee_new";
+        return "/employee/employee_new";
     }
 
 //    @GetMapping("/searchEmployee")
@@ -40,7 +40,7 @@ public class EmployeeController {
     public String searchEmployee(@RequestParam("id") String id, Model model) {
         List<Employee> employee = employeeService.searchEmp(id);
         model.addAttribute("employee", employee);
-        return "employee_search";
+        return "/employee/employee_search";
     }
     
     @PostMapping("/saveEmployee")
@@ -56,7 +56,7 @@ public class EmployeeController {
         Employee employee = employeeService.getEmployeeById(id);
         // set employee as a model attribute to pre-populate the form
         model.addAttribute("employee", employee);
-        return "employee_update";
+        return "/employee/employee_update";
     }
     
     @GetMapping("/deleteEmployee/{id}")

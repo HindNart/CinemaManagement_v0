@@ -22,7 +22,7 @@
                     Doan Ba Huy <i class="bi bi-chevron-compact-down"></i>
                     <div class="dropdown-content">
                         <a href="#">Thông tin</a>
-                        <a href="login.html">Đăng xuất</a>
+                        <a th:href="@{/login}">Đăng xuất</a>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="total-acc db-card">
                         <p>Số lượng tài khoản</p>
-                        <p><b>10</b></p>
+                        <p><b th:text="${accountCount}"></b></p>
                     </div>
                 </div>
             </div>

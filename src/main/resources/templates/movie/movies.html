@@ -35,12 +35,12 @@
                 <thead>
 	                <tr>
 	                    <th>Mã phim</th>
-	                    <th>Tên phim</th>
-	                    <th>Thể loại</th>
+	                    <th class="hidden-text">Tên phim</th>
+	                    <th class="hidden-text">Thể loại</th>
 	                    <th>Đạo diễn</th>
-	                    <th>Diễn viên</th>
+	                    <th class="hidden-text">Diễn viên</th>
 	                    <th>Thời lượng</th>
-	                    <th>Mô tả</th>
+	                    <th class="hidden-text">Mô tả</th>
 	                    <th>Ngày phát hành</th>
 	                    <th>Poster</th>
 	                    <th>Chức năng</th>
@@ -49,12 +49,12 @@
 	            <tbody>
 	                <tr th:each="movie : ${listMovies}">
 	                    <td th:text="${movie.idPhim}"></td>
-	                    <td th:text="${movie.tenPhim}"></td>
-	                    <td th:text="${movie.theLoai}"></td>
+	                    <td><p th:text="${movie.tenPhim}" class="hidden-text"></p></td>
+	                    <td><p th:text="${movie.theLoai}" class="hidden-text"></p></td>
 	                    <td th:text="${movie.daoDien}"></td>
-	                    <td th:text="${movie.dienVien}"></td>
-	                    <td th:text="${movie.thoiLuong}"></td>
-	                    <td th:text="${movie.moTa}"></td>
+	                    <td><p th:text="${movie.dienVien}" class="hidden-text"></p></td>
+	                    <td th:text="${movie.thoiLuong}"> <p>phút</p></td>
+	                    <td><p th:text="${movie.moTa}" class="hidden-text"></p></td>
 	                    <td th:text="${movie.ngayPH}"></td>
 	                    <td><img alt="" th:src="${movie.linkPoster}" width="100px"></td>
 	                    <td>

@@ -24,7 +24,7 @@ public class MovieController {
 	@GetMapping("/showAllMovies")
 	public String viewHomePage(Model model) {
 		model.addAttribute("listMovies", movieService.getAllMovies());
-		return "movies";
+		return "/movie/movies";
 	}
 	
 	@GetMapping("/showNewMovieForm")
@@ -32,7 +32,7 @@ public class MovieController {
 		// create model attribute to bind form data
 		Movie movie = new Movie();
 		model.addAttribute("movie", movie);
-		return "movie_new";
+		return "/movie/movie_new";
 	}
 	
 //	@GetMapping("/searchMovie")
@@ -46,7 +46,7 @@ public class MovieController {
 	public String searchMovie(@RequestParam("id") String id, Model model) {
 		List<Movie> movie = movieService.searchMovie(id);
 		model.addAttribute("movie", movie);
-		return "movie_search";
+		return "/movie/movie_search";
 	}
 	
 	@PostMapping("/saveMovie")
@@ -62,7 +62,7 @@ public class MovieController {
 		Movie movie = movieService.getMovieById(id);
 		// set movie as a model attribute to pre-populate the form
 		model.addAttribute("movie", movie);
-		return "movie_update";
+		return "/movie/movie_update";
 	}
 	
 	@GetMapping("/deleteMovie/{id}")

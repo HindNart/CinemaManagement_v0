@@ -48,6 +48,14 @@ a {
     color: white !important;
 }
 
+.hidden-text{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 20px;
+    width:150px;
+}
+
 /* Header CSS */
 
 #header {

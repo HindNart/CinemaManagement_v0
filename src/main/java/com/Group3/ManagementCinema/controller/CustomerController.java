@@ -23,7 +23,7 @@ public class CustomerController {
     @GetMapping("/showCus")
     public String showCustomerList(Model model) {
         model.addAttribute("listCustomers", customerService.getAllCustomers());
-        return "cus"; // Trả về template adCustomer.html trong thư mục templates/admin/
+        return "/customer/cus"; // Trả về template adCustomer.html trong thư mục templates/admin/
     }
 
     // Hiển thị form thêm khách hàng mới
@@ -31,7 +31,7 @@ public class CustomerController {
     public String showNewCustomerForm(Model model) {
         Customer customer = new Customer();
         model.addAttribute("customer", customer);
-        return "cusNew"; // Trả về template cusNew.html trong thư mục templates/
+        return "/customer/cusNew"; // Trả về template cusNew.html trong thư mục templates/
     }
 
     // Tìm kiếm khách hàng theo ID
@@ -46,7 +46,7 @@ public class CustomerController {
     public String searchCustomer(@RequestParam("id") String id, Model model) {
         List<Customer> customer = customerService.searchCus(id);
         model.addAttribute("customer", customer);
-        return "cusSearch"; // Trả về template cusSearch.html trong thư mục templates/
+        return "/customer/cusSearch"; // Trả về template cusSearch.html trong thư mục templates/
     }
 
     // Lưu thông tin khách hàng mới vào cơ sở dữ liệu
@@ -61,7 +61,7 @@ public class CustomerController {
     public String showFormForUpdateCustomer(@PathVariable(value = "id") String id, Model model) {
         Customer customer = customerService.getCustomerById(id);
         model.addAttribute("customer", customer);
-        return "cusUpdate"; // Trả về template cusUpdate.html trong thư mục templates/
+        return "/customer/cusUpdate"; // Trả về template cusUpdate.html trong thư mục templates/
     }
 
     // Xóa khách hàng

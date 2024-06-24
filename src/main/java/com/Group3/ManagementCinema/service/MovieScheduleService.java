@@ -1,5 +1,6 @@
 package com.Group3.ManagementCinema.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -15,4 +16,5 @@ public interface MovieScheduleService {
 	void saveMovieSchedule(String idLichChieu, String phongChieuId, String phimId, String thoigianBD, String thoigianKT,
 			java.util.Date ngayChieu);
 	long countMovieSchedule();
+	MovieSchedule checkMS(Date date, String tgbd, String tgkt);
 }

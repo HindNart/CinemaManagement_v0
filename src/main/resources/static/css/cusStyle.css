@@ -1,0 +1,221 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+}
+
+ul li {
+    list-style-type: none;
+}
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+/*Header*/
+
+.user {
+    align-items: center;
+}
+
+.user-name {
+    margin-left: 10px;
+    color: #ccc;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    margin: 0 10px;
+    padding: 0 20px;
+}
+
+.navbar .logo {
+    width: 40px;
+    height: 40px;
+    background-color: aqua;
+}
+
+.nav-content ul li {
+    float: left;
+    padding: 10px 50px;
+}
+
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-dropdown .dropdown-content {
+    display: none;
+    margin-top: 10px;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.nav-dropdown a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.nav-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ccc;
+    color: #000;
+}
+
+/* CSS Banner */
+.banner {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px 0;
+    background-color: #FFF0F6;
+}
+
+.banner-img img {
+    border: none;
+    border-radius: 10px;
+}
+
+.banner-content-title {
+    color: #D82D8B;
+}
+
+.banner-content-list {
+    padding: 20px 0;
+}
+
+.banner-content-list li {
+    padding: 10px 0;
+    color: #464343;
+    display: flex;
+}
+
+.banner-content-icon {
+    min-width: 20px;
+    background-color: #F6D8E7;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.buy-ticket-btn button {
+    padding: 10px 15px;
+    border: none !important;
+    text-transform: uppercase !important;
+    background-color: #eb4fad;
+    border-radius: 5px;
+    color: #FFF0F6;
+    font-weight: bold !important;
+    cursor: pointer;
+}
+
+.buy-ticket-btn button:hover {
+    background-color: #b31a75;
+}
+
+/* Now showing CSS */
+#now-showing {
+    position: relative;
+}
+
+.now-showing-background {
+    background-color: #000;
+}
+
+.now-showing-background img {
+    width: 100%;
+    margin: 0px auto;
+    padding: 0 200px;
+    max-height: 550px;
+}
+
+.now-showing-title {
+    text-align: center;
+}
+
+.now-showing-title h1 {
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 50px;
+}
+
+.now-showing-list {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.now-showing-items {
+    max-width: 200px;
+    margin: 40px 10px;
+}
+
+.now-showing-name {
+    color: #fff;
+}
+
+.now-showing-category {
+    color: #ccc;
+}
+
+.now-showing-name p,
+.now-showing-category p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 20px;
+}
+
+.now-showing-rate {
+    color: #fff;
+}
+
+.now-showing-items img {
+    max-width: 200px;
+    border: none !important;
+    border-radius: 10px;
+}
+
+#up-coming .now-showing-items p {
+    color: black;
+}
+
+.upComing-title {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.up-coming-list {
+
+    display: flex;
+    justify-content: center;
+}
+
+
+#footer {
+    background-color: #000;
+    min-height: 70px;
+    color: #fff;
+    text-align: center;
+}
+
+#footer p {
+    padding-top: 25px;
+}

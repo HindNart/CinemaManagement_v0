@@ -20,7 +20,7 @@ public class CinemaRoomController {
 	@GetMapping("/showCinemaRoom")
 	public String viewHomePage(Model model) {
 		model.addAttribute("listCinemaRooms", cinemaRoomService.getAllCinemaRooms());
-		return "cinemaRoom";
+		return "/cinemaRoom/cinemaRoom";
 	}
 	
 	@GetMapping("/showNewCinemaRoomForm")
@@ -28,7 +28,7 @@ public class CinemaRoomController {
 		// create model attribute to bind form data
 		CinemaRoom cinemaRoom = new CinemaRoom();
 		model.addAttribute("cinemaRoom",  cinemaRoom);
-		return "cinemaRoom_new";
+		return "/cinemaRoom/cinemaRoom_new";
 	}
 	
 //	@GetMapping("/searchCinemaRoom")
@@ -40,7 +40,7 @@ public class CinemaRoomController {
 	@GetMapping("/searchCinemaRoom")
 	public String searchCinemaRoom(@RequestParam("id") String id, Model model) {
 		model.addAttribute("cinemaRoom", cinemaRoomService.findCinemaRoom(id));
-		return "cinemaRoom_search";
+		return "/cinemaRoom/cinemaRoom_search";
 	}
 	
 	@PostMapping("/saveCinemaRoom")
@@ -53,7 +53,7 @@ public class CinemaRoomController {
 	public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) {
 		CinemaRoom cinemaRoom = cinemaRoomService.getCinemaRoomById(id);
 		model.addAttribute("cinemaRoom", cinemaRoom);
-		return "cinemaRoom_update";
+		return "/cinemaRoom/cinemaRoom_update";
 	}
 	
 	@GetMapping("/deleteCinemaRoom/{id}")

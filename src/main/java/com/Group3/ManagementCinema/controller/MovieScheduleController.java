@@ -21,7 +21,7 @@ public class MovieScheduleController {
 	@GetMapping("/movieSchedules")
 	public String viewMovieSchedule(Model model) {
 		model.addAttribute("listMovieSchedules", movieScheduleService.getAllMovieSchedules());
-		return "movieSchedules";
+		return "/movieSchedule/movieSchedules";
 	}
 	
 	@GetMapping("/showNewMovieScheduleForm")
@@ -29,26 +29,31 @@ public class MovieScheduleController {
         // create model attribute to bind form data
         MovieSchedule movieSchedule = new MovieSchedule();
         model.addAttribute("movieSchedule", movieSchedule);
-        return "movieSchedule_new";
-    }
+        return "/movieSchedule/movieSchedule_new";
+    } 
 	
 	@GetMapping("/searchMovieSchedule")
 	public String searchMovieSchedule(@RequestParam("id") String id, Model model) {
 		MovieSchedule movieSchedule = movieScheduleService.getMovieScheduleById(id);
 		model.addAttribute("movieSchedule", movieSchedule);
-		return "movieSchedule_search";
+		return "/movieSchedule/movieSchedule_search";
 	}
 	
 	@PostMapping("/saveMovieSchedule")
-	public String saveMovieSchedule(@ModelAttribute("movieSchedule") MovieSchedule movieSchedule) {
-		movieScheduleService.saveMovieSchedule(
-				movieSchedule.getIdLichChieu(),
-	            movieSchedule.getPhongChieu().getIdPhong(),
-	            movieSchedule.getPhim().getIdPhim(),
-	            movieSchedule.getThoigianBD(),
-	            movieSchedule.getThoigianKT(),
-	            movieSchedule.getNgayChieu());
-		return "redirect:/";
+	public String saveMovieSchedule(@ModelAttribute("movieSchedule") MovieSchedule movieSchedule, Model model) {
+		if (movieScheduleService.checkMS(movieSchedule.getNgayChieu(),  movieSchedule.getThoigianBD(),  movieSchedule.getThoigianKT()) != null) {
+			model.addAttribute("exists", true);
+			return "movieSchedule/movieSchedule_new";
+		}else {
+			movieScheduleService.saveMovieSchedule( 
+					movieSchedule.getIdLichChieu(),
+		            movieSchedule.getPhongChieu().getIdPhong(),
+		            movieSchedule.getPhim().getIdPhim(),
+		            movieSchedule.getThoigianBD(),
+		            movieSchedule.getThoigianKT(),
+		            movieSchedule.getNgayChieu());
+			return "redirect:/";
+		}		
 	}
 	
 	@GetMapping("/showFormForUpdateMovieSchedule/{id}")
@@ -57,7 +62,7 @@ public class MovieScheduleController {
 		MovieSchedule movieSchedule = movieScheduleService.getMovieScheduleById(id);
 		// set movie as a model attribute to pre-populate the form
 		model.addAttribute("movieSchedule", movieSchedule);
-		return "movieSchedule_update";
+		return "/movieSchedule/movieSchedule_update";
 	}
 	
 	@GetMapping("/deleteMovieSchedule/{id}")

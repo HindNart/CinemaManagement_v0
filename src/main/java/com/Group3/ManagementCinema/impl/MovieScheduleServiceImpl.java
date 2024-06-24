@@ -72,6 +72,11 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 		this.movieScheduleRepository.save(movieSchedule);
 		
 	}
+	@Override
+	public MovieSchedule checkMS(java.sql.Date date, String tgbd, String tgkt) {
+		// TODO Auto-generated method stub
+		return movieScheduleRepository.findByNgayChieuAndThoigianBDAndThoigianKT(date, tgbd, tgkt);
+	}
 	
 	
 }
