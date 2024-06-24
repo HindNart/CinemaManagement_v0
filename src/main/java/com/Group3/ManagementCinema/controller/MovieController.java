@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.service.MovieService;
@@ -35,12 +36,12 @@ public class MovieController {
 		return "/movie/movie_new";
 	}
 	
-//	@GetMapping("/searchMovie")
-//	public String searchMovie(@RequestParam("id") String id, Model model) {
-//		Movie movie = movieService.getMovieById(id);
-//		model.addAttribute("movie", movie);
-//		return "movie_search";
-//	}
+	@GetMapping("/searchMovieById")
+	public String searchMovieById(@RequestParam("id") String id, Model model) {
+		Movie movie = movieService.getMovieById(id);
+		model.addAttribute("movie", movie);
+		return "movie_search";
+	}
 	
 	@GetMapping("/searchMovie")
 	public String searchMovie(@RequestParam("id") String id, Model model) {
@@ -49,12 +50,24 @@ public class MovieController {
 		return "/movie/movie_search";
 	}
 	
-	@PostMapping("/saveMovie")
-	public String saveMovie(@ModelAttribute("movie") Movie movie) {
+	@PostMapping("/updateMovie")
+	public String updateMovie(@ModelAttribute("movie") Movie movie) {
 		// save movie to database
 		movieService.saveMovie(movie);
 		return "redirect:/";
 	}
+	
+	@PostMapping("/saveMovie")
+    public String saveMovie(@ModelAttribute("movie") Movie movie, RedirectAttributes redirectAttributes) {
+		Movie existMovie = movieService.getMovieById(movie.getIdPhim());
+        if (existMovie == null) {
+        	movieService.saveMovie(movie);
+            redirectAttributes.addFlashAttribute("message", "Thêm phim thành công!");
+        } else {
+        	redirectAttributes.addFlashAttribute("message", "Thêm phim thất bại. Phim đã tồn tại. Vui lòng thử lại!");
+        }
+        return "redirect:/showNewMovieForm";
+    }
 	
 	@GetMapping("/showFormForUpdateMovie/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) {

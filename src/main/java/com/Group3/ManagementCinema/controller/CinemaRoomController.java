@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Group3.ManagementCinema.entity.CinemaRoom;
 import com.Group3.ManagementCinema.service.CinemaRoomService;
@@ -31,11 +32,11 @@ public class CinemaRoomController {
 		return "/cinemaRoom/cinemaRoom_new";
 	}
 	
-//	@GetMapping("/searchCinemaRoom")
-//	public String searchCinemaRoom(@RequestParam("id") String id, Model model) {
-//		model.addAttribute("cinemaRoom", cinemaRoomService.getCinemaRoomById(id));
-//		return "cinemaRoom_search";
-//	}
+	@GetMapping("/searchCinemaRoomById")
+	public String searchCinemaRoomById(@RequestParam("id") String id, Model model) {
+		model.addAttribute("cinemaRoom", cinemaRoomService.getCinemaRoomById(id));
+		return "cinemaRoom_search";
+	}
 	
 	@GetMapping("/searchCinemaRoom")
 	public String searchCinemaRoom(@RequestParam("id") String id, Model model) {
@@ -44,7 +45,19 @@ public class CinemaRoomController {
 	}
 	
 	@PostMapping("/saveCinemaRoom")
-	public String saveCinemaRoom(@ModelAttribute("cinemaRoom") CinemaRoom cinemaRoom) {
+    public String saveCinemaRoom(@ModelAttribute("cinemaRoom") CinemaRoom cinemaRoom, RedirectAttributes redirectAttributes) {
+		CinemaRoom existCineRoom = cinemaRoomService.getCinemaRoomById(cinemaRoom.getIdPhong());
+        if (existCineRoom == null) {
+        	cinemaRoomService.saveCinemaRoom(cinemaRoom);
+            redirectAttributes.addFlashAttribute("message", "Thêm phòng chiếu thành công!");
+        } else {
+        	redirectAttributes.addFlashAttribute("message", "Thêm phòng chiếu thất bại. Phòng chiếu đã tồn tại. Vui lòng thử lại!");
+        }
+        return "redirect:/showNewCinemaRoomForm";
+    }
+	
+	@PostMapping("/updateCinemaRoom")
+	public String updateCinemaRoom(@ModelAttribute("cinemaRoom") CinemaRoom cinemaRoom) {
 		cinemaRoomService.saveCinemaRoom(cinemaRoom);
 		return "redirect:/";
 	}

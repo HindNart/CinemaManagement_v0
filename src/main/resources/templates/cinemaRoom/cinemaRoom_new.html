@@ -8,16 +8,19 @@
 </head>
 <body>
     <div class="container w-50 mt-5 rounded shadow p-4 bg-body-tertiary">
+    	<h1>Quản lý phòng chiếu</h1>
+    	<hr>
         <h2>Thêm phòng chiếu</h2>
+    	<div th:if="${message}" th:text="${message}" class="alert alert-danger"></div>
         <hr>
         <form action="#" th:action="@{/saveCinemaRoom}" th:object="${cinemaRoom}" method="POST">
             <div class="mb-3">
                 <label for="idPhong" class="form-label">Mã phòng chiếu</label>
-                <input type="text" th:field="*{idPhong}" placeholder="Mã phòng chiếu" class="form-control mb-4 col-4" id="idPhong" name="idPhong">
+                <input required type="text" th:field="*{idPhong}" placeholder="Mã phòng chiếu" class="form-control mb-4 col-4" id="idPhong" name="idPhong">
             </div>
             <div class="mb-3">
                 <label for="soLuongGhe" class="form-label">Số lượng ghế</label>
-                <input type="text" th:field="*{soLuongGhe}" placeholder="Số lượng ghế" class="form-control mb-4 col-4" id="soLuongGhe" name="soLuongGhe">
+                <input required type="text" th:field="*{soLuongGhe}" placeholder="Số lượng ghế" class="form-control mb-4 col-4" id="soLuongGhe" name="soLuongGhe">
             </div>
             <div class="mb-3">
                 <label class="form-label">Loại phòng</label>

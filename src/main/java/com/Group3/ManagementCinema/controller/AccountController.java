@@ -17,6 +17,12 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 	
+	 @GetMapping("/showAllAccount")
+	    public String showEmployeeList(Model model) {
+	        model.addAttribute("listAccounts", accountService.getAllAccounts());
+	        return "account/accounts"; // Trả về template adEmployee.html trong thư mục templates/admin/
+	    }
+	
 	@GetMapping("/showNewAccountForm")
 	public String showNewAccountForm(Model model) {
 		// create model attribute to bind form data
@@ -28,7 +34,7 @@ public class AccountController {
 	@GetMapping("/searchAccount")
 	public String searchAccount(@RequestParam("id") String id, Model model) {
 		model.addAttribute("account", accountService.findAccount(id));
-		return "account_search";
+		return "account/account_search";
 	}
 	
 	@PostMapping("/saveAccount")
@@ -42,11 +48,17 @@ public class AccountController {
 		return "register/register";
 	}
 	
+	@PostMapping("/updateAccount")
+	public String updateAccount(@ModelAttribute("account") Account account) {
+		accountService.saveAccount(account);
+		return "redirect:/";
+	}
+	
 	@GetMapping("/showFormForUpdateAccount/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) {
 		Account account = accountService.getAccountById(id);
 		model.addAttribute("account", account);
-		return "account_update";
+		return "account/account_update";
 	}
 	
 	@GetMapping("/deleteAccount/{id}")

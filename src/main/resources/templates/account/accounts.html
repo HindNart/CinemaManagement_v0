@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý rạp phim</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <div class="main-content-cus">
+        <div class="main-title flex spc-btw" style="align-items:center;">
+            <div class="">Danh sách tài khoản</div>
+            <div class="flex">
+            
+            <form th:action="@{/searchAccount}" method="GET" class="row g-3 mb-4">
+	            <div class="search-bar">
+	            	<input type="text" name="id">
+	                <button type="submit" class="btn btn-info"><i class="bi bi-search" style= "margin-right:10px"></i></button>
+	            </div>
+	        </form>
+                
+            </div>
+        </div>
+        <div class="scroll-table">
+            <table class="main-content-list">
+                <thead>
+	                <tr>
+	                    <th>Email</th>
+	                    <th class="hidden-text">Tên tài khoản</th>
+	                    <th class="hidden-text">Mật khẩu</th>
+	                    <th class="hidden-text">Điểm</th>
+	                    <th>Chức năng</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="acc : ${listAccounts}">
+	                    <td th:text="${acc.email}"></td>
+	                    <td><p th:text="${acc.username}" class="hidden-text"></p></td>
+	                    <td><p th:text="${acc.password}" class="hidden-text"></p></td>
+	                    <td th:text="${acc.diem}"></td>
+	                    <td>
+	                    	<a th:href="@{/showFormForUpdateAccount/{id}(id=${acc.email})}" class="btn btn-primary btn-sm"><i class="bi bi-gear-fill"></i></a>
+	                        <a th:href="@{/deleteMovie/{id}(id=${acc.email})}" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
+	                    </td>
+	                </tr>
+	            </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

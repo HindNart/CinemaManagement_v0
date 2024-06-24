@@ -34,8 +34,6 @@ public class AccountServiceImpl implements AccountService {
 		Account account = null;
 		if (optional.isPresent()) {
 			account = optional.get();
-		} else {
-			throw new RuntimeException("Cinema room not found for id :: " + id);
 		}
 		return account;
 	}

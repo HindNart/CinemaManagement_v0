@@ -34,8 +34,6 @@ public class CinemaRoomServiceImpl implements CinemaRoomService {
 		CinemaRoom cinemaRoom = null;
 		if (optional.isPresent()) {
 			cinemaRoom = optional.get();
-		} else {
-			throw new RuntimeException("Cinema room not found for id :: " + id);
 		}
 		return cinemaRoom;
 	}

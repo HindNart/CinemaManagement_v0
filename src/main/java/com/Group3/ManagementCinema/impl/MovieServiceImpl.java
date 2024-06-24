@@ -34,8 +34,6 @@ public class MovieServiceImpl implements MovieService {
 		Movie movie = null;
 		if (optional.isPresent()) {
 			movie = optional.get();
-		} else {
-			throw new RuntimeException("Cinema not found for id :: " + id);
 		}
 		return movie;
 	}

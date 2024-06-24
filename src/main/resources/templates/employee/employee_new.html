@@ -8,24 +8,27 @@
 </head>
 <body>
 <div class="container w-50 mt-5 rounded shadow p-4 bg-body-tertiary">
+	<h1>Quản lý nhân viên</h1>
+	<hr>
     <h2>Thêm nhân viên</h2>
-    <hr>
+    <div th:if="${message}" th:text="${message}" class="alert alert-danger"></div>
+    <hr> 
     <form th:action="@{/saveEmployee}" th:object="${employee}" method="POST">
         <div class="mb-3">
             <label for="id" class="form-label">Mã nhân viên</label>
-            <input type="text" th:field="*{idNhanVien}" placeholder="Mã nhân viên" class="form-control mb-4 col-4">
+            <input required type="text" th:field="*{idNhanVien}" placeholder="Mã nhân viên" class="form-control mb-4 col-4">
         </div>
         <div class="mb-3">
             <label for="ten" class="form-label">Tên nhân viên</label>
-            <input type="text" th:field="*{hoTenNV}" placeholder="Tên nhân viên" class="form-control mb-4 col-4">
+            <input required type="text" th:field="*{hoTenNV}" placeholder="Tên nhân viên" class="form-control mb-4 col-4">
         </div>
         <div class="mb-3">
             <label for="ngaysinh" class="form-label">Ngày sinh</label>
-            <input type="date" th:field="*{ngaySinhNV}" placeholder="Ngày sinh" class="form-control mb-4 col-4">
+            <input required type="date" th:field="*{ngaySinhNV}" placeholder="Ngày sinh" class="form-control mb-4 col-4">
         </div>
         <div class="mb-3">
             <label for="diachi" class="form-label">Địa chỉ</label>
-            <input type="text" th:field="*{diaChi}" placeholder="Địa chỉ" class="form-control mb-4 col-4">
+            <input required type="text" th:field="*{diaChi}" placeholder="Địa chỉ" class="form-control mb-4 col-4">
         </div>
         <div class="mb-3">
             <label for="chucvu" class="form-label">Chức vụ</label>
@@ -38,7 +41,7 @@
         </div>
         <div class="mb-3">
             <label for="luong" class="form-label">Lương</label>
-            <input type="text" th:field="*{luong}" id="luong" placeholder="Lương" class="form-control mb-4 col-4">
+            <input required type="text" th:field="*{luong}" id="luong" placeholder="Lương" class="form-control mb-4 col-4">
         </div>
         <div class="mb-3">
             <label for="calam" class="form-label">Ca làm việc</label>
@@ -51,7 +54,7 @@
         </div>
         <div class="mb-3">
             <label for="sdt" class="form-label">Số điện thoại</label>
-            <input type="text" th:field="*{sdt}" placeholder="Số điện thoại" class="form-control mb-4 col-4">
+            <input required type="text" th:field="*{sdt}" placeholder="Số điện thoại" class="form-control mb-4 col-4">
         </div>
         <hr>
         <div class="d-flex justify-content-between">

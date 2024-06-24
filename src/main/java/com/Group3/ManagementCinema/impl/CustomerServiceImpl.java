@@ -34,8 +34,6 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customer = null;
 		if (optional.isPresent()) {
 			customer = optional.get();
-		} else {
-			throw new RuntimeException("Cinema not found for id :: " + id);
 		}
 		return customer;
 	}

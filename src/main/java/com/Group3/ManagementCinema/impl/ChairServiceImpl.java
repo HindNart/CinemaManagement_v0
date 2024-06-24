@@ -31,8 +31,6 @@ public class ChairServiceImpl implements ChairService{
 		Chair chair = null;
 		if (optional.isPresent()) {
 			chair = optional.get();
-		} else {
-			throw new RuntimeException("Chair not found for id :: " + id);
 		}
 		return chair;
 	}

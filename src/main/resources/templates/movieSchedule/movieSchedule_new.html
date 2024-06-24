@@ -8,39 +8,42 @@
 </head>
 <body>
 	<div class="container w-50 mt-4 rounded shadow p-4 bg-body-tertiary">
+		<h1>Quản lý lịch chiếu phim</h1>
+		<hr>
 		<h2>Thêm lịch chiếu</h2>
+		<div th:if="${message}" th:text="${message}" class="alert alert-danger"></div>
 		<hr>
 		<div th:if="${exists}">
-				<script th:inline="javascript">
-                    alert("Lịch chiếu đã tồn tại!");
-                </script>
-			</div>
+			<script th:inline="javascript">
+	            alert("Lịch chiếu đã tồn tại!");
+        	</script>
+		</div>
 		<form action="#" th:action="@{/saveMovieSchedule}" th:object="${movieSchedule}" method="POST">
 			<div class="mb-3">
 				<label for="id" class="form-label">Mã lịch chiếu</label>
-				<input type="text" th:field="*{idLichChieu}" placeholder="Mã lịch chiếu" class="form-control mb-4 col-4">
+				<input required type="text" th:field="*{idLichChieu}" placeholder="Mã lịch chiếu" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
 				<label for="phongchieu" class="form-label">Phòng chiếu phim</label>
-				<input type="text" th:field="*{phongChieu}" placeholder="Phòng chiếu" class="form-control mb-4 col-4">
+				<input required type="text" th:field="*{phongChieu}" placeholder="Phòng chiếu" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
 				<label for="phim" class="form-label">Phim</label>
-				<input type="text" th:field="*{phim}" placeholder="Phim" class="form-control mb-4 col-4">
+				<input required type="text" th:field="*{phim}" placeholder="Phim" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3 d-flex justify-content-between">				
 				<div class="col col-5">
 					<label for="tgBD" class="form-label">Thời gian bắt đầu</label>
-					<input type="time" th:field="*{thoigianBD}" placeholder="Thời gian bắt đầu" class="form-control">
+					<input required type="time" th:field="*{thoigianBD}" placeholder="Thời gian bắt đầu" class="form-control">
 				</div>
 				<div class="col col-5">
 					<label for="tgKT" class="form-label">Thời gian kết thúc</label>
-					<input type="time" th:field="*{thoigianKT}" placeholder="Thời gian kết thúc" class="form-control">
+					<input required type="time" th:field="*{thoigianKT}" placeholder="Thời gian kết thúc" class="form-control">
 				</div>
 			</div>
 			<div class="mb-3">
 				<label for="ngaychieu" class="form-label">Ngày chiếu</label>
-				<input type="date" th:field="*{ngayChieu}" placeholder="Ngày chiếu" class="form-control mb-4 col-4">
+				<input required type="date" th:field="*{ngayChieu}" placeholder="Ngày chiếu" class="form-control mb-4 col-4">
 			</div>
 			
 			<hr>

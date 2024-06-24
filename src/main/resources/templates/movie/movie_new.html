@@ -8,51 +8,53 @@
 </head>
 <body>
 	<div class="container w-50 mt-5 rounded shadow p-4 bg-body-tertiary">
+		<h1>Quản lý phim</h1>
+		<hr>
 		<h2>Thêm phim</h2>
+    	<div th:if="${message}" th:text="${message}" class="alert alert-danger"></div>
 		<hr>
 		<form th:action="@{/saveMovie}" th:object="${movie}" method="POST">
 			<div class="mb-3">
 				<label for="id" class="form-label">Mã phim</label>
-				<input type="text" th:field="*{idPhim}" placeholder="Mã phim" class="form-control mb-4 col-4">
+				<input required type="text" th:field="*{idPhim}" placeholder="Mã phim" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
 				<label for="tenphim" class="form-label">Tên phim</label>
-				<input type="text" th:field="*{tenPhim}" placeholder="Tên phim" class="form-control mb-4 col-4">
+				<input required type="text" th:field="*{tenPhim}" placeholder="Tên phim" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
 				<label for="theloai" class="form-label">Thể loại</label>
-				<input type="text" th:field="*{theLoai}" placeholder="Thể loại" class="form-control mb-4 col-4">
+				<input required type="text" th:field="*{theLoai}" placeholder="Thể loại" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
 				<label for="daodien" class="form-label">Đạo diễn</label>
-				<input type="text" th:field="*{daoDien}" placeholder="Đạo diễn" class="form-control mb-4 col-4">
+				<input required type="text" th:field="*{daoDien}" placeholder="Đạo diễn" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
 				<label for="dienvien" class="form-label">Diễn viên</label>
-				<input type="text" th:field="*{dienVien}" placeholder="Diễn viên" class="form-control mb-4 col-4">
+				<input required type="text" th:field="*{dienVien}" placeholder="Diễn viên" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
 				<label for="thoiluong" class="form-label">Thời lượng</label>
-				<input type="text" th:field="*{thoiLuong}" placeholder="Thời lượng" class="form-control mb-4 col-4">
+				<input required type="text" th:field="*{thoiLuong}" placeholder="Thời lượng" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
 				<label for="mota" class="form-label">Mô tả</label>
-				<input type="text" th:field="*{moTa}" placeholder="Mô tả" class="form-control mb-4 col-4">
+				<input required type="text" th:field="*{moTa}" placeholder="Mô tả" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
 				<label for="ngayphathanh" class="form-label">Ngày phát hành</label>
-				<input type="date" th:field="*{ngayPH}" placeholder="Ngày phát hành" class="form-control mb-4 col-4">
+				<input required type="date" th:field="*{ngayPH}" placeholder="Ngày phát hành" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
 				<label for="linkposter" class="form-label">Link Poster</label>
-				<input type="url" th:field="*{linkPoster}" placeholder="Link poster" class="form-control mb-4 col-4">
+				<input required type="url" th:field="*{linkPoster}" placeholder="Link poster" class="form-control mb-4 col-4">
 			</div>
-				<hr>
+			<hr>
 			<div class="d-flex justify-content-between">
 				<a class="btn btn-secondary" th:href="@{/}"> Quay lại</a>
 				<button type="submit" class="btn btn-success col-2"> Lưu</button>
 			</div>
-			
 		</form>
 		
 	</div>

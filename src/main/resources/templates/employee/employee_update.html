@@ -7,47 +7,82 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container w-50">
-		<h1>Quản lý nhân viên</h1>
-		<hr>
-        <h2>Cập nhật nhân viên</h2>
-        <form action="#" th:action="@{/saveEmployee}" th:object="${employee}" method="POST">
-            <div class="mb-3 visually-hidden">
-				<label for="id" class="form-label">Mã nhân viên</label>
-				<input type="text" th:field="*{idNhanVien}" placeholder="Mã nhân viên" class="form-control mb-4 col-4">
-			</div>
-	        <div class="mb-3">
-				<label for="ten" class="form-label">Tên nhân viên</label>
-				<input type="text" th:field="*{hoTenNV}" placeholder="Tên nhân viên" class="form-control mb-4 col-4">
-			</div>
-			<div class="mb-3">
-				<label for="ngaysinh" class="form-label">Ngày sinh</label>
-				<input type="date" th:field="*{ngaySinhNV}" placeholder="Ngày sinh" class="form-control mb-4 col-4">
-			</div>
-			<div class="mb-3">
-				<label for="diachi" class="form-label">Địa chỉ</label>
-				<input type="text" th:field="*{diaChi}" placeholder="Địa chỉ" class="form-control mb-4 col-4">
-			</div>
-			<div class="mb-3">
-				<label for="chucvu" class="form-label">Chức vụ</label>
-				<input type="text" th:field="*{chucVu}" placeholder="Chức vụ" class="form-control mb-4 col-4">
-			</div>
-			<div class="mb-3">
-				<label for="luong" class="form-label">Lương</label>
-				<input type="text" th:field="*{luong}" placeholder="Lương" class="form-control mb-4 col-4">
-			</div>
-			<div class="mb-3">
-				<label for="calam" class="form-label">Ca làm việc</label>
-				<input type="text" th:field="*{caLam}" placeholder="Ca làm" class="form-control mb-4 col-4">
-			</div>
-			<div class="mb-3">
-				<label for="sdt" class="form-label">Số điện thoại</label>
-				<input type="text" th:field="*{sdt}" placeholder="Số điện thoại" class="form-control mb-4 col-4">
-			</div>
-            <button type="submit" class="btn btn-info col-2">Cập nhật</button>
-        </form>
+<div class="container w-50 mt-5 rounded shadow p-4 bg-body-tertiary">
+	<h1>Quản lý nhân viên</h1>
+	<hr>
+    <h2>Cập nhật nhân viên</h2>
+    <div th:if="${message}" th:text="${message}" class="alert alert-danger"></div>
+    <hr> 
+    <form th:action="@{/updateEmployee}" th:object="${employee}" method="POST">
+        <div class="mb-3 visually-hidden">
+            <label for="id" class="form-label">Mã nhân viên</label>
+            <input required type="text" th:field="*{idNhanVien}" placeholder="Mã nhân viên" class="form-control mb-4 col-4">
+        </div>
+        <div class="mb-3">
+            <label for="ten" class="form-label">Tên nhân viên</label>
+            <input required type="text" th:field="*{hoTenNV}" placeholder="Tên nhân viên" class="form-control mb-4 col-4">
+        </div>
+        <div class="mb-3">
+            <label for="ngaysinh" class="form-label">Ngày sinh</label>
+            <input required type="date" th:field="*{ngaySinhNV}" placeholder="Ngày sinh" class="form-control mb-4 col-4">
+        </div>
+        <div class="mb-3">
+            <label for="diachi" class="form-label">Địa chỉ</label>
+            <input required type="text" th:field="*{diaChi}" placeholder="Địa chỉ" class="form-control mb-4 col-4">
+        </div>
+        <div class="mb-3">
+            <label for="chucvu" class="form-label">Chức vụ</label>
+            <select th:field="*{chucVu}" id="chucvu" class="form-select mb-4 col-4" onchange="updateSalary()">
+                <option value="">Chọn chức vụ</option>
+                <option value="Nhân viên">Nhân viên</option>
+                <option value="Quản lý">Quản lý</option>
+                <option value="Giám đốc">Giám đốc</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="luong" class="form-label">Lương</label>
+            <input required type="text" th:field="*{luong}" id="luong" placeholder="Lương" class="form-control mb-4 col-4">
+        </div>
+        <div class="mb-3">
+            <label for="calam" class="form-label">Ca làm việc</label>
+            <select th:field="*{caLam}" placeholder="Ca làm" class="form-control mb-4 col-4">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="sdt" class="form-label">Số điện thoại</label>
+            <input required type="text" th:field="*{sdt}" placeholder="Số điện thoại" class="form-control mb-4 col-4">
+        </div>
         <hr>
-        <a class="btn btn-success" th:href="@{/}"> Quay lại</a>
-    </div>
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-secondary" th:href="@{/}"> Quay lại</a>
+            <button type="submit" class="btn btn-success col-2"> Cập nhật</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function updateSalary() {
+        var chucVu = document.getElementById("chucvu").value;
+        var luongInput = document.getElementById("luong");
+
+        switch(chucVu) {
+            case "Nhân viên":
+                luongInput.value = "5000000"; // Lương của nhân viên
+                break;
+            case "Quản lý":
+                luongInput.value = "10000000"; // Lương của quản lý
+                break;
+            case "Giám đốc":
+                luongInput.value = "20000000"; // Lương của giám đốc
+                break;
+            default:
+                luongInput.value = ""; // Nếu không chọn gì
+        }
+    }
+</script>
 </body>
 </html>

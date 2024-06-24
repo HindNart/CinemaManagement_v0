@@ -49,8 +49,6 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 		MovieSchedule movieSchedule = null;
 		if (optional.isPresent()) {
 			movieSchedule = optional.get();
-		} else {
-			throw new RuntimeException("Cinema room not found for id :: " + id);
 		}
 		return movieSchedule;
 	}
