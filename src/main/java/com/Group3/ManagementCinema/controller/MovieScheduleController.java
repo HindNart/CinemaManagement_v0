@@ -21,7 +21,7 @@ import com.Group3.ManagementCinema.service.MovieService;
 @Controller
 public class MovieScheduleController {
 	@Autowired
-	private MovieScheduleService movieScheduleService;// display list of movies
+	private MovieScheduleService movieScheduleService;
 	@Autowired
 	private MovieService movieService;
 	@Autowired
@@ -84,12 +84,7 @@ public class MovieScheduleController {
 	@PostMapping("/updateMovieSchedule")
 	public String updateMovieSchedule(@ModelAttribute("movieSchedule") MovieSchedule movieSchedule, Model model) {
 		movieScheduleService.saveMovieSchedule( 
-			movieSchedule.getIdLichChieu(),
-		    movieSchedule.getPhongChieu().getIdPhong(),
-		    movieSchedule.getPhim().getIdPhim(),
-		    movieSchedule.getThoigianBD(),
-		    movieSchedule.getThoigianKT(),
-		    movieSchedule.getNgayChieu());
+			movieSchedule);
 		return "redirect:/";
 	}		
 	
