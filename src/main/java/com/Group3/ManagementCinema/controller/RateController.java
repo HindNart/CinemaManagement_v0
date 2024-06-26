@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Group3.ManagementCinema.entity.Rate;
-import com.Group3.ManagementCinema.entity.RateId;
 import com.Group3.ManagementCinema.service.RateService;
 
 @Controller
@@ -33,7 +32,7 @@ public class RateController {
     } 
 	
 	@GetMapping("/searchRateById")
-	public String searchRate(@RequestParam("id") RateId id, Model model) {
+	public String searchRateById(@RequestParam("id") Long id, Model model) {
 		Rate rate = rateService.getRateById(id);
 		model.addAttribute("rate", rate);
 		return "";
@@ -42,9 +41,11 @@ public class RateController {
 	@PostMapping("/saveRate")
     public String saveRate(@ModelAttribute("rate") Rate rate, RedirectAttributes redirectAttributes) {
 		rateService.saveRate( 
+						rate.getId(),
 						rate.getTaiKhoan().getEmail(),
 						rate.getPhim().getIdPhim(),
-						rate.getNoiDung());
+						rate.getDiem(),
+						rate.getBinhLuan());
         return "";
     }
 	
@@ -55,14 +56,14 @@ public class RateController {
 	}		
 	
 	@GetMapping("/showFormForUpdateRate/{id}")
-	public String showFormForUpdateRate(@PathVariable(value = "id") RateId id, Model model) {
+	public String showFormForUpdateRate(@PathVariable(value = "id") Long id, Model model) {
 		Rate rate = rateService.getRateById(id);
 		model.addAttribute("rate", rate);
 		return "";
 	}
 	
 	@GetMapping("/deleteRate/{id}")
-	public String deleteRate(@PathVariable(value = "id") RateId id) {
+	public String deleteRate(@PathVariable(value = "id") Long id) {
 		this.rateService.deleteRateById(id);
 		return "";
 	}

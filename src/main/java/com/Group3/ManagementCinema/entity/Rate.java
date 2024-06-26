@@ -2,28 +2,41 @@ package com.Group3.ManagementCinema.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="danhGia")
-@IdClass(RateId.class)
 public class Rate {
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idDanhGia;
+	
 	@ManyToOne
 	@JoinColumn(name = "tai_khoan_email")
 	private Account taiKhoan;
 	
-	@Id
     @ManyToOne
     @JoinColumn(name = "phim_idPhim")
     private Movie phim;
-	
-	@Column(name = "noiDung")
-	private String noiDung;
+    
+    @Column(name = "diem")
+    private int diem;
+    
+	@Column(name = "binhLuan")
+	private String binhLuan;
+
+	public Long getId() {
+		return idDanhGia;
+	}
+
+	public void setId(Long id) {
+		this.idDanhGia = id;
+	}
 
 	public Account getTaiKhoan() {
 		return taiKhoan;
@@ -41,12 +54,20 @@ public class Rate {
 		this.phim = phim;
 	}
 
-	public String getNoiDung() {
-		return noiDung;
+	public int getDiem() {
+		return diem;
 	}
 
-	public void setNoiDung(String noiDung) {
-		this.noiDung = noiDung;
+	public void setDiem(int diem) {
+		this.diem = diem;
+	}
+
+	public String getBinhLuan() {
+		return binhLuan;
+	}
+
+	public void setBinhLuan(String binhLuan) {
+		this.binhLuan = binhLuan;
 	}
 
 	public Rate() {
@@ -54,10 +75,13 @@ public class Rate {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Rate(Account taiKhoan, Movie phim, String noiDung) {
+	public Rate(Long idDanhGia, Account taiKhoan, Movie phim, int diem, String binhLuan) {
 		super();
+		this.idDanhGia = idDanhGia;
 		this.taiKhoan = taiKhoan;
 		this.phim = phim;
-		this.noiDung = noiDung;
+		this.diem = diem;
+		this.binhLuan = binhLuan;
 	}
+
 }

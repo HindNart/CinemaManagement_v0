@@ -5,15 +5,13 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.Group3.ManagementCinema.entity.Rate;
-import com.Group3.ManagementCinema.entity.RateId;
 
 public interface RateService {
 	List<Rate> getAllRates();
-	Rate getRateById(RateId key);
-	void deleteRateById(RateId id);
+	Rate getRateById(Long id);
+	void deleteRateById(Long id);
 	Page<Rate> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	void saveRate(Rate rate);
-	void saveRate(String email, String idPhim, String noiDung);
+	void saveRate(Long idDanhGia, String email, String idPhim, int diem, String binhLuan);
 	long countRate();
-	
 }

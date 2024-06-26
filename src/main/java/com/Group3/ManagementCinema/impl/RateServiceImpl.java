@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.Group3.ManagementCinema.entity.Account;
 import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.entity.Rate;
-import com.Group3.ManagementCinema.entity.RateId;
 import com.Group3.ManagementCinema.repository.AccountRepository;
 import com.Group3.ManagementCinema.repository.MovieRepository;
 import com.Group3.ManagementCinema.repository.RateRepository;
@@ -32,7 +31,7 @@ public class RateServiceImpl implements RateService {
 	}
 
 	@Override
-	public Rate getRateById(RateId id) {
+	public Rate getRateById(Long id) {
 		// TODO Auto-generated method stub
 		Optional < Rate > optional = rateRepository.findById(id);
 		Rate rate = null;
@@ -43,7 +42,7 @@ public class RateServiceImpl implements RateService {
 	}
 
 	@Override
-	public void deleteRateById(RateId id) {
+	public void deleteRateById(Long id) {
 		// TODO Auto-generated method stub
 		this.rateRepository.deleteById(id);
 	}
@@ -61,12 +60,12 @@ public class RateServiceImpl implements RateService {
 	}
 
 	@Override
-	public void saveRate(String email, String idPhim, String noiDung) {
+	public void saveRate(Long idDanhGia, String email, String idPhim, int diem, String binhLuan) {
 		// TODO Auto-generated method stub
 		Account taiKhoan = accountRepository.findById(email).orElseThrow(() -> new RuntimeException("Account not found"));
 		Movie phim = movieRepository.findById(idPhim).orElseThrow(() -> new RuntimeException("Movie not found"));
 
-		Rate rate = new Rate(taiKhoan, phim, noiDung);
+		Rate rate = new Rate(idDanhGia, taiKhoan, phim, diem, binhLuan);
       
 		rateRepository.save(rate);
 	}
