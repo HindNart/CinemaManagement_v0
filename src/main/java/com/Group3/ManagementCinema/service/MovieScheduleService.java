@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.Group3.ManagementCinema.entity.CinemaRoom;
+import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
 
 public interface MovieScheduleService {
@@ -16,5 +18,6 @@ public interface MovieScheduleService {
 	void saveMovieSchedule(String idLichChieu, String phongChieuId, String phimId, String thoigianBD, String thoigianKT,
 			java.util.Date ngayChieu);
 	long countMovieSchedule();
-	List <MovieSchedule> checkMS(Date date, String tgbd, String tgkt);
+	MovieSchedule checkMS(Date date, String tgbd, String tgkt, CinemaRoom phongchieu);
+	List<MovieSchedule> findByIdphim(Movie phim);
 }

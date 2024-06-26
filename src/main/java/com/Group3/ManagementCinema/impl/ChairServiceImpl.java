@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.Group3.ManagementCinema.entity.Chair;
+import com.Group3.ManagementCinema.entity.CinemaRoom;
 import com.Group3.ManagementCinema.repository.ChairRepository;
 import com.Group3.ManagementCinema.service.ChairService;
 @Service
@@ -44,6 +45,12 @@ public class ChairServiceImpl implements ChairService{
 	public Page<Chair> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Chair> findAllByIdPhong(CinemaRoom loaiPhongKeyword) {
+		// TODO Auto-generated method stub
+		return chairRepository.findByIdPhong(loaiPhongKeyword);
 	}
 
 }
