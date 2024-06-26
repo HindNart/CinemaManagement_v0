@@ -41,7 +41,7 @@ public class MovieScheduleController {
 	
 	@PostMapping("/saveMovieSchedule")
 	public String saveMovieSchedule(@ModelAttribute("movieSchedule") MovieSchedule movieSchedule, Model model) {
-		if (movieScheduleService.checkMS(movieSchedule.getNgayChieu(),  movieSchedule.getThoigianBD(),  movieSchedule.getThoigianKT()) != null) {
+		if (movieScheduleService.checkMS(movieSchedule.getNgayChieu(),  movieSchedule.getThoigianBD(),  movieSchedule.getThoigianKT(), movieSchedule.getPhongChieu()) != null) {
 			model.addAttribute("exists", true);
 			return "movieSchedule/movieSchedule_new";
 		}else {

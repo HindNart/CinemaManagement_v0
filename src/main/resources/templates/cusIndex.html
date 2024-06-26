@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="./img/film.png" />
     <link rel="stylesheet" href="/css/cusStyle.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <title>Đặt vé xem phim</title>
+    <style>
+    </style>
 </head>
 
 <body>
-    <div class="container">
+    <div>
         <div id="header">
             <div class="navbar">
                 <div class="logo"></div>
@@ -24,22 +28,21 @@
                         </li>
                         <li>Phim chiếu</li>
                         <li>Review phim</li>
-                        
                     </ul>
                 </div>
-                <div class="user flex ">
-	                <div class="user-avt">
-	                    <img class="brr-50" src="/img/phim1.jpg" alt="" width="50px" height="50px">
-	                </div>
-	                <div class="user-name nav-dropdown">
-	                    <span th:if="${account!=null}"><p th:text="${account.username}"> </p></span> 
-	                    <i class="bi bi-chevron-compact-down"></i>
-	                    <div class="dropdown-content">
-	                        <a href="#">Thông tin</a>
-	                        <a th:href="@{/login}">Đăng xuất</a>
-	                    </div>
-	                </div>
-	            </div>
+                <div class="user flex">
+                    <div class="user-avt">
+                        <img class="brr-50" src="/img/phim1.jpg" alt="" width="50px" height="50px">
+                    </div>
+                    <div class="user-name nav-dropdown">
+                        <span th:if="${account != null}"><p th:text="${account.username}"></p></span>
+                        <i class="bi bi-chevron-compact-down"></i>
+                        <div class="dropdown-content">
+                            <a href="#">Thông tin</a>
+                            <a th:href="@{/login}">Đăng xuất</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="banner">
                 <div class="banner-content">
@@ -47,8 +50,7 @@
                     <ul class="banner-content-list">
                         <li>
                             <div class="banner-content-icon">✔️</div>
-                            <p>Mua vé online, <b>trải nghiệm phim hay</b>
-                            </p>
+                            <p>Mua vé online, <b>trải nghiệm phim hay</b></p>
                         </li>
                         <li>
                             <div class="banner-content-icon">✔️</div>
@@ -56,17 +58,17 @@
                         </li>
                         <li>
                             <div class="banner-content-icon">✔️</div>
-                            <p>Tha hồ<b> chọn chỗ ngồi, mua bắp nước </b> tiện
-                                lợi</p>
+                            <p>Tha hồ<b> chọn chỗ ngồi, mua bắp nước </b> tiện lợi</p>
                         </li>
                         <li>
                             <div class="banner-content-icon">✔️</div>
-                            <p><b>Lịch sử đặt vé</b> được lưu lại ngay </p>
+                            <p><b>Lịch sử đặt vé</b> được lưu lại ngay</p>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
+		
         <div id="now-showing">
             <div class="now-showing-background">
                 <div class="now-showing-title">
@@ -75,59 +77,21 @@
                 <img src="./img/momo-upload-api-210701105436-637607336767432408.jpg" alt="">
             </div>
             <div class="now-showing-list">
-                <div class="now-showing-items">
-                    <div class="now-showing-img"><a href="./film.html"><img src="./img/phim1.jpg" alt=""></a></div>
+                <div class="now-showing-items"  th:each="movie:${movies}">
+                    <div class="now-showing-img">
+                        <a th:href="@{/film/{id}(id=${movie.idPhim})}"><img th:src="${movie.LinkPoster}" alt="" width="200px" height="300px"></a>
+                    </div>
                     <div class="now-showing-name">
-                        <p>Doraemon: Nobita và bản giao hưởng Địa Cầu</p>
+                        <p th:text="${movie.tenPhim}"></p>
                     </div>
                     <div class="now-showing-category">
-                        <p>Phiêu lưu, Hoạt hình, Khoa học - Viễn tưởng, Âm Nhạc, Giả tưởng</p>
-                    </div>
-                    <div class="now-showing-rate">🌟9.1</div>
-                </div>
-                <div class="now-showing-items">
-                    <div class="now-showing-img"><img src="./img/phim1.jpg" alt=""></div>
-                    <div class="now-showing-name">
-                        <p>Doraemon: Nobita và bản giao hưởng Địa Cầu</p>
-                    </div>
-                    <div class="now-showing-category">
-                        <p>Phiêu lưu, Hoạt hình, Khoa học - Viễn tưởng, Âm Nhạc, Giả tưởng</p>
-                    </div>
-                    <div class="now-showing-rate">🌟9.1</div>
-                </div>
-                <div class="now-showing-items">
-                    <div class="now-showing-img"><img src="./img/phim1.jpg" alt=""></div>
-                    <div class="now-showing-name">
-                        <p>Doraemon: Nobita và bản giao hưởng Địa Cầu</p>
-                    </div>
-                    <div class="now-showing-category">
-                        <p>Phiêu lưu, Hoạt hình, Khoa học - Viễn tưởng, Âm Nhạc, Giả tưởng</p>
-                    </div>
-                    <div class="now-showing-rate">🌟9.1</div>
-                </div>
-                <div class="now-showing-items">
-                    <div class="now-showing-img"><img src="./img/phim1.jpg" alt=""></div>
-                    <div class="now-showing-name">
-                        <p>Doraemon: Nobita và bản giao hưởng Địa Cầu</p>
-                    </div>
-                    <div class="now-showing-category">
-                        <p>Phiêu lưu, Hoạt hình, Khoa học - Viễn tưởng, Âm Nhạc, Giả tưởng</p>
-                    </div>
-                    <div class="now-showing-rate">🌟9.1</div>
-                </div>
-                <div class="now-showing-items">
-                    <div class="now-showing-img"><img src="./img/phim1.jpg" alt=""></div>
-                    <div class="now-showing-name">
-                        <p>Doraemon: Nobita và bản giao hưởng Địa Cầu</p>
-                    </div>
-                    <div class="now-showing-category">
-                        <p>Phiêu lưu, Hoạt hình, Khoa học - Viễn tưởng, Âm Nhạc, Giả tưởng</p>
+                        <p th:text="${movie.theLoai}"></p>
                     </div>
                     <div class="now-showing-rate">🌟9.1</div>
                 </div>
             </div>
-
         </div>
+
         <div id="up-coming">
             <div class="upComing-title">
                 <h1 style="color: black;">Phim sắp chiếu</h1>
@@ -195,16 +159,12 @@
                 </div>
             </div>
         </div>
-        <div id="show-schedule">
 
-        </div>
+        <div id="show-schedule"></div>
         <div id="cinema"></div>
         <div id="footer">
             <p>©Copyright by Huy</p>
         </div>
     </div>
-
-
 </body>
-
 </html>
