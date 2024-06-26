@@ -16,5 +16,5 @@ public interface MovieScheduleService {
 	void saveMovieSchedule(String idLichChieu, String phongChieuId, String phimId, String thoigianBD, String thoigianKT,
 			java.util.Date ngayChieu);
 	long countMovieSchedule();
-	MovieSchedule checkMS(Date date, String tgbd, String tgkt);
+	List <MovieSchedule> checkMS(Date date, String tgbd, String tgkt);
 }

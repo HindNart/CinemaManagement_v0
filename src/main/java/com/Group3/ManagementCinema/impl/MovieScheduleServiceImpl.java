@@ -35,6 +35,12 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	}
 
 	@Override
+	public void saveMovieSchedule(MovieSchedule movieSchedule) {
+		this.movieScheduleRepository.save(movieSchedule);
+		
+	}
+	
+	@Override
 	public void saveMovieSchedule(String idLichChieu, String phongChieuId, String phimId, String thoigianBD, String thoigianKT, Date ngayChieu) {
 		CinemaRoom phongChieu = cinemaRoomRepository.findById(phongChieuId).orElseThrow(() -> new RuntimeException("CinemaRoom not found"));
 		Movie phim = movieRepository.findById(phimId).orElseThrow(() -> new RuntimeException("Movie not found"));
@@ -67,12 +73,7 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	}
 
 	@Override
-	public void saveMovieSchedule(MovieSchedule movieSchedule) {
-		this.movieScheduleRepository.save(movieSchedule);
-		
-	}
-	@Override
-	public MovieSchedule checkMS(java.sql.Date date, String tgbd, String tgkt) {
+	public List<MovieSchedule> checkMS(java.sql.Date date, String tgbd, String tgkt) {
 		// TODO Auto-generated method stub
 		return movieScheduleRepository.findByNgayChieuAndThoigianBDAndThoigianKT(date, tgbd, tgkt);
 	}
