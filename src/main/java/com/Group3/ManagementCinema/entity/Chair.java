@@ -2,36 +2,36 @@ package com.Group3.ManagementCinema.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "ghe")
 public class Chair {
-	@Id
-	@Column(name = "idGhe")
-	private int idGhe;
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long idGhe;
 	
 	@ManyToOne
 	@JoinColumn(name = "idPhong", nullable = false)
 	private CinemaRoom idPhong;
 	
 	@Column(name = "hangGhe")
-	private int hangGhe;
+	private String hangGhe;
 	
-	@Column(name = "loaiGhe")
-	private String loaiGhe;
+	@ManyToOne
+	@JoinColumn(name = "loaiGhe", nullable = false)
+	private ChairPrice loaiGhe;
 
 	@Column(name = "trangThai")
 	private int trangThai;
 	
-	@Column(name = "gia")
-	private float gia;
 	
-	public int getIdGhe() {
+	public long getIdGhe() {
 		return idGhe;
 	}
 
@@ -47,19 +47,19 @@ public class Chair {
 		this.idPhong = idPhong;
 	}
 
-	public int getHangGhe() {
+	public String getHangGhe() {
 		return hangGhe;
 	}
 
-	public void setHangGhe(int hangGhe) {
+	public void setHangGhe(String hangGhe) {
 		this.hangGhe = hangGhe;
 	}
 
-	public String getLoaiGhe() {
+	public ChairPrice getLoaiGhe() {
 		return loaiGhe;
 	}
 
-	public void setLoaiGhe(String loaiGhe) {
+	public void setLoaiGhe(ChairPrice loaiGhe) {
 		this.loaiGhe = loaiGhe;
 	}
 
@@ -71,12 +71,22 @@ public class Chair {
 		this.trangThai = trangThai;
 	}
 
-	public float getGia() {
-		return gia;
+	public Chair(long idGhe, CinemaRoom idPhong, String hangGhe, ChairPrice loaiGhe, int trangThai) {
+		super();
+		this.idGhe = idGhe;
+		this.idPhong = idPhong;
+		this.hangGhe = hangGhe;
+		this.loaiGhe = loaiGhe;
+		this.trangThai = trangThai;
 	}
 
-	public void setGia(float gia) {
-		this.gia = gia;
+	public void setIdGhe(long idGhe) {
+		this.idGhe = idGhe;
+	}
+
+	public Chair() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 }

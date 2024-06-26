@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,18 +12,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Group3.ManagementCinema.entity.Chair;
+import com.Group3.ManagementCinema.entity.CinemaRoom;
+import com.Group3.ManagementCinema.entity.Movie;
+import com.Group3.ManagementCinema.entity.MovieSchedule;
 import com.Group3.ManagementCinema.service.ChairService;
+import com.Group3.ManagementCinema.service.CinemaRoomService;
+import com.Group3.ManagementCinema.service.MovieScheduleService;
+import com.Group3.ManagementCinema.service.MovieService;
 
 
 @Controller
 public class ChairController {
 	@Autowired
 	private ChairService chairService;// display list of movies
+    @Autowired
+    private MovieScheduleService moviescheduleService;
+    @Autowired
+    private CinemaRoomService cinemaroomService;
+
+    @Autowired
+    private MovieService movieService;
+	@GetMapping("/newChair")
+	public String newChair(Model model) {
+		Chair chair = new Chair();
+		model.addAttribute("chair",chair);
+		return "/chair/chair_new";
+	}
 	
-	@GetMapping("/chair")
-	public String viewchair(Model model) {
-		model.addAttribute("listchair", chairService.getAllChair());
-		return "/chair/chair";
+	@GetMapping("/showBuyTicket/{id}")
+	public String viewHomePage(@PathVariable(value = "id") String id,Model model) {
+//		model.addAttribute("listCinemaRooms", cinemaRoomService.getAllCinemaRooms());
+		MovieSchedule sche = moviescheduleService.getMovieScheduleById(id);
+		CinemaRoom room = cinemaroomService.getCinemaRoomById(sche.getPhongChieu().getIdPhong());
+		Movie movie = movieService.getMovieById(sche.getPhim().getIdPhim());
+		List<Chair> chair = chairService.findAllByIdPhong(room);
+		model.addAttribute("sche", sche);
+		model.addAttribute("movie", movie);
+		model.addAttribute("cinemaRoom", room);
+		model.addAttribute("chairs", chair);
+		return "buyticket";
 	}
 	
 	@GetMapping("/searchchair")

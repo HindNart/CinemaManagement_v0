@@ -3,48 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/css/filmStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+	    document.addEventListener("DOMContentLoaded", function () {
+	        var modalToggleButtons = document.querySelectorAll('.schedule-time-item');
+	        
+	
+	        modalToggleButtons.forEach(button => {
+	            button.addEventListener('click', function () {
+	                var startTime = button.getAttribute('data-start-time');
+	                var endTime = button.getAttribute('data-end-time');
+	                var showTime = button.getAttribute('data-show-time');
+	                var room = button.getAttribute('data-room');
+	                var roomType = button.getAttribute('data-room-type');
+	                // Update content in the modal
+	                var modalTimeElement = document.getElementById("timeSchedule");
+	                modalTimeElement.value = startTime + ' ~ ' + endTime;
+	                
+	                var modalTimeElement2 = document.getElementById("showTime");
+	                modalTimeElement2.value = showTime;
+	                
+	                var modalTimeElement3 = document.getElementById("showRoom");
+	                modalTimeElement3.textContent = room;
+	                
+	                var modalTimeElement3 = document.getElementById("roomType");
+	                modalTimeElement3.textContent = roomType;
+	                // Close the dropdown if it's open (optional)
+	                var dropdown = document.querySelector('.dropdown-content');
+	                dropdown.classList.remove('show');
+	
+	                // Optionally, you can trigger the modal opening programmatically
+	                var modalToggle = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
+	                modalToggle.show();
+	            });
+	        });
+	    });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let listChoosen = document.getElementById("seat-chosens");
+
+            function addSeat(button) {
+                var chairValue = button.value;
+
+                // Kiểm tra xem ghế đã được chọn hay chưa
+                var existingSeats = listChoosen.querySelectorAll(".seat-chosen");
+                for (var i = 0; i < existingSeats.length; i++) {
+                    if (existingSeats[i].textContent === chairValue) {
+                        alert("Ghế này đã được chọn!");
+                        return;
+                    }
+                }
+
+                // Tạo một phần tử mới để chứa thông tin ghế
+                let seat = document.createElement("div");
+                seat.className = "seat-chosen";
+                seat.textContent = chairValue;
+                listChoosen.appendChild(seat);
+                seat.addEventListener("click", function () {
+                    listChoosen.removeChild(seat);
+                });
+            }
+
+            // Gán hàm addSeat cho các nút ghế
+            var seatButtons = document.querySelectorAll(".normal-seat, .vip-seat, .couple-seat");
+            seatButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    addSeat(button);
+                });
+            });
+        });
+        function loadContent(fragment) {
+            fetch(fragment)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading content:', error));
+        }
+    </script>
 </head>
 <body>
-	<div class="buy-title">
+	
+    <form action="" class="container">
+        <div aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" id="content">
+                	<div class="buy-title">
                         <p><b>Mua vé xem phim</b></p>
                     </div>
-    <div class="buy-section">
+    			<div class="buy-section">
                         <div class="buy-ticket">
                             <div class="seat-section">
-                                <div class="seat-row">
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
+                                <div class="seat-row"> 
+                                    <div><input onclick="addSeat(this)" type="button" class="normal-seat">
                                     </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A2" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A3" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A4" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A5" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A6" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A7" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-
                                 </div>
                                 <div class="seat-row">
                                     <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
@@ -191,19 +245,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="ticket-details">
+                            <div class="ticket-details">                           	
                                 <p>
-                                <p class="ageFilm margin-tb-10">P</p> Doraemon: Nobita và bản giao hưởng Địa Cầu</p>
-                                <p style="color: rgb(220, 137, 35);">13:50 ~ 16:02 • Hôm nay, 10/06 • Phòng chiếu P3 2D
-                                    • Lồng tiếng</p>
-                                <div class="seat-chose flex spc-btw ">
+                                <p class="ageFilm margin-tb-10">P</p><input type="text" disabled th:value="${movie.tenPhim}" style="display:inline;">
+                                <p style="color: rgb(220, 137, 35);">
+                                <span th:text="${sche.ngayChieu}"></span>
+                                <span> • <span th:text="${sche.thoigianBD}"> </span> ~ <span th:text="${sche.thoigianKT}"></span> • Phòng chiếu <span th:text="${sche.phongChieu.idPhong}"></span> <span th:text="${sche.phongChieu.loaiPhong}"></span>  </span></p>
+                                <div class="seat-chose flex spc-btw">
                                     <p class="mb-2">Chỗ ngồi</p>
                                     <div id="seat-chosens" class=" flex spc-btw">
                                     </div>
-
-
                                 </div>
-
                                 <div class="flex spc-btw ">
                                     <div class="money">
                                         <p>Tạm tính</p>
@@ -217,6 +269,15 @@
                             </div>
                         </div>
                     </div>
-                
+                	
+   
+				
+                	
+                 </div>
+            </div>
+        </div>
+    </form>
+
+	             
 </body>
 </html>
