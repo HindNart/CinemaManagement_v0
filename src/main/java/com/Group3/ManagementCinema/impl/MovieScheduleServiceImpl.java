@@ -72,9 +72,14 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 		
 	}
 	@Override
-	public MovieSchedule checkMS(java.sql.Date date, String tgbd, String tgkt) {
+	public MovieSchedule checkMS(java.sql.Date date, String tgbd, String tgkt, CinemaRoom phongchieu) {
 		// TODO Auto-generated method stub
-		return movieScheduleRepository.findByNgayChieuAndThoigianBDAndThoigianKT(date, tgbd, tgkt);
+		return movieScheduleRepository.findByNgayChieuAndThoigianBDAndThoigianKTAndPhongChieu(date, tgbd, tgkt,phongchieu);
+	}
+	@Override
+	public List<MovieSchedule> findByIdphim(Movie phim) {
+		// TODO Auto-generated method stub
+		return movieScheduleRepository.findByPhim(phim);
 	}
 	
 	

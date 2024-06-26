@@ -14,21 +14,30 @@ ul li {
     align-items: center;
 }
 
-/*Header*/
+.brr-50{
+    border-radius: 50%;
+}
+
+/* Header */
 
 .user {
     align-items: center;
+    margin-right: 20px;
 }
 
 .user-name {
     margin-left: 10px;
-    color: #ccc;
+    color: #000;
+}
+
+.user-name .dropdown-content {
+    max-width: 100px;
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
     margin: 0 10px;
     padding: 0 20px;
 }
@@ -51,7 +60,7 @@ ul li {
 
 .nav-dropdown .dropdown-content {
     display: none;
-    margin-top: 10px;
+    right: 10px;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
@@ -66,7 +75,8 @@ ul li {
     display: block;
 }
 
-.nav-dropdown:hover .dropdown-content {
+.nav-dropdown:hover .dropdown-content,
+.nav-dropdown .dropdown-content:hover {
     display: block;
 }
 
@@ -207,7 +217,6 @@ ul li {
     display: flex;
     justify-content: center;
 }
-
 
 #footer {
     background-color: #000;
