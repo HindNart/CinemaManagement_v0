@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ticket View</title>
+</head>
+<body>
+    <h1>Ticket</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Room</th>
+            <th>Movie</th>
+            <th>Account</th>
+            <th>Price</th>
+            <th>Purchase Time</th>
+        </tr>
+        <tr>
+            <td th:text="${ticket.idVe}"></td>
+            <td th:text="${ticket.lichChieu.phongChieu.idPhong}"></td>
+            <td th:text="${ticket.lichChieu.phim.tenPhim}"></td>
+            <td th:text="${ticket.taiKhoan.email}"></td>
+            <td th:text="${ticket.gia}"></td>
+            <td th:text="${#dates.format(ticket.thoigianMua, 'dd-MM-yyyy HH:mm')}"></td>
+        </tr>
+    </table>
+</body>
+</html>

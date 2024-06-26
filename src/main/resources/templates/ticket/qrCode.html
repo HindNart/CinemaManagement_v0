@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ticket View</title>
+</head>
+<body>
+    <h1>Ticket</h1>
+    <div>
+        <img th:src="@{/qrcode/{id}(id=${ticket.idVe})}" alt="QR Code" />
+    </div>
+</body>
+</html>

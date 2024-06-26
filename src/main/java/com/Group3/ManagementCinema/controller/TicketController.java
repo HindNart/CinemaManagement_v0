@@ -1,5 +1,12 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
+
+import javax.imageio.ImageIO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,24 +14,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.Group3.ManagementCinema.entity.Account;
-import com.Group3.ManagementCinema.entity.MovieSchedule;
 import com.Group3.ManagementCinema.entity.Ticket;
-import com.Group3.ManagementCinema.service.AccountService;
-import com.Group3.ManagementCinema.service.MovieScheduleService;
 import com.Group3.ManagementCinema.service.TicketService;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 
 @Controller
 public class TicketController {
 	@Autowired
 	private TicketService ticketService;
-	@Autowired
-	private MovieScheduleService movieScheduleService;
-	@Autowired
-	private AccountService accountService;
 	
 	@GetMapping("/tickets")
 	public String viewTicket(Model model) {
@@ -37,46 +43,33 @@ public class TicketController {
         // create model attribute to bind form data
         Ticket ticket = new Ticket();
         model.addAttribute("ticket", ticket);
-        return "";
+        return "/ticket/ticket_new";
     } 
 	
-	@GetMapping("/searchTicketById")
-	public String searchTicketById(@RequestParam("id") String id, Model model) {
+	@GetMapping("/qrTicket/{id}")
+	public String qrTicket(@PathVariable(value = "id") String id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
 		model.addAttribute("ticket", ticket);
-		return "";
+		return "/ticket/qrCode";
+	}
+	
+	@GetMapping("/searchTicketById/{id}")
+	public String searchTicketById(@PathVariable(value = "id") String id, Model model) {
+		Ticket ticket = ticketService.getTicketById(id);
+		model.addAttribute("ticket", ticket);
+		return "/ticket/ticket";
 	}
 	
 	@PostMapping("/saveTicket")
     public String saveTicket(@ModelAttribute("ticket") Ticket ticket, RedirectAttributes redirectAttributes) {
-		Ticket existTicket = ticketService.getTicketById(ticket.getIdVe());
-		MovieSchedule existMovieSchedule = null;
-		Account existAccount = null;
-		if (existTicket == null) {
-			try {
-				existMovieSchedule = movieScheduleService.getMovieScheduleById(ticket.getLichChieu().getIdLichChieu());
-				existAccount = accountService.getAccountById(ticket.getTaiKhoan().getEmail());	
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			if (existMovieSchedule == null) {
-	    		redirectAttributes.addFlashAttribute("message", "Thêm vé thất bại. Lịch chiếu không tồn tại!");
-	    	} else if (existAccount == null) {
-	    		redirectAttributes.addFlashAttribute("message", "Thêm vé thất bại!");
-			} else if (existMovieSchedule != null && existAccount != null) {
-				ticketService.saveTicket( 
+		
+		Ticket newTicket = ticketService.saveTicket( 
 	        			ticket.getIdVe(),
 	        			ticket.getLichChieu().getIdLichChieu(),
 	        			ticket.getTaiKhoan().getEmail(),
 			            ticket.getGia(),
 			            ticket.getThoigianMua());
-	            redirectAttributes.addFlashAttribute("message", "Thêm vé thành công!");
-	        }
-		}
-		else {
-        	redirectAttributes.addFlashAttribute("message", "Thêm vé thất bại. Vé đã tồn tại!");
-        }
-        return "";
+		return "redirect:/qrTicket/" + newTicket.getIdVe();
     }
 	
 	@PostMapping("/updateTicket")
@@ -96,5 +89,19 @@ public class TicketController {
 	public String deleteTicket(@PathVariable(value = "id") String id) {
 		this.ticketService.deleteTicketById(id);
 		return "";
+	}
+	
+	@GetMapping("/qrcode/{id}")
+    public void generateQRCode(@PathVariable(value = "id") String id, HttpServletResponse response) throws IOException {
+        String url = "localhost:8080/searchTicketById/" + id;
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix;
+        try {
+            bitMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
+        } catch (WriterException e) {
+            throw new IOException("Could not generate QR Code", e);
+        }
+        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", response.getOutputStream());
+    
 	}
 }

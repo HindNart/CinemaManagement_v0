@@ -40,7 +40,7 @@ public class MovieController {
 	public String searchMovieById(@RequestParam("id") String id, Model model) {
 		Movie movie = movieService.getMovieById(id);
 		model.addAttribute("movie", movie);
-		return "movie_search";
+		return "/movie/movie_search";
 	}
 	
 	@GetMapping("/searchMovie")

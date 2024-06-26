@@ -60,14 +60,14 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public void saveTicket(String idVe, String lichChieuId, String email, float gia, java.sql.Date thoigianMua) {
+	public Ticket saveTicket(String idVe, String lichChieuId, String email, float gia, java.sql.Date thoigianMua) {
 		// TODO Auto-generated method stub
 		MovieSchedule lichChieu = movieScheduleRepository.findById(lichChieuId).orElseThrow(() -> new RuntimeException("MovieSchedule not found"));
 		Account taiKhoan = accountRepository.findById(email).orElseThrow(() -> new RuntimeException("Account not found"));
 
 		Ticket ticket = new Ticket(idVe, lichChieu, taiKhoan, gia, thoigianMua);
       
-		ticketRepository.save(ticket);
+		return ticketRepository.save(ticket);
 	}
 	
 	@Override
