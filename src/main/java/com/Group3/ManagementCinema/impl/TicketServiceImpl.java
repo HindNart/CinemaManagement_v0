@@ -31,9 +31,9 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public Ticket getTicketById(String id) {
+	public Ticket getTicketById(long id) {
 		// TODO Auto-generated method stub
-		Optional < Ticket > optional = ticketRepository.findById(id);
+		Optional < Ticket > optional = ticketRepository.findById( (int) id);
 		Ticket ticket = null;
 		if (optional.isPresent()) {
 			ticket = optional.get();
@@ -42,9 +42,9 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public void deleteTicketById(String id) {
+	public void deleteTicketById(long id) {
 		// TODO Auto-generated method stub
-		this.ticketRepository.deleteById(id);
+		this.ticketRepository.deleteById( (int) id);
 	}
 	
 	@Override
@@ -60,7 +60,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public void saveTicket(String idVe, String lichChieuId, String email, float gia, java.sql.Date thoigianMua) {
+	public void saveTicket(long idVe, String lichChieuId, String email, float gia, java.sql.Date thoigianMua) {
 		// TODO Auto-generated method stub
 		MovieSchedule lichChieu = movieScheduleRepository.findById(lichChieuId).orElseThrow(() -> new RuntimeException("MovieSchedule not found"));
 		Account taiKhoan = accountRepository.findById(email).orElseThrow(() -> new RuntimeException("Account not found"));

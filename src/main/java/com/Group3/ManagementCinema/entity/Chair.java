@@ -30,9 +30,29 @@ public class Chair {
 	@Column(name = "trangThai")
 	private int trangThai;
 	
+	@Column(name = "gheSo")
+	private int gheSo;
 	
 	public long getIdGhe() {
 		return idGhe;
+	}
+
+	public Chair(long idGhe, CinemaRoom idPhong, String hangGhe, ChairPrice loaiGhe, int trangThai, int gheSo) {
+		super();
+		this.idGhe = idGhe;
+		this.idPhong = idPhong;
+		this.hangGhe = hangGhe;
+		this.loaiGhe = loaiGhe;
+		this.trangThai = trangThai;
+		this.gheSo = gheSo;
+	}
+
+	public int getGheSo() {
+		return gheSo;
+	}
+
+	public void setGheSo(int gheSo) {
+		this.gheSo = gheSo;
 	}
 
 	public void setIdGhe(int idGhe) {
@@ -68,15 +88,6 @@ public class Chair {
 	}
 
 	public void setTrangThai(int trangThai) {
-		this.trangThai = trangThai;
-	}
-
-	public Chair(long idGhe, CinemaRoom idPhong, String hangGhe, ChairPrice loaiGhe, int trangThai) {
-		super();
-		this.idGhe = idGhe;
-		this.idPhong = idPhong;
-		this.hangGhe = hangGhe;
-		this.loaiGhe = loaiGhe;
 		this.trangThai = trangThai;
 	}
 

@@ -39,19 +39,6 @@ public class ChairController {
 		return "/chair/chair_new";
 	}
 	
-	@GetMapping("/showBuyTicket/{id}")
-	public String viewHomePage(@PathVariable(value = "id") String id,Model model) {
-//		model.addAttribute("listCinemaRooms", cinemaRoomService.getAllCinemaRooms());
-		MovieSchedule sche = moviescheduleService.getMovieScheduleById(id);
-		CinemaRoom room = cinemaroomService.getCinemaRoomById(sche.getPhongChieu().getIdPhong());
-		Movie movie = movieService.getMovieById(sche.getPhim().getIdPhim());
-		List<Chair> chair = chairService.findAllByIdPhong(room);
-		model.addAttribute("sche", sche);
-		model.addAttribute("movie", movie);
-		model.addAttribute("cinemaRoom", room);
-		model.addAttribute("chairs", chair);
-		return "buyticket";
-	}
 	
 	@GetMapping("/searchchair")
 	public String searchMovieSchedule(@RequestParam("id") int id, Model model) {

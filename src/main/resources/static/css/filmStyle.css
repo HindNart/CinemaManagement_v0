@@ -167,7 +167,7 @@ p {
 /* CSS Buy ticket */
 
 .buy-ticket {
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
 }
 
@@ -186,7 +186,7 @@ p {
 .seat-section {
     background-color: black;
     padding: 20px;
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto !important;
 }
 
@@ -194,6 +194,9 @@ p {
     display: flex;
     margin: 10px 0;
     justify-content: center;
+}
+.seat-row input{	
+    min-width: 40px;
 }
 
 .normal-seat {
@@ -203,8 +206,10 @@ p {
     border-radius: 5px;
     margin: 0 10px;
     cursor: pointer;
-    min-width: 30px;
     border: none;
+}
+.selected-seat {
+        background-color: #D630BD !important; /* Màu vàng để biểu thị ghế được chọn */
 }
 
 .vip-seat {
@@ -221,6 +226,17 @@ p {
 .couple-seat {
     color: white !important;
     background-color: rgb(144, 35, 82);
+    padding: 5px;
+    border-radius: 5px;
+    margin: 0 10px;
+    cursor: pointer;
+    min-width: 30px;
+    border: none;
+}
+
+.choosen-seat {
+    color: white !important;
+    background-color: #ccc;
     padding: 5px;
     border-radius: 5px;
     margin: 0 10px;
@@ -254,7 +270,6 @@ p {
     height: 1rem;
     background-color: #d630bd;
     margin-right: 5px;
-    border: 1px solid #fff;
 }
 
 .couple {

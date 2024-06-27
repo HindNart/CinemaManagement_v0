@@ -9,43 +9,29 @@
     <script>
 	    document.addEventListener("DOMContentLoaded", function () {
 	        var modalToggleButtons = document.querySelectorAll('.schedule-time-item');
-	        
-	
-	        modalToggleButtons.forEach(button => {
-	            button.addEventListener('click', function () {
-	                var startTime = button.getAttribute('data-start-time');
-	                var endTime = button.getAttribute('data-end-time');
-	                var showTime = button.getAttribute('data-show-time');
-	                var room = button.getAttribute('data-room');
-	                var roomType = button.getAttribute('data-room-type');
-	                // Update content in the modal
-	                var modalTimeElement = document.getElementById("timeSchedule");
-	                modalTimeElement.value = startTime + ' ~ ' + endTime;
-	                
-	                var modalTimeElement2 = document.getElementById("showTime");
-	                modalTimeElement2.value = showTime;
-	                
-	                var modalTimeElement3 = document.getElementById("showRoom");
-	                modalTimeElement3.textContent = room;
-	                
-	                var modalTimeElement3 = document.getElementById("roomType");
-	                modalTimeElement3.textContent = roomType;
-	                // Close the dropdown if it's open (optional)
-	                var dropdown = document.querySelector('.dropdown-content');
-	                dropdown.classList.remove('show');
-	
-	                // Optionally, you can trigger the modal opening programmatically
-	                var modalToggle = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
-	                modalToggle.show();
-	            });
-	        });
 	    });
 
         document.addEventListener("DOMContentLoaded", function () {
             let listChoosen = document.getElementById("seat-chosens");
-
+            let moneyCount = document.getElementById("moneyCount");
+            let totalAmount = 0;
+            
+           
+            
             function addSeat(button) {
                 var chairValue = button.value;
+                var price = button.getAttribute('chairPrice');
+                if (button.classList.contains("choosen-seat")) {
+                    alert("Ghế này đã được đặt!");
+                    return;
+                }
+                
+                var chairType = button.classList.contains("normal-seat") ? "normal" :
+                    button.classList.contains("vip-seat") ? "vip" :
+                    button.classList.contains("couple-seat") ? "couple" : null;
+    				var chairPrice = chairType === "normal" ? 50000 :
+                     chairType === "vip" ? 60000 :
+                     chairType === "couple" ? 120000 : 0;
 
                 // Kiểm tra xem ghế đã được chọn hay chưa
                 var existingSeats = listChoosen.querySelectorAll(".seat-chosen");
@@ -55,17 +41,29 @@
                         return;
                     }
                 }
+             // Cập nhật tổng số tiền
+                totalAmount += chairPrice;
+                moneyCount.value = totalAmount;
 
+
+             	// Thêm lớp để thay đổi màu nút ghế
+             	
+            	button.classList.add("selected-seat");
                 // Tạo một phần tử mới để chứa thông tin ghế
                 let seat = document.createElement("div");
                 seat.className = "seat-chosen";
                 seat.textContent = chairValue;
                 listChoosen.appendChild(seat);
+                
                 seat.addEventListener("click", function () {
                     listChoosen.removeChild(seat);
+
+                    totalAmount -= chairPrice;
+                    moneyCount.value = totalAmount;
+                    button.classList.remove("selected-seat");
                 });
             }
-
+            
             // Gán hàm addSeat cho các nút ghế
             var seatButtons = document.querySelectorAll(".normal-seat, .vip-seat, .couple-seat");
             seatButtons.forEach(button => {
@@ -82,141 +80,76 @@
                 })
                 .catch(error => console.error('Error loading content:', error));
         }
+     // Hàm để lấy ngày hiện tại và định dạng theo YYYY-MM-DD
+        function setCurrentDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0 nên phải +1
+            const day = String(today.getDate()).padStart(2, '0');
+
+            const formattedDate = `${year}-${month}-${day}`;
+
+            // Gán giá trị này vào thuộc tính value của input
+            document.getElementById('currentDate').value = formattedDate;
+        }
+
+        // Gọi hàm khi trang được tải
+        window.onload = setCurrentDate;
     </script>
 </head>
 <body>
-	
-    <form action="" class="container">
-        <div aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" id="content">
+    <div class="container">
                 	<div class="buy-title">
                         <p><b>Mua vé xem phim</b></p>
                     </div>
     			<div class="buy-section">
                         <div class="buy-ticket">
                             <div class="seat-section">
-                                <div class="seat-row"> 
-                                    <div><input onclick="addSeat(this)" type="button" class="normal-seat">
-                                    </div>
-                                </div>
+                               <div class="seat-row"> 
+								    <div th:each="chair : ${chairs}">
+								        <div  th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'A' and chair.trangThai == 0}">
+								        	<input type="button" th:value="${chair.hangGhe} + ${chair.gheSo}"  class="choosen-seat"/> 
+								        </div>
+								        <div th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'A' and chair.trangThai == 1}">
+								        	<input  onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" th:attr="chairPrice=${chair.loaiGhe.getGia}" class="normal-seat"/>
+								        </div>
+								    </div>
+								</div>
                                 <div class="seat-row">
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
+                                    <div th:each="chair : ${chairs}">
+								        <div>
+								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'B' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
+								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'B' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="normal-seat"/>
+								        </div>
+								    </div>
 
                                 </div>
                                 <div class="seat-row">
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="A1" class="normal-seat">
-                                    </div>
+                                    <div th:each="chair : ${chairs}">
+								        <div>								        	
+								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'C' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
+								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'C' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="vip-seat"/>
+								        </div>
+								    </div>
 
                                 </div>
                                 <div class="seat-row">
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                </div>
-                                <div class="seat-row">
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
-                                    <div><input onclick="addSeat(this)" type="button" value="B1" class="vip-seat"></div>
+                                    <div th:each="chair : ${chairs}">
+								        <div>								        	
+								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'D' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
+								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'D' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="vip-seat"/>
+								        </div>
+								    </div>
                                 </div>
                                 <div class="seat-row center-item">
-                                    <div><input onclick="addSeat(this)" type="button" value="D2-E2" class="couple-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="D2-E2" class="couple-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="D2-E2" class="couple-seat">
-                                    </div>
-                                    <div><input onclick="addSeat(this)" type="button" value="D2-E2" class="couple-seat">
-                                    </div>
+                                	<div th:each="chair : ${chairs}">
+								        <div>
+								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'couple' and chair.hangGhe == 'E' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
+								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'couple' and chair.hangGhe == 'E' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="couple-seat"/>
+								        </div>
+								    </div>
                                 </div>
-                                <div class="seat-details flex ">
+                                <div class="seat-details flex">
                                     <div class="seat-details-item">
                                         <div class="flex al-center">
                                             <div class="seat-black"></div>
@@ -256,28 +189,25 @@
                                     <div id="seat-chosens" class=" flex spc-btw">
                                     </div>
                                 </div>
-                                <div class="flex spc-btw ">
-                                    <div class="money">
-                                        <p>Tạm tính</p>
-                                        <p>60.00đ</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-primary pay-ticket" data-bs-target="#exampleModalToggle2"
-                                            data-bs-toggle="modal">Mua vé</button>
-                                    </div>
-                                </div>
+                                <form th:action="@{/saveTicket}" th:object="${ticket}" method="POST">
+	                                <div class="flex spc-btw ">
+	                                    <div class="money">
+	                                        <p>Tạm tính</p>
+	                                        <input type="text" th:field="*{gia}" name="gia" id="moneyCount" readonly/>                                        
+		                                    <input type="hidden" th:value="${account.email}" th:field="*{taiKhoan}" readonly/>
+		                                    <input type="hidden" th:field="*{lichChieu}" th:value="${sche.idLichChieu}"/>
+		                                    <input type="hidden" th:field="*{thoigianMua}" id="currentDate"readonly/>
+	                                    </div>
+	                                    <div class="">
+	                                        <input type="submit" class="btn btn-primary pay-ticket" value="Mua vé"/>
+	                                    </div>	                                
+	                                </div>
+    							</form>
                             </div>
                         </div>
+                        
                     </div>
-                	
-   
-				
-                	
                  </div>
-            </div>
-        </div>
-    </form>
-
 	             
 </body>
 </html>

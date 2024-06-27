@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -12,9 +14,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="ve")
 public class Ticket {
-	@Id
-	@Column(name = "idVe")
-	private String idVe;
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long idVe;
 	
 	@ManyToOne
     @JoinColumn(name = "lich_chieu_idLichChieu", nullable = false)
@@ -30,11 +32,11 @@ public class Ticket {
 	@Column(name = "thoigianMua")
 	private Date thoigianMua;
 
-	public String getIdVe() {
+	public long getIdVe() {
 		return idVe;
 	}
 
-	public void setIdVe(String idVe) {
+	public void setIdVe(long idVe) {
 		this.idVe = idVe;
 	}
 
@@ -75,7 +77,7 @@ public class Ticket {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Ticket(String idVe, MovieSchedule lichChieu, Account taiKhoan, float gia, Date thoigianMua) {
+	public Ticket(long idVe, MovieSchedule lichChieu, Account taiKhoan, float gia, Date thoigianMua) {
 		super();
 		this.idVe = idVe;
 		this.lichChieu = lichChieu;
