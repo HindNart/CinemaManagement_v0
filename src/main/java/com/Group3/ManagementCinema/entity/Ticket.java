@@ -1,6 +1,7 @@
 package com.Group3.ManagementCinema.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -26,14 +29,15 @@ public class Ticket {
 	@JoinColumn(name = "tai_khoan_email", nullable = false)
 	private Account taiKhoan;
 	
-	@ManyToOne
-	@JoinColumn(name = "ghe_idGhe", nullable = false)
-	private Chair ghe;
 	
 	@Column(name = "thoigianMua")
 	private Date thoigianMua;
 	
-	public Long getIdVe() {
+	@ManyToMany
+    @JoinTable(name = "ticket_chair",joinColumns = @JoinColumn(name = "ticket_id"),inverseJoinColumns = @JoinColumn(name = "chair_id"))
+    private List<Chair> ghe;
+
+	public long getIdVe() {
 		return idVe;
 	}
 
@@ -43,6 +47,14 @@ public class Ticket {
 
 	public MovieSchedule getLichChieu() {
 		return lichChieu;
+	}
+
+	public List<Chair> getGhe() {
+		return ghe;
+	}
+
+	public void setGhe(List<Chair> ghe) {
+		this.ghe = ghe;
 	}
 
 	public void setLichChieu(MovieSchedule lichChieu) {
@@ -57,11 +69,12 @@ public class Ticket {
 		this.taiKhoan = taiKhoan;
 	}
 
-	public Chair getGhe() {
-		return ghe;
-	}
-
-	public void setGhe(Chair ghe) {
+	public Ticket(long idVe, MovieSchedule lichChieu, Account taiKhoan, Date thoigianMua, List<Chair> ghe) {
+		super();
+		this.idVe = idVe;
+		this.lichChieu = lichChieu;
+		this.taiKhoan = taiKhoan;
+		this.thoigianMua = thoigianMua;
 		this.ghe = ghe;
 	}
 
@@ -77,14 +90,4 @@ public class Ticket {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public Ticket(Long idVe, MovieSchedule lichChieu, Account taiKhoan, Chair ghe, Date thoigianMua) {
-		super();
-		this.idVe = idVe;
-		this.lichChieu = lichChieu;
-		this.taiKhoan = taiKhoan;
-		this.ghe = ghe;
-		this.thoigianMua = thoigianMua;
-	}
-
 }

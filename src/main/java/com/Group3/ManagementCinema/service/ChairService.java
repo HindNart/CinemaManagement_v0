@@ -15,4 +15,5 @@ public interface ChairService {
 	void deleteChair(Long id);
 	Page<Chair> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	List<Chair> findAllByIdPhong(CinemaRoom loaiPhongKeyword);
+	Chair findByHangGheAndIdPhongAndGheSo(String hangghe, CinemaRoom idPhong, int gheSo);
 }

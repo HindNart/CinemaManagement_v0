@@ -67,6 +67,7 @@ public class TicketController {
 	@GetMapping("/qrTicket/{id}")
 	public String qrTicket(@PathVariable(value = "id") Long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
+		List<Chair> chair = ticket.getGhe();
 		model.addAttribute("ticket", ticket);
 		return "/ticket/qrCode";
 	}
@@ -81,14 +82,14 @@ public class TicketController {
 	@PostMapping("/saveTicket")
     public String saveTicket(@ModelAttribute("ticket") Ticket ticket) {
 		
-		Ticket newTicket = ticketService.saveTicket( 
-	        			ticket.getIdVe(),
-	        			ticket.getLichChieu().getIdLichChieu(),
-	        			ticket.getTaiKhoan().getEmail(),
-	        			ticket.getGhe().getIdGhe(),
-			            ticket.getThoigianMua());
+		Ticket newTicket = ticketService.saveTicket(ticket);
+		List<Chair> chair = ticket.getGhe();
+		for (Chair c : chair) {
+			c.setTrangThai(0);
+		}
+		ticketService.saveTicket(ticket);
 		return "redirect:/qrTicket/" + newTicket.getIdVe();
-    }
+	}
 	
 	@PostMapping("/updateTicket")
 	public String updateTicket(@ModelAttribute("ticket") Ticket ticket, Model model) {

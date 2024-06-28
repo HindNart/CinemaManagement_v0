@@ -41,7 +41,7 @@ public class TicketServiceImpl implements TicketService {
 		Optional < Ticket > optional = ticketRepository.findById(id);
 		Ticket ticket = null;
 		if (optional.isPresent()) {
-			ticket = optional.get();
+			ticket = (optional.get());
 		}
 		return ticket;
 	}
@@ -59,21 +59,8 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public void saveTicket(Ticket ticket) {
-		// TODO Auto-generated method stub
-		this.ticketRepository.save(ticket);
-	}
-	
-	@Override
-	public Ticket saveTicket(Long idVe, String lichChieuId, String email, Long idGhe, Date thoigianMua) {
-		// TODO Auto-generated method stub
-		MovieSchedule lichChieu = movieScheduleRepository.findById(lichChieuId).orElseThrow(() -> new RuntimeException("MovieSchedule not found"));
-		Account taiKhoan = accountRepository.findById(email).orElseThrow(() -> new RuntimeException("Account not found"));
-		Chair ghe = chairRepository.findById(idGhe).orElseThrow(() -> new RuntimeException("Chair not found"));
-		
-		Ticket ticket = new Ticket(idVe, lichChieu, taiKhoan, ghe, thoigianMua);
-      
-		return ticketRepository.save(ticket);
+	public Ticket saveTicket(Ticket ticket) {
+		return this.ticketRepository.save(ticket);
 	}
 	
 	@Override
@@ -81,4 +68,17 @@ public class TicketServiceImpl implements TicketService {
 		// TODO Auto-generated method stub
 		return ticketRepository.count();
 	}
+
+	@Override
+	public Ticket saveTicket(Long idVe, String lichChieuId, String email, Long idGhe, Date thoigianMua) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveTicket(long idVe, String lichChieuId, String email, float gia, Date thoigianMua, List<Chair> list) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
