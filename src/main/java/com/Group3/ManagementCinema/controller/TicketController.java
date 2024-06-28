@@ -41,14 +41,14 @@ public class TicketController {
     } 
 	
 	@GetMapping("/qrTicket/{id}")
-	public String qrTicket(@PathVariable(value = "id") String id, Model model) {
+	public String qrTicket(@PathVariable(value = "id") Long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
 		model.addAttribute("ticket", ticket);
 		return "/ticket/qrCode";
 	}
 	
 	@GetMapping("/searchTicketById/{id}")
-	public String searchTicketById(@PathVariable(value = "id") String id, Model model) {
+	public String searchTicketById(@PathVariable(value = "id") Long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
 		model.addAttribute("ticket", ticket);
 		return "/ticket/ticket";
@@ -73,14 +73,14 @@ public class TicketController {
 	}		
 	
 	@GetMapping("/showFormForUpdateTicket/{id}")
-	public String showFormForUpdateTicket(@PathVariable(value = "id") String id, Model model) {
+	public String showFormForUpdateTicket(@PathVariable(value = "id") Long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
 		model.addAttribute("ticket", ticket);
 		return "";
 	}
 	
 	@GetMapping("/deleteTicket/{id}")
-	public String deleteTicket(@PathVariable(value = "id") String id) {
+	public String deleteTicket(@PathVariable(value = "id") Long id) {
 		this.ticketService.deleteTicketById(id);
 		return "";
 	}

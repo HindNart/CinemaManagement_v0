@@ -36,7 +36,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public Ticket getTicketById(String id) {
+	public Ticket getTicketById(Long id) {
 		// TODO Auto-generated method stub
 		Optional < Ticket > optional = ticketRepository.findById(id);
 		Ticket ticket = null;
@@ -47,7 +47,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public void deleteTicketById(String id) {
+	public void deleteTicketById(Long id) {
 		// TODO Auto-generated method stub
 		this.ticketRepository.deleteById(id);
 	}

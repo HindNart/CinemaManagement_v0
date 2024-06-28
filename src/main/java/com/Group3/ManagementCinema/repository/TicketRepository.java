@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.Group3.ManagementCinema.entity.Ticket;
 
 @Repository
-public interface TicketRepository extends JpaRepository<Ticket, String>{
+public interface TicketRepository extends JpaRepository<Ticket, Long>{
 	
 }
