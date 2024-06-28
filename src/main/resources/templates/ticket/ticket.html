@@ -75,7 +75,7 @@
 </head>
 
 <body>
-    <div class="ticket-container mt-5">
+    <div class="ticket-container mt-5"  th:each="chairs : ${chairs}">
         <div class="ticket-header row ">
         	<div class="col">
         		<img class="float-start mb-1" alt="icon" width="50px" src="https://img.icons8.com/?size=80&id=64676&format=png">
@@ -98,7 +98,7 @@
         		<p>Khách hàng: <strong th:text="${ticket.taiKhoan.username}"></strong></p>
         	</div>
         	<div class="row">
-        		<p>Giá tiền: <strong th:text="${ticket.ghe.loaiGhe.gia}"></strong></p>
+        		<p>Giá tiền: <strong th:text="${chairs.loaiGhe.gia}"></strong></p>
         	</div>
         </div>
         <div class="ticket-footer">
@@ -108,11 +108,11 @@
             </div>
             <div>
                 <span>Hàng</span>
-                <strong th:text="${ticket.ghe.hangGhe}"></strong>
+                <strong th:text="${chairs.hangGhe}"></strong>
             </div>
             <div>
                 <span>Ghế</span>
-                <strong th:text="${ticket.ghe.gheSo}"></strong>
+                <strong th:text="${chairs.gheSo}"></strong>
             </div>
         </div>
     </div>

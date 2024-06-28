@@ -59,26 +59,37 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public void saveTicket(Ticket ticket) {
-		// TODO Auto-generated method stub
-		this.ticketRepository.save(ticket);
+	public Ticket saveTicket(Ticket ticket) {
+		return this.ticketRepository.save(ticket);
 	}
 	
-	@Override
-	public Ticket saveTicket(Long idVe, String lichChieuId, String email, Long idGhe, Date thoigianMua) {
-		// TODO Auto-generated method stub
-		MovieSchedule lichChieu = movieScheduleRepository.findById(lichChieuId).orElseThrow(() -> new RuntimeException("MovieSchedule not found"));
-		Account taiKhoan = accountRepository.findById(email).orElseThrow(() -> new RuntimeException("Account not found"));
-		Chair ghe = chairRepository.findById(idGhe).orElseThrow(() -> new RuntimeException("Chair not found"));
-		
-		Ticket ticket = new Ticket(idVe, lichChieu, taiKhoan, ghe, thoigianMua);
-      
-		return ticketRepository.save(ticket);
-	}
+//	@Override
+//	public Ticket saveTicket(Long idVe, String idLichChieu, String email, Object idGhe, Date thoigianMua) {
+//		// TODO Auto-generated method stub
+//		MovieSchedule lichChieu = movieScheduleRepository.findById(idLichChieu).orElseThrow(() -> new RuntimeException("MovieSchedule not found"));
+//		Account taiKhoan = accountRepository.findById(email).orElseThrow(() -> new RuntimeException("Account not found"));
+//		Chair ghe = chairRepository.findById(idGhe).orElseThrow(() -> new RuntimeException("Chair not found"));
+//		
+//		Ticket ticket = new Ticket(idVe, lichChieu, taiKhoan, ghe, thoigianMua);
+//      
+//		return ticketRepository.save(ticket);
+//	}
 	
 	@Override
 	public long countTicket() {
 		// TODO Auto-generated method stub
 		return ticketRepository.count();
+	}
+
+	@Override
+	public Ticket saveTicket(Long idVe, String idLichChieu, String email, Date thoigianMua) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Ticket getChairByTicketId(Long ticketId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

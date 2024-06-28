@@ -1,6 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,21 +73,24 @@ public class TicketController {
 	}
 	
 	@GetMapping("/searchTicketById/{id}")
-	public String searchTicketById(@PathVariable(value = "id") Long id, Model model) {
-		Ticket ticket = ticketService.getTicketById(id);
-		model.addAttribute("ticket", ticket);
+	 public String getTicketDetails(@PathVariable(value = "id") Long idVe, Model model) {
+		Ticket ticket = ticketService.getTicketById(idVe);
+		List<Chair> chairs = ticket.getGhe(); 
+        model.addAttribute("ticket", ticket);
+        model.addAttribute("chairs", chairs);
 		return "/ticket/ticket";
 	}
 	
 	@PostMapping("/saveTicket")
     public String saveTicket(@ModelAttribute("ticket") Ticket ticket) {
-		
 		Ticket newTicket = ticketService.saveTicket( 
-	        			ticket.getIdVe(),
-	        			ticket.getLichChieu().getIdLichChieu(),
-	        			ticket.getTaiKhoan().getEmail(),
-	        			ticket.getGhe().getIdGhe(),
-			            ticket.getThoigianMua());
+    			ticket);
+//		Ticket newTicket = ticketService.saveTicket( 
+//	        			ticket.getIdVe(),
+//	        			ticket.getLichChieu().getIdLichChieu(),
+//	        			ticket.getTaiKhoan().getEmail(),
+//	        			ticket.getGhe(),
+//			            ticket.getThoigianMua());
 		return "redirect:/qrTicket/" + newTicket.getIdVe();
     }
 	
