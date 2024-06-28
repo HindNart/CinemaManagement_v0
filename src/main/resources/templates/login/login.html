@@ -23,38 +23,43 @@
                 <h1 class="text-center mb-4">Đăng nhập</h1>
                 <p class="text-center mb-4"><i>Chào mừng đến với....</i></p>
                 
-                <form class="" th:action="@{/checkLogin}">
-                    <div class="row mb-3">
-                        <label for="inputEmail3" class="col-sm-3 col-form-label">Email:</label>
-                        <div class="col-sm-9">
-                            <input type="email" class="form-control" id="inputEmail" name="email">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputPassword3" class="col-sm-3 col-form-label">Password:</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" id="inputPassword" name="password">
-                        </div>
-                    </div>
-                    <fieldset class="row mb-3">
-                        <legend class="col-form-label col-sm-3 pt-0"></legend>
-                        <div class="col-sm-9">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1"
-                                    value="option1" checked>
-                                <label class="form-check-label" for="gridRadios1">
-                                    Ghi nhớ đăng nhập
-                                </label>
-                            </div>
-                        </div>
-                    </fieldset>
+                <form th:action="@{/checkLogin}" method="post">
+				    <div class="row mb-3">
+				        <label for="inputEmail3" class="col-sm-3 col-form-label">Email:</label>
+				        <div class="col-sm-9">
+				            <input type="email" class="form-control" id="inputEmail" name="email" required>
+				        </div>
+				    </div>
+				    <div class="row mb-3">
+				        <label for="inputPassword3" class="col-sm-3 col-form-label">Password:</label>
+				        <div class="col-sm-9">
+				            <input type="password" class="form-control" id="inputPassword" name="password" required>
+				        </div>
+				    </div>
+				    <fieldset class="row mb-3">
+				        <legend class="col-form-label col-sm-3 pt-0"></legend>
+				        <div class="col-sm-9">
+				            <div class="form-check">
+				                <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" value="true">
+				                <label class="form-check-label" for="rememberMe">
+				                    Ghi nhớ đăng nhập
+				                </label>
+				            </div>
+				        </div>
+				    </fieldset>
+				    <div th:if="${errorMss}">
+				        <div class="alert alert-danger" role="alert">
+				            Tài khoản hoặc mật khẩu không đúng!
+				        </div>
+				    </div>
+				    <div>
+				        <p class="float"><a th:href="@{/regis}" class="btn btn-primary">Tạo tài khoản</a></p>
+				        <button type="submit" class="login-btn btn btn-primary">Đăng nhập</button>
+				        <div class="clear"></div>
+				    </div>
+				</form>
 
-                    <div>
-                        <p class="float"><a th:href="@{/regis}" class="btn btn-primary">Tạo tài khoản</a></p>
-                        <button type="submit" class="login-btn btn btn-primary">Đăng nhập</button>
-                        <div class="clear"></div>
-                    </div>
-                </form>
+                
             </div>
 
         </div>

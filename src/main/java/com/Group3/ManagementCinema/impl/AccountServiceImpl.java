@@ -54,8 +54,8 @@ public class AccountServiceImpl implements AccountService {
 		return accountRepository.findByUsernameContaining(keyword);
 	}
 	@Override
-	public Account checkLogin(String id) {
+	public Account checkLogin(String id, String mk) {
 		// TODO Auto-generated method stub
-		return accountRepository.findByEmail(id);
+		return accountRepository.findByEmailAndPassword(id,mk);
 	}
 }
