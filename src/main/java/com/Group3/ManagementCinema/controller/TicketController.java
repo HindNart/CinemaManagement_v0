@@ -67,7 +67,7 @@ public class TicketController {
 	@GetMapping("/qrTicket/{id}")
 	public String qrTicket(@PathVariable(value = "id") Long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
-		List<Chair> chair = ticket.getGhe();
+		
 		model.addAttribute("ticket", ticket);
 		return "/ticket/qrCode";
 	}
@@ -75,6 +75,8 @@ public class TicketController {
 	@GetMapping("/searchTicketById/{id}")
 	public String searchTicketById(@PathVariable(value = "id") Long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
+		List<Chair> chair = ticket.getGhe();
+		model.addAttribute("chairs", chair);
 		model.addAttribute("ticket", ticket);
 		return "/ticket/ticket";
 	}

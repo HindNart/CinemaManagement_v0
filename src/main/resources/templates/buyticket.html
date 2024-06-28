@@ -211,10 +211,10 @@
 	                                <div class="flex spc-btw ">
 	                                    <div class="money">
 	                                        <p>Tạm tính</p>
-	                                        <input type="text" th:field="*{gia}" name="gia" id="moneyCount" readonly/>                                        
+	                                        <input type="text" name="gia" id="moneyCount" readonly/>                                        
 		                                    <input type="hidden" th:value="${account.email}" th:field="*{taiKhoan}" readonly/>
 		                                    <input type="hidden" th:field="*{lichChieu}" th:value="${sche.idLichChieu}"/>
-		                                    <input type="hidden" th:field="*{ghe}" id="listIdChair"/>
+		                                    <input type="text" th:field="*{ghe}" id="listIdChair"/>
 		                                    <input type="hidden" th:field="*{thoigianMua}" id="currentDate"readonly/>
 	                                    </div>
 	                                    <div class="">
