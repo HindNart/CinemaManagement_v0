@@ -27,7 +27,7 @@ public class ChairServiceImpl implements ChairService{
 	}
 
 	@Override
-	public Chair getChairById(int id) {
+	public Chair getChairById(Long id) {
 		Optional < Chair > optional = chairRepository.findById(id);
 		Chair chair = null;
 		if (optional.isPresent()) {
@@ -37,7 +37,7 @@ public class ChairServiceImpl implements ChairService{
 	}
 
 	@Override
-	public void deleteChair(int id) {
+	public void deleteChair(Long id) {
 		this.chairRepository.deleteById(id);
 	}
 

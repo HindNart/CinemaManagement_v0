@@ -1,27 +1,121 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Ticket View</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Ticket</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .ticket-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: lightyellow;
+        }
+
+        .ticket-header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .ticket-subheader {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .customer-info {
+            margin-bottom: 30px;
+        }
+
+        .customer-info p {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+
+        .ticket-footer {
+            margin-top: 0px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            border-top: 1px solid #dee2e6;
+            padding-top: 10px;
+        }
+
+        .ticket-footer div {
+            text-align: center;
+        }
+
+        .ticket-footer span {
+            display: block;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+
+        .ticket-footer strong {
+            display: block;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Ticket</h1>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Room</th>
-            <th>Movie</th>
-            <th>Account</th>
-            <th>Price</th>
-            <th>Purchase Time</th>
-        </tr>
-        <tr>
-            <td th:text="${ticket.idVe}"></td>
-            <td th:text="${ticket.lichChieu.phongChieu.idPhong}"></td>
-            <td th:text="${ticket.lichChieu.phim.tenPhim}"></td>
-            <td th:text="${ticket.taiKhoan.email}"></td>
-            <td th:text="${ticket.gia}"></td>
-            <td th:text="${#dates.format(ticket.thoigianMua, 'dd-MM-yyyy HH:mm')}"></td>
-        </tr>
-    </table>
+    <div class="ticket-container mt-5">
+        <div class="ticket-header row ">
+        	<div class="col">
+        		<img class="float-start mb-1" alt="icon" width="50px" src="https://img.icons8.com/?size=80&id=64676&format=png">
+        	</div>
+        	<div class="col">
+            	<h2>Vé Xem Phim</h2>
+        	</div>
+        </div>
+        <strong class="ticket-subheader"><span th:text="${ticket.lichChieu.phim.tenPhim}"></span></strong>
+        <div class="customer-info">
+        	<div class="row">
+        		<div class="col">
+	        		<p>Ngày chiếu: <strong th:text="${#dates.format(ticket.lichChieu.ngayChieu, 'dd-MM-yy')}"></strong></p>
+	        	</div>
+	        	<div class="col">
+	            	<p>Giờ chiếu: <strong th:text="${ticket.lichChieu.thoigianBD}"></strong></p>
+	        	</div>
+        	</div>
+        	<div class="row">
+        		<p>Khách hàng: <strong th:text="${ticket.taiKhoan.username}"></strong></p>
+        	</div>
+        	<div class="row">
+        		<p>Giá tiền: <strong th:text="${ticket.ghe.loaiGhe.gia}"></strong></p>
+        	</div>
+        </div>
+        <div class="ticket-footer">
+            <div>
+                <span>Phòng</span>
+                <strong th:text="${ticket.lichChieu.phongChieu.idPhong}"></strong>
+            </div>
+            <div>
+                <span>Hàng</span>
+                <strong th:text="${ticket.ghe.hangGhe}"></strong>
+            </div>
+            <div>
+                <span>Ghế</span>
+                <strong th:text="${ticket.ghe.soGhe}"></strong>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

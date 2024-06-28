@@ -13,6 +13,6 @@ public interface TicketService {
 	void deleteTicketById(String id);
 	Page<Ticket> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	void saveTicket(Ticket ticket);
-	Ticket saveTicket(String idVe, String lichChieuId, String email, float gia, Date thoigianMua);
+	Ticket saveTicket(Long idVe, String lichChieuId, String email, Long idGhe, Date thoigianMua);
 	long countTicket();
 }

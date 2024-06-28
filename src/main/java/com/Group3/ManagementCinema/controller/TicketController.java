@@ -1,11 +1,6 @@
 package com.Group3.ManagementCinema.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Base64;
-
-import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Group3.ManagementCinema.entity.Ticket;
 import com.Group3.ManagementCinema.service.TicketService;
@@ -61,13 +55,13 @@ public class TicketController {
 	}
 	
 	@PostMapping("/saveTicket")
-    public String saveTicket(@ModelAttribute("ticket") Ticket ticket, RedirectAttributes redirectAttributes) {
+    public String saveTicket(@ModelAttribute("ticket") Ticket ticket) {
 		
 		Ticket newTicket = ticketService.saveTicket( 
 	        			ticket.getIdVe(),
 	        			ticket.getLichChieu().getIdLichChieu(),
 	        			ticket.getTaiKhoan().getEmail(),
-			            ticket.getGia(),
+	        			ticket.getGhe().getIdGhe(),
 			            ticket.getThoigianMua());
 		return "redirect:/qrTicket/" + newTicket.getIdVe();
     }

@@ -9,6 +9,6 @@ import com.Group3.ManagementCinema.entity.Chair;
 import com.Group3.ManagementCinema.entity.CinemaRoom;
 
 @Repository
-public interface ChairRepository extends JpaRepository<Chair, Integer> {
+public interface ChairRepository extends JpaRepository<Chair, Long> {
 	List<Chair> findByIdPhong(CinemaRoom loaiPhongKeyword);
 }

@@ -11,8 +11,8 @@ import com.Group3.ManagementCinema.entity.CinemaRoom;
 public interface ChairService {
 	List<Chair> getAllChair();
 	void saveChair(Chair chair);
-	Chair getChairById(int id);
-	void deleteChair(int id);
+	Chair getChairById(Long id);
+	void deleteChair(Long id);
 	Page<Chair> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	List<Chair> findAllByIdPhong(CinemaRoom loaiPhongKeyword);
 }
