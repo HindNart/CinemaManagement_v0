@@ -23,8 +23,8 @@ public class Chair {
 	@Column(name = "hangGhe")
 	private String hangGhe;
 	
-	@Column(name = "soGhe")
-	private int soGhe;
+	@Column(name = "gheSo")
+	private int gheSo;
 	
 	@ManyToOne
 	@JoinColumn(name = "loaiGhe", nullable = false)
@@ -57,12 +57,12 @@ public class Chair {
 		this.hangGhe = hangGhe;
 	}
 
-	public int getSoGhe() {
-		return soGhe;
+	public int getGheSo() {
+		return gheSo;
 	}
 
-	public void setSoGhe(int soGhe) {
-		this.soGhe = soGhe;
+	public void setGheSo(int soGhe) {
+		this.gheSo = soGhe;
 	}
 
 	public ChairPrice getLoaiGhe() {
@@ -91,7 +91,7 @@ public class Chair {
 		this.idGhe = idGhe;
 		this.idPhong = idPhong;
 		this.hangGhe = hangGhe;
-		this.soGhe = soGhe;
+		this.gheSo = soGhe;
 		this.loaiGhe = loaiGhe;
 		this.trangThai = trangThai;
 	}
