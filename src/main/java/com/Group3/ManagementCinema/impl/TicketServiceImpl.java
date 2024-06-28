@@ -1,5 +1,6 @@
 package com.Group3.ManagementCinema.impl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,9 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.Group3.ManagementCinema.entity.Account;
+import com.Group3.ManagementCinema.entity.Chair;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
 import com.Group3.ManagementCinema.entity.Ticket;
 import com.Group3.ManagementCinema.repository.AccountRepository;
+import com.Group3.ManagementCinema.repository.ChairRepository;
 import com.Group3.ManagementCinema.repository.MovieScheduleRepository;
 import com.Group3.ManagementCinema.repository.TicketRepository;
 import com.Group3.ManagementCinema.service.TicketService;
@@ -23,6 +26,8 @@ public class TicketServiceImpl implements TicketService {
 	private MovieScheduleRepository movieScheduleRepository;
 	@Autowired
     private AccountRepository accountRepository;
+	@Autowired
+    private ChairRepository chairRepository;
 	
 	@Override
 	public List<Ticket> getAllTickets() {
@@ -31,9 +36,9 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public Ticket getTicketById(long id) {
+	public Ticket getTicketById(Long id) {
 		// TODO Auto-generated method stub
-		Optional < Ticket > optional = ticketRepository.findById( (int) id);
+		Optional < Ticket > optional = ticketRepository.findById(id);
 		Ticket ticket = null;
 		if (optional.isPresent()) {
 			ticket = optional.get();
@@ -42,9 +47,9 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public void deleteTicketById(long id) {
+	public void deleteTicketById(Long id) {
 		// TODO Auto-generated method stub
-		this.ticketRepository.deleteById( (int) id);
+		this.ticketRepository.deleteById(id);
 	}
 	
 	@Override
@@ -60,14 +65,15 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public void saveTicket(long idVe, String lichChieuId, String email, float gia, java.sql.Date thoigianMua) {
+	public Ticket saveTicket(Long idVe, String lichChieuId, String email, Long idGhe, Date thoigianMua) {
 		// TODO Auto-generated method stub
 		MovieSchedule lichChieu = movieScheduleRepository.findById(lichChieuId).orElseThrow(() -> new RuntimeException("MovieSchedule not found"));
 		Account taiKhoan = accountRepository.findById(email).orElseThrow(() -> new RuntimeException("Account not found"));
-
-		Ticket ticket = new Ticket(idVe, lichChieu, taiKhoan, gia, thoigianMua);
+		Chair ghe = chairRepository.findById(idGhe).orElseThrow(() -> new RuntimeException("Chair not found"));
+		
+		Ticket ticket = new Ticket(idVe, lichChieu, taiKhoan, ghe, thoigianMua);
       
-		ticketRepository.save(ticket);
+		return ticketRepository.save(ticket);
 	}
 	
 	@Override

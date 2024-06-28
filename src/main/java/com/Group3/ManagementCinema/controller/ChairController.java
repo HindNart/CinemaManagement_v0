@@ -41,7 +41,7 @@ public class ChairController {
 	
 	
 	@GetMapping("/searchchair")
-	public String searchMovieSchedule(@RequestParam("id") int id, Model model) {
+	public String searchMovieSchedule(@RequestParam("id") Long id, Model model) {
 		Chair chair = chairService.getChairById(id);
 		model.addAttribute("chair", chair);
 		return "/chair/chair_search";
@@ -55,7 +55,7 @@ public class ChairController {
 	}
 	
 	@GetMapping("/showFormForUpdateChair/{id}")
-	public String showFormForUpdateChair(@PathVariable(value = "id") int id, Model model) {
+	public String showFormForUpdateChair(@PathVariable(value = "id") Long id, Model model) {
 		// get movie from the service
 		Chair chair = chairService.getChairById(id);
 		// set movie as a model attribute to pre-populate the form
@@ -64,7 +64,7 @@ public class ChairController {
 	}
 	
 	@GetMapping("/deleteChair/{id}")
-	public String deleteChair(@PathVariable(value = "id") int id) {
+	public String deleteChair(@PathVariable(value = "id") Long id) {
 		// call delete movie method
 		this.chairService.deleteChair(id);
 		return "redirect:/";

@@ -15,6 +15,7 @@ import com.Group3.ManagementCinema.service.MovieService;
 public class MovieServiceImpl implements MovieService {
 	@Autowired
 	private MovieRepository movieRepository;
+	@Override
 	public long countMovie() {
         return movieRepository.count();
     }
@@ -48,6 +49,7 @@ public class MovieServiceImpl implements MovieService {
 	// TODO Auto-generated method stub
 		return null;
 	}
+	
 	@Override
 	public List<Movie> searchMovie(String key) {
 		// TODO Auto-generated method stub
