@@ -23,7 +23,7 @@ public class Chair {
 	@Column(name = "hangGhe")
 	private String hangGhe;
 	
-	@Column(name = "soGhe")
+	@Column(name = "gheSo")
 	private int gheSo;
 	
 	@ManyToOne

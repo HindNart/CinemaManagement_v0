@@ -41,7 +41,7 @@ public class TicketServiceImpl implements TicketService {
 		Optional < Ticket > optional = ticketRepository.findById(id);
 		Ticket ticket = null;
 		if (optional.isPresent()) {
-			ticket = optional.get();
+			ticket = (optional.get());
 		}
 		return ticket;
 	}
@@ -86,10 +86,5 @@ public class TicketServiceImpl implements TicketService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public Ticket getChairByTicketId(Long ticketId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

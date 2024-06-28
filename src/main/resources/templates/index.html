@@ -6,7 +6,29 @@
     <title>Quản lý rạp phim</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/script.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+	<script src=
+	"https://d3js.org/d3.v4.min.js"></script>
+	<script src=
+	"https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
+	<link rel="stylesheet"
+		href=
+	"https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css" />
+	<link rel=
+	"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+		type="text/css" />
+	
+	<script src=
+	"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+	</script>
+	<script src=
+	"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+	</script>
+	
+	<script src=
+	"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js">
+	</script>
 </head>
 <body>
     <div id="header">
@@ -16,13 +38,15 @@
             </div>
             <div class="user flex">
                 <div class="user-avt">
-                    <img class="brr-50" src="/img/phim1.jpg" alt="" width="50px" height="50px">
+                    <img class="brr-50" src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="" width="50px" height="50px">
                 </div>
                 <div class="user-name nav-dropdown">
                     <i class="bi bi-chevron-compact-down"></i>
+                <div class="user-name nav-dropdown">Admin
+                     <i class="bi bi-chevron-compact-down"></i>
                     <div class="dropdown-content">
                         <a href="#">Thông tin</a>
-                        <a th:href="@{/login}">Đăng xuất</a>
+                        <a th:href="@{/login}">Logout</a>
                     </div>
                 </div>
             </div>
@@ -47,9 +71,6 @@
         <a onclick="loadContent('/showAllMovies')" id="load-movie" class="text-white" href="">
             <div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded"><i class="bi bi-film"></i> Phim</div>
         </a>
-        <a onclick="loadContent('/admin/adStatis.html')" id="load-statis" class="text-white" href="">
-            <div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded"><i class="bi bi-file-earmark-bar-graph-fill"></i> Thống kê</div>
-        </a>
     </div>
     <div class="width-80">
         <div id="content" class="main-content">
@@ -62,18 +83,10 @@
                         <p>Số lượng nhân viên</p>
                         <p><b th:text="${employeeCount}"></b></p>
                     </div>
-                    <div class="total-cus db-card">
-                        <p>Số lượng khách hàng</p>
-                        <p><b th:text="${customerCount}"></b></p>
-                    </div>
                     <div class="total-acc db-card">
                         <p>Số lượng tài khoản</p>
                         <p><b th:text="${accountCount}"></b></p>
                     </div>
-                </div>
-            </div>
-            <div class="db-item">
-                <div class="mlr-20  flex">
                     <div class="total-movie db-card">
                         <p>Số lượng phim</p>
                         <p><b th:text="${movieCount}"></b></p>
@@ -87,17 +100,42 @@
                         <p><b th:text="${movieScheduleCount}"></b></p>
                     </div>
                 </div>
+                
             </div>
-            <div class="db-item">
-                <div class="mlr-20  flex">
-                    <div class="total-statis db-card">
-                        <p>Doanh thu</p>
-                        <p><b>10</b></p>
-                    </div>
-                </div>
-            </div>
-
+    <!-- <a href="/testStatis.html">Xem thêm</a>  -->
+    <div class="db-item">
+		<div class="mlr-20  flex">        
+			<div id="donut-chart"></div>
+				<script>
+					let chart = bb.generate({
+						data: {
+							columns: [
+								["Blue", 2],
+								["orange", 4],
+								["green", 3],
+								["RED", 3]
+							],
+							type: "donut",
+							onclick: function (d, i) {
+								console.log("onclick", d, i);
+							},
+							onover: function (d, i) {
+								console.log("onover", d, i);
+							},
+							onout: function (d, i) {
+								console.log("onout", d, i);
+							},
+						},
+						donut: {
+							title: "70",
+						},
+						bindto: "#donut-chart",
+					});					
+				</script>
+        	</div> 
+        	
         </div>
+     </div>
 
     </div>
     <script>
@@ -123,6 +161,6 @@
             });
         });
     </script>
-
+</div>
 </body>
 </html>

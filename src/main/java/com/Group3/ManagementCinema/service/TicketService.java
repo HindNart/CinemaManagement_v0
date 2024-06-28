@@ -17,5 +17,4 @@ public interface TicketService {
 	Ticket saveTicket(Ticket ticket);
 	long countTicket();
 	Ticket saveTicket(Long idVe, String idLichChieu, String email, Date thoigianMua);
-	Ticket getChairByTicketId(Long ticketId);
 }

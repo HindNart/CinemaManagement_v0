@@ -80,6 +80,7 @@ public class adminController {
             
             if ("admin@gmail.com".equals(email)) {
                 session.setAttribute("role", "admin");
+                model.addAttribute("account", account);
                 return "redirect:/"; // Điều hướng đến trang admin
             } else {
                 return "cusIndex"; // Điều hướng đến trang người dùng
@@ -121,6 +122,11 @@ public class adminController {
         model.addAttribute("uniqueDates", uniqueDates);
         model.addAttribute("movieSchedule", movieSchedule);
         return "film";
+    }
+    
+    @GetMapping("/statis")
+    public String openStatis(Model model) {
+    	return "/admin/statis";
     }
 }
 

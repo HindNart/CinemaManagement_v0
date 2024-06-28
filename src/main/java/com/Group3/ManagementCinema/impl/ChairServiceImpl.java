@@ -53,4 +53,14 @@ public class ChairServiceImpl implements ChairService{
 		return chairRepository.findByIdPhong(loaiPhongKeyword);
 	}
 
+	@Override
+	public Chair findByHangGheAndIdPhongAndGheSo(String hangghe, CinemaRoom idPhong, int gheSo) {
+		// TODO Auto-generated method stub
+		return chairRepository.findByHangGheAndIdPhongAndGheSo(hangghe, idPhong, gheSo);
+	}
+	
+	public Chair getChairByDetails(String hangGhe, CinemaRoom idPhong, int gheSo) {
+        return chairRepository.findByHangGheAndIdPhongAndGheSo(hangGhe, idPhong, gheSo);
+    }
+
 }

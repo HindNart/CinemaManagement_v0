@@ -40,7 +40,7 @@ public class Ticket {
 	@Column(name = "thoigianMua")
 	private Date thoigianMua;
 
-	public Long getIdVe() {
+	public long getIdVe() {
 		return idVe;
 	}
 
@@ -93,5 +93,5 @@ public class Ticket {
 		this.ghe = ghe;
 		this.thoigianMua = thoigianMua;
 	}
-	
+
 }

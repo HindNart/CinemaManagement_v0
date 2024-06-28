@@ -68,31 +68,37 @@ public class TicketController {
 	@GetMapping("/qrTicket/{id}")
 	public String qrTicket(@PathVariable(value = "id") Long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
+		
 		model.addAttribute("ticket", ticket);
 		return "/ticket/qrCode";
 	}
 	
 	@GetMapping("/searchTicketById/{id}")
-	 public String getTicketDetails(@PathVariable(value = "id") Long idVe, Model model) {
-		Ticket ticket = ticketService.getTicketById(idVe);
-		List<Chair> chairs = ticket.getGhe(); 
-        model.addAttribute("ticket", ticket);
-        model.addAttribute("chairs", chairs);
+	public String searchTicketById(@PathVariable(value = "id") Long id, Model model) {
+		Ticket ticket = ticketService.getTicketById(id);
+		List<Chair> chair = ticket.getGhe();
+		model.addAttribute("chairs", chair);
+		model.addAttribute("ticket", ticket);
 		return "/ticket/ticket";
 	}
 	
 	@PostMapping("/saveTicket")
     public String saveTicket(@ModelAttribute("ticket") Ticket ticket) {
-		Ticket newTicket = ticketService.saveTicket( 
-    			ticket);
 //		Ticket newTicket = ticketService.saveTicket( 
 //	        			ticket.getIdVe(),
 //	        			ticket.getLichChieu().getIdLichChieu(),
 //	        			ticket.getTaiKhoan().getEmail(),
 //	        			ticket.getGhe(),
 //			            ticket.getThoigianMua());
+		
+		Ticket newTicket = ticketService.saveTicket(ticket);
+		List<Chair> chair = ticket.getGhe();
+		for (Chair c : chair) {
+			c.setTrangThai(0);
+		}
+		ticketService.saveTicket(ticket);
 		return "redirect:/qrTicket/" + newTicket.getIdVe();
-    }
+	}
 	
 	@PostMapping("/updateTicket")
 	public String updateTicket(@ModelAttribute("ticket") Ticket ticket, Model model) {
