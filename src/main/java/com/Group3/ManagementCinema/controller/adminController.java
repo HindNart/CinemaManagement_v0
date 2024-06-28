@@ -138,5 +138,13 @@ public class adminController {
     public String openStatis(Model model) {
     	return "/admin/statis";
     }
+    @GetMapping("/logout")
+    public String logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("user", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return "redirect:/login";
+    }
 }
 
