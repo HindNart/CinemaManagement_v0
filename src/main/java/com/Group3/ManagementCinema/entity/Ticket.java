@@ -32,7 +32,7 @@ public class Ticket {
 	
 	@Column(name = "thoigianMua")
 	private Date thoigianMua;
-
+	
 	public Long getIdVe() {
 		return idVe;
 	}

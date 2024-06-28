@@ -15,11 +15,11 @@ public class ChairPrice {
 	@Column(name = "gia")
 	private float gia;
 
-	public String getId() {
+	public String getLoaiGhe() {
 		return loaiGhe;
 	}
 
-	public void setId(String id) {
+	public void setLoaiGhe(String id) {
 		this.loaiGhe = id;
 	}
 

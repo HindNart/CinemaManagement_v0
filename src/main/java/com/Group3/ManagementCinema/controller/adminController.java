@@ -25,6 +25,9 @@ import com.Group3.ManagementCinema.service.EmployeeService;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
 import com.Group3.ManagementCinema.service.MovieService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class adminController {
     @Autowired
@@ -65,45 +68,59 @@ public class adminController {
     	return "/register/register";
     }
     @GetMapping("/checkLogin")
-	public String checkLogin(@RequestParam("email") String email, Model model) {
-		Account account = accountService.checkLogin(email);
-		if (email.equals("admin@gmail.com")){
-			return "/index";
-		}
-		if (accountService.checkLogin(email)!=null){
-			model.addAttribute("account", account);
-	        model.addAttribute("movies", movieService.getAllMovies());	
-			return "/cusIndex";	
-		}else {
-			Boolean errorMss = true;
-			model.addAttribute("errorMss", errorMss);
-	        model.addAttribute("movies", movieService.getAllMovies());	
-			model.addAttribute("account", account);
-			return "/cusIndex";	
-		}
-	}
-    @GetMapping("/userSite")
-    public String openUserSite(Model model) {
-        model.addAttribute("movies", movieService.getAllMovies());	
-    	return "/cusIndex";
+    public String checkLogin(@RequestParam("email") String email, @RequestParam("password") String password, HttpServletRequest request, Model model) {
+        Account account = accountService.checkLogin(email);
+        
+        if (account != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("account", account); // Lưu đối tượng Account vào session
+            
+            model.addAttribute("account", account);
+            model.addAttribute("movies", movieService.getAllMovies());
+            
+            if ("admin@gmail.com".equals(email)) {
+                session.setAttribute("role", "admin");
+                return "redirect:/"; // Điều hướng đến trang admin
+            } else {
+                return "cusIndex"; // Điều hướng đến trang người dùng
+            }
+        } else {
+            model.addAttribute("errorMss", true);
+            model.addAttribute("movies", movieService.getAllMovies());
+            return "cusIndex"; // Điều hướng lại trang đăng nhập với thông báo lỗi
+        }
     }
+    
+    @GetMapping("/userSite")
+    public String openUserSite(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        model.addAttribute("account", account);
+        model.addAttribute("movies", movieService.getAllMovies());
+        return "cusIndex";
+    }
+    
+    @GetMapping("/buyticket")
+    public String buyTicket() {
+        return "buyticket"; // Trả về tên của file HTML trong thư mục templates
+    }
+    
     @GetMapping("/film/{id}")
-    public String openFilm(@PathVariable(value = "id") String idPhong, Model model) {
+    public String openFilm(@PathVariable(value = "id") String idPhong, HttpServletRequest request, Model model) {
         Movie movie = movieService.getMovieById(idPhong);
         List<MovieSchedule> movieSchedule = moviescheduleService.findByIdphim(movie);
         
         // Filter out duplicate ngayChieu
         List<Date> uniqueDates = movieSchedule.stream().map(MovieSchedule::getNgayChieu).distinct().collect(Collectors.toList());
         
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        model.addAttribute("account", account);
+        
         model.addAttribute("movie", movie);
         model.addAttribute("uniqueDates", uniqueDates);
         model.addAttribute("movieSchedule", movieSchedule);
-        model.addAttribute("account", new Account());
-        return "/film";
-    }
-    @GetMapping("/buyticket")
-    public String buyTicket() {
-        return "buyticket"; // Trả về tên của file HTML trong thư mục templates
+        return "film";
     }
 }
 
