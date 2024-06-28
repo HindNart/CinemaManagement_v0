@@ -8,10 +8,6 @@
 </head>
 <body>
     <form th:action="@{/saveTicket}" th:object="${ticket}" method="post">
-    	<div>
-			<label for="idVe">Ticket Id:</label>
-			<input required type="text" th:field="*{idVe}" placeholder="Mã vé">
-		</div>
         <div>
             <label for="lichChieu">Movie Schedule ID:</label>
             <input type="text" id="lichChieu" th:field="*{lichChieu}">

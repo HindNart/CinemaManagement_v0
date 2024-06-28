@@ -35,9 +35,20 @@
 	<div class="card card-custom shadow">
       	<div class="card-body card-body-custom">
         	<div class="card-title card-title-custom">Rạp chiếu phim Dương Huy</div>
-        	<img th:src="@{/qrcode/{id}(id=${ticket.idVe})}" alt="QR Code" class="img-fluid" />
+        	<img id="qrImage" th:src="@{/qrcode/{id}(id=${ticket.idVe})}" alt="QR Code" class="img-fluid" />
         	<div class="qr-instructions">Vui lòng lưu lại mã QR này để in vé tại rạp</div>
+        	<button id="saveButton" class="btn btn-primary m-3">Lưu ảnh</button>
       	</div>
     </div>
+    <script>
+        document.getElementById('saveButton').addEventListener('click', function() {
+            const qrImage = document.getElementById('qrImage');
+            const imageUrl = qrImage.src;
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = 'qr-code.png';
+            link.click();
+        });
+    </script>
 </body>
 </html>
