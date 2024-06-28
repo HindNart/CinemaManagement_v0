@@ -1,5 +1,6 @@
 package com.Group3.ManagementCinema.impl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.Group3.ManagementCinema.entity.Account;
+import com.Group3.ManagementCinema.entity.Chair;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
 import com.Group3.ManagementCinema.entity.Ticket;
 import com.Group3.ManagementCinema.repository.AccountRepository;
@@ -36,7 +38,7 @@ public class TicketServiceImpl implements TicketService {
 		Optional < Ticket > optional = ticketRepository.findById( (int) id);
 		Ticket ticket = null;
 		if (optional.isPresent()) {
-			ticket = optional.get();
+			ticket = (optional.get());
 		}
 		return ticket;
 	}
@@ -60,12 +62,12 @@ public class TicketServiceImpl implements TicketService {
 	}
 	
 	@Override
-	public void saveTicket(long idVe, String lichChieuId, String email, float gia, java.sql.Date thoigianMua) {
+	public void saveTicket(long idVe, String lichChieuId, String email, float gia, java.sql.Date thoigianMua, List<Chair> list) {
 		// TODO Auto-generated method stub
 		MovieSchedule lichChieu = movieScheduleRepository.findById(lichChieuId).orElseThrow(() -> new RuntimeException("MovieSchedule not found"));
 		Account taiKhoan = accountRepository.findById(email).orElseThrow(() -> new RuntimeException("Account not found"));
 
-		Ticket ticket = new Ticket(idVe, lichChieu, taiKhoan, gia, thoigianMua);
+		Ticket ticket = new Ticket(idVe, lichChieu, taiKhoan, gia, thoigianMua, list);
       
 		ticketRepository.save(ticket);
 	}
@@ -75,4 +77,5 @@ public class TicketServiceImpl implements TicketService {
 		// TODO Auto-generated method stub
 		return ticketRepository.count();
 	}
+	
 }

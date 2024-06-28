@@ -20,6 +20,7 @@
             
             function addSeat(button) {
                 var chairValue = button.value;
+                var chairID = button.getAttribute('chairID');
                 var price = button.getAttribute('chairPrice');
                 if (button.classList.contains("choosen-seat")) {
                     alert("Ghế này đã được đặt!");
@@ -29,9 +30,7 @@
                 var chairType = button.classList.contains("normal-seat") ? "normal" :
                     button.classList.contains("vip-seat") ? "vip" :
                     button.classList.contains("couple-seat") ? "couple" : null;
-    				var chairPrice = chairType === "normal" ? 50000 :
-                     chairType === "vip" ? 60000 :
-                     chairType === "couple" ? 120000 : 0;
+    				var chairPrice = parseInt(price) ;
 
                 // Kiểm tra xem ghế đã được chọn hay chưa
                 var existingSeats = listChoosen.querySelectorAll(".seat-chosen");
@@ -40,6 +39,13 @@
                         alert("Ghế này đã được chọn!");
                         return;
                     }
+                }
+                
+                // Them id vao list
+                if (listIdChair.value) {
+                    listIdChair.value += ',' + chairID;
+                } else {
+                    listIdChair.value = chairID;
                 }
              // Cập nhật tổng số tiền
                 totalAmount += chairPrice;
@@ -61,6 +67,10 @@
                     totalAmount -= chairPrice;
                     moneyCount.value = totalAmount;
                     button.classList.remove("selected-seat");
+                    // Xóa chairID khỏi listIdChair
+                    let ids = listIdChair.value.split(',');
+                    ids = ids.filter(id => id !== chairID);
+                    listIdChair.value = ids.join(',');
                 });
             }
             
@@ -111,15 +121,21 @@
 								        	<input type="button" th:value="${chair.hangGhe} + ${chair.gheSo}"  class="choosen-seat"/> 
 								        </div>
 								        <div th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'A' and chair.trangThai == 1}">
-								        	<input  onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" th:attr="chairPrice=${chair.loaiGhe.getGia}" class="normal-seat"/>
-								        </div>
+										    <input onclick="addSeat(this)" type="button" 
+										           th:value="${chair.hangGhe} + ${chair.gheSo}" 
+										           th:attr="chairPrice=${chair.loaiGhe.getGia}, 
+										           chairID=${chair.idGhe}" 
+										           class="normal-seat"/>
+										</div>
+
 								    </div>
 								</div>
                                 <div class="seat-row">
                                     <div th:each="chair : ${chairs}">
 								        <div>
 								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'B' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
-								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'B' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="normal-seat"/>
+								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'B' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}, 
+										           chairID=${chair.idGhe}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="normal-seat"/>
 								        </div>
 								    </div>
 
@@ -128,7 +144,8 @@
                                     <div th:each="chair : ${chairs}">
 								        <div>								        	
 								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'C' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
-								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'C' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="vip-seat"/>
+								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'C' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}, 
+										           chairID=${chair.idGhe}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="vip-seat"/>
 								        </div>
 								    </div>
 
@@ -137,7 +154,8 @@
                                     <div th:each="chair : ${chairs}">
 								        <div>								        	
 								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'D' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
-								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'D' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="vip-seat"/>
+								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'D' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}, 
+										           chairID=${chair.idGhe}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="vip-seat"/>
 								        </div>
 								    </div>
                                 </div>
@@ -145,7 +163,8 @@
                                 	<div th:each="chair : ${chairs}">
 								        <div>
 								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'couple' and chair.hangGhe == 'E' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
-								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'couple' and chair.hangGhe == 'E' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="couple-seat"/>
+								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'couple' and chair.hangGhe == 'E' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}, 
+										           chairID=${chair.idGhe}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="couple-seat"/>
 								        </div>
 								    </div>
                                 </div>
@@ -196,6 +215,7 @@
 	                                        <input type="text" th:field="*{gia}" name="gia" id="moneyCount" readonly/>                                        
 		                                    <input type="hidden" th:value="${account.email}" th:field="*{taiKhoan}" readonly/>
 		                                    <input type="hidden" th:field="*{lichChieu}" th:value="${sche.idLichChieu}"/>
+		                                    <input type="hidden" th:field="*{ghe}" id="listIdChair"/>
 		                                    <input type="hidden" th:field="*{thoigianMua}" id="currentDate"readonly/>
 	                                    </div>
 	                                    <div class="">

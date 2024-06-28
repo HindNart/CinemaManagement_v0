@@ -1,6 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,19 +61,19 @@ public class TicketController {
 	@GetMapping("/searchTicketById")
 	public String searchTicketById(@RequestParam("id") long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
+		List<Chair> chair = ticket.getGhe();
 		model.addAttribute("ticket", ticket);
+		model.addAttribute("chair", chair);
 		return "";
 	}
 	
 	@PostMapping("/saveTicket")
     public String saveTicket(@ModelAttribute("ticket") Ticket ticket, RedirectAttributes redirectAttributes) {
-		ticketService.saveTicket( 
-	        			ticket.getIdVe(),
-	        			ticket.getLichChieu().getIdLichChieu(),
-	        			ticket.getTaiKhoan().getEmail(),
-			            ticket.getGia(),
-			            ticket.getThoigianMua()
-			          	);	        
+		List<Chair> chair = ticket.getGhe();
+		for (Chair c : chair) {
+			c.setTrangThai(0);
+		}
+		ticketService.saveTicket(ticket);	
         return "index";
     }
 	
@@ -122,7 +123,5 @@ public class TicketController {
 	    model.addAttribute("chairs", chair);	    
 	    model.addAttribute("ticket", ticket);
 	    return "buyticket";
-	}
-
-	
+	}	
 }
