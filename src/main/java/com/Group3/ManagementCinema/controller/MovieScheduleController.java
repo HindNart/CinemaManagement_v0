@@ -8,15 +8,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Group3.ManagementCinema.entity.CinemaRoom;
+import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
+import com.Group3.ManagementCinema.service.CinemaRoomService;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
+import com.Group3.ManagementCinema.service.MovieService;
 
 
 @Controller
 public class MovieScheduleController {
 	@Autowired
-	private MovieScheduleService movieScheduleService;// display list of movies
+	private MovieScheduleService movieScheduleService;
+	@Autowired
+	private MovieService movieService;
+	@Autowired
+	private CinemaRoomService cinemaRoomService;
 	
 	@GetMapping("/movieSchedules")
 	public String viewMovieSchedule(Model model) {
@@ -40,20 +49,36 @@ public class MovieScheduleController {
 	}
 	
 	@PostMapping("/saveMovieSchedule")
-	public String saveMovieSchedule(@ModelAttribute("movieSchedule") MovieSchedule movieSchedule, Model model) {
-		if (movieScheduleService.checkMS(movieSchedule.getNgayChieu(),  movieSchedule.getThoigianBD(),  movieSchedule.getThoigianKT(), movieSchedule.getPhongChieu()) != null) {
-			model.addAttribute("exists", true);
-			return "movieSchedule/movieSchedule_new";
-		}else {
-			movieScheduleService.saveMovieSchedule( 
-					movieSchedule.getIdLichChieu(),
-		            movieSchedule.getPhongChieu().getIdPhong(),
-		            movieSchedule.getPhim().getIdPhim(),
-		            movieSchedule.getThoigianBD(),
-		            movieSchedule.getThoigianKT(),
-		            movieSchedule.getNgayChieu());
-			return "redirect:/";
-		}		
+	public String saveMovieSchedule(@ModelAttribute("movieSchedule") MovieSchedule movieSchedule, RedirectAttributes redirectAttributes) {
+		MovieSchedule existShedule = movieScheduleService.getMovieScheduleById(movieSchedule.getIdLichChieu());
+		Movie existMovie = null;
+		CinemaRoom existCineRoom = null;
+		if (existShedule == null) {
+			try {
+				existMovie = movieService.getMovieById(movieSchedule.getPhim().getIdPhim());
+				existCineRoom = cinemaRoomService.getCinemaRoomById(movieSchedule.getPhongChieu().getIdPhong());	
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			if (existMovie == null) {
+	    		redirectAttributes.addFlashAttribute("message", "Thêm lịch chiếu thất bại. Phim không tồn tại!");
+	    	} else if (existCineRoom == null) {
+	    		redirectAttributes.addFlashAttribute("message", "Thêm lịch chiếu thất bại. Phòng chiếu không tồn tại!");
+			} else if (existMovie != null && existCineRoom != null) {
+	        	movieScheduleService.saveMovieSchedule( 
+						movieSchedule.getIdLichChieu(),
+			            movieSchedule.getPhongChieu().getIdPhong(),
+			            movieSchedule.getPhim().getIdPhim(),
+			            movieSchedule.getThoigianBD(),
+			            movieSchedule.getThoigianKT(),
+			            movieSchedule.getNgayChieu());
+	            redirectAttributes.addFlashAttribute("message", "Thêm lịch chiếu thành công!");
+	        }
+		}
+		else {
+        	redirectAttributes.addFlashAttribute("message", "Thêm lịch chiếu thất bại. Lịch chiếu đã tồn tại!");
+        }
+        return "redirect:/showNewMovieScheduleForm";
 	}
 	
 	@PostMapping("/updateMovieSchedule")
