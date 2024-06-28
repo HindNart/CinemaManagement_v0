@@ -24,7 +24,7 @@ public class Chair {
 	private String hangGhe;
 	
 	@Column(name = "soGhe")
-	private int soGhe;
+	private int gheSo;
 	
 	@ManyToOne
 	@JoinColumn(name = "loaiGhe", nullable = false)
@@ -57,12 +57,12 @@ public class Chair {
 		this.hangGhe = hangGhe;
 	}
 
-	public int getSoGhe() {
-		return soGhe;
+	public int getGheSo() {
+		return gheSo;
 	}
 
-	public void setSoGhe(int soGhe) {
-		this.soGhe = soGhe;
+	public void setGheSo(int soGhe) {
+		this.gheSo = soGhe;
 	}
 
 	public ChairPrice getLoaiGhe() {
@@ -86,12 +86,12 @@ public class Chair {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Chair(long idGhe, CinemaRoom idPhong, String hangGhe, int soGhe, ChairPrice loaiGhe, int trangThai) {
+	public Chair(long idGhe, CinemaRoom idPhong, String hangGhe, int gheSo, ChairPrice loaiGhe, int trangThai) {
 		super();
 		this.idGhe = idGhe;
 		this.idPhong = idPhong;
 		this.hangGhe = hangGhe;
-		this.soGhe = soGhe;
+		this.gheSo = gheSo;
 		this.loaiGhe = loaiGhe;
 		this.trangThai = trangThai;
 	}
