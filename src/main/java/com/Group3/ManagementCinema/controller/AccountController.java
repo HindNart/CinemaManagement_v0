@@ -39,7 +39,7 @@ public class AccountController {
 	
 	@PostMapping("/saveAccount")
 	public String saveAccount(@ModelAttribute("account") Account account, Model model) {
-		if (accountService.checkLogin(account.getEmail()) != null) {
+		if (accountService.getAccountById(account.getEmail()) != null) {
 			model.addAttribute("exists", true);
 		}else {
 			accountService.saveAccount(account);

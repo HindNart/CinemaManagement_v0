@@ -25,7 +25,9 @@ import com.Group3.ManagementCinema.service.EmployeeService;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
 import com.Group3.ManagementCinema.service.MovieService;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -67,9 +69,9 @@ public class adminController {
     	model.addAttribute("account", new Account());
     	return "/register/register";
     }
-    @GetMapping("/checkLogin")
-    public String checkLogin(@RequestParam("email") String email, @RequestParam("password") String password, HttpServletRequest request, Model model) {
-        Account account = accountService.checkLogin(email);
+    @PostMapping("/checkLogin")
+    public String checkLogin(@RequestParam("email") String email, @RequestParam("password") String password,@RequestParam(required = false) boolean rememberMe, HttpServletRequest request,HttpServletResponse response, Model model) {
+        Account account = accountService.checkLogin(email, password);
         
         if (account != null) {
             HttpSession session = request.getSession();
@@ -77,6 +79,14 @@ public class adminController {
             
             model.addAttribute("account", account);
             model.addAttribute("movies", movieService.getAllMovies());
+            
+            if (rememberMe) {
+                // Tạo cookie
+                Cookie cookie = new Cookie("user", email);
+                cookie.setMaxAge(7 * 24 * 60 * 60); // 7 ngày
+                cookie.setHttpOnly(true);
+                response.addCookie(cookie);
+            }
             
             if ("admin@gmail.com".equals(email)) {
                 session.setAttribute("role", "admin");
@@ -88,7 +98,7 @@ public class adminController {
         } else {
             model.addAttribute("errorMss", true);
             model.addAttribute("movies", movieService.getAllMovies());
-            return "cusIndex"; // Điều hướng lại trang đăng nhập với thông báo lỗi
+            return "login/login"; // Điều hướng lại trang đăng nhập với thông báo lỗi
         }
     }
     

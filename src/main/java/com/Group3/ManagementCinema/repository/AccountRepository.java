@@ -8,5 +8,5 @@ import com.Group3.ManagementCinema.entity.Account;
 
 public interface AccountRepository extends JpaRepository<Account, String>{
 	List<Account> findByUsernameContaining(String Keyword);
-	Account findByEmail(String email);
+	Account findByEmailAndPassword(String email, String password);
 }
