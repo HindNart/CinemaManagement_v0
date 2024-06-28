@@ -56,6 +56,12 @@ public class MovieScheduleController {
 		}		
 	}
 	
+	@PostMapping("/updateMovieSchedule")
+	public String updateRate(@ModelAttribute("movieSchedule") MovieSchedule movieSchedule, Model model) {
+		movieScheduleService.saveMovieSchedule(movieSchedule);
+		return "redirect:/";
+	}
+	
 	@GetMapping("/showFormForUpdateMovieSchedule/{id}")
 	public String showFormForUpdateSchedule(@PathVariable(value = "id") String id, Model model) {
 		// get movie from the service

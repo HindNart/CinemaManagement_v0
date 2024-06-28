@@ -78,6 +78,7 @@ public class TicketController {
 		return "/ticket/ticket";
 	}
 	
+	@PostMapping("/saveTicket")
     public String saveTicket(@ModelAttribute("ticket") Ticket ticket) {
 		
 		Ticket newTicket = ticketService.saveTicket( 

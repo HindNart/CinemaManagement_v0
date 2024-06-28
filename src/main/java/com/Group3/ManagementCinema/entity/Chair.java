@@ -86,12 +86,12 @@ public class Chair {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Chair(long idGhe, CinemaRoom idPhong, String hangGhe, int soGhe, ChairPrice loaiGhe, int trangThai) {
+	public Chair(long idGhe, CinemaRoom idPhong, String hangGhe, int gheSo, ChairPrice loaiGhe, int trangThai) {
 		super();
 		this.idGhe = idGhe;
 		this.idPhong = idPhong;
 		this.hangGhe = hangGhe;
-		this.gheSo = soGhe;
+		this.gheSo = gheSo;
 		this.loaiGhe = loaiGhe;
 		this.trangThai = trangThai;
 	}
