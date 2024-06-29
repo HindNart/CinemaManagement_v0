@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Group3.ManagementCinema.entity.Account;
 import com.Group3.ManagementCinema.entity.Rate;
 import com.Group3.ManagementCinema.service.RateService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class RateController {
@@ -39,14 +43,20 @@ public class RateController {
 	}
 	
 	@PostMapping("/saveRate")
-    public String saveRate(@ModelAttribute("rate") Rate rate, RedirectAttributes redirectAttributes) {
+    public String saveRate(@ModelAttribute("rate") Rate rate, RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+	    Account account = (Account) session.getAttribute("account");
+	    if (account == null) {
+	        // Nếu không có account trong session, chuyển hướng đến trang đăng nhập
+	        return "redirect:/login";
+	    }
 		rateService.saveRate( 
 						rate.getId(),
 						rate.getTaiKhoan().getEmail(),
 						rate.getPhim().getIdPhim(),
 						rate.getDiem(),
 						rate.getBinhLuan());
-        return "";
+        return "redirect:/film/" + rate.getPhim().getIdPhim();
     }
 	
 	@PostMapping("/updateRate")

@@ -18,12 +18,14 @@ import com.Group3.ManagementCinema.entity.Account;
 import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
+import com.Group3.ManagementCinema.entity.Rate;
 import com.Group3.ManagementCinema.service.AccountService;
 import com.Group3.ManagementCinema.service.CinemaRoomService;
 import com.Group3.ManagementCinema.service.CustomerService;
 import com.Group3.ManagementCinema.service.EmployeeService;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
 import com.Group3.ManagementCinema.service.MovieService;
+import com.Group3.ManagementCinema.service.RateService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,6 +46,8 @@ public class adminController {
     private MovieScheduleService moviescheduleService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private RateService rateService;
     @GetMapping("/")
     public String countCustomers(Model model) {
         long customerCount = customerService.countCustomers();
@@ -120,14 +124,18 @@ public class adminController {
     public String openFilm(@PathVariable(value = "id") String idPhong, HttpServletRequest request, Model model) {
         Movie movie = movieService.getMovieById(idPhong);
         List<MovieSchedule> movieSchedule = moviescheduleService.findByIdphim(movie);
-        
+        List<Rate> rates = rateService.getAllRates();
         // Filter out duplicate ngayChieu
         List<Date> uniqueDates = movieSchedule.stream().map(MovieSchedule::getNgayChieu).distinct().collect(Collectors.toList());
-        
+        Rate newRate = new Rate();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
+
+        newRate.setTaiKhoan(account);
+        newRate.setPhim(movie);
+        model.addAttribute("newRate", newRate);
         model.addAttribute("account", account);
-        
+        model.addAttribute("rates", rates);
         model.addAttribute("movie", movie);
         model.addAttribute("uniqueDates", uniqueDates);
         model.addAttribute("movieSchedule", movieSchedule);

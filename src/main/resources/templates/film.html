@@ -119,7 +119,7 @@
         <div class="film-info-details">
             <p class="ageFilm margin-tb-10">P</p>
             <h1 th:text="${movie.tenPhim}"></h1>
-            <p class="opacity-7 margin-tb-10" th:text="${movie.tenPhim}"> · <p th:text="${movie.thoiLuong}">phút</p> </p>
+            <p class="opacity-7 margin-tb-10" th:text="${movie.tenPhim}"> · <p ><span th:text="${movie.thoiLuong}"></span> phút</p>
             <p>🌟 9 </p>
             <b>Nội dung</b>
             <p class="opacity-7" th:text="${movie.moTa}"></p>
@@ -159,18 +159,46 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    
+    
+    
+    <div class="comments pa-64">
+    	
+	    <form action="#" th:action="@{/saveRate}" th:object="${newRate}" method="post">
+            <div class="mb-3">
+                <select class="form-select w-auto mb-3" id="selectRating" th:field="*{diem}" aria-label="Default select example" required>
+                    <option value="0" disabled selected>Điểm</option>
+                    <option th:value="1">1</option>
+                    <option th:value="2">2</option>
+                    <option th:value="3">3</option>
+                    <option th:value="4">4</option>
+                    <option th:value="5">5</option>
+                    <option th:value="6">6</option>
+                    <option th:value="7">7</option>
+                    <option th:value="8">8</option>
+                    <option th:value="9">9</option>
+                    <option th:value="10">10</option>
+                </select>
+                
+                <label for="textareaComment" class="form-label mb-3">Bình luận</label>
+                <textarea class="form-control" id="textareaComment" th:field="*{binhLuan}" rows="3"></textarea>                
+    			<input type="hidden" th:field="*{taiKhoan}"/>
+    			<input type="hidden" th:field="*{Phim}"/>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3 mt-3">Gửi đánh giá</button>
+        </form>
+        <div class="">
+            <h3 class="comments-title">Bình luận từ người xem</h3>
+            <div class="user-comment" th:each="rate:${rates}" th:if="${rate.Phim.idPhim == movie.idPhim}">
+                <div class=" flex" >
+                    <div class="user-avt"><img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg" alt="" width="50px" height="50px"></div>
+                    <div class="user-info">
+                        <p th:text="${rate.taiKhoan.username}"></p>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    Hide this modal and show the first with the button below.
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
+                <div>
+                    <div class="comment-rate mg-10 ">🌟 <span th:text="${rate.diem}"></span>/10 •</div>
+                    <div class="comment-content" th:text="${rate.binhLuan}"></div>
                 </div>
             </div>
         </div>
