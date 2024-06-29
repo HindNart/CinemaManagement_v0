@@ -130,7 +130,8 @@ public class adminController {
         Rate newRate = new Rate();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-
+        float tbc;
+        
         newRate.setTaiKhoan(account);
         newRate.setPhim(movie);
         model.addAttribute("newRate", newRate);

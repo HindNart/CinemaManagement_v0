@@ -19,13 +19,11 @@
             case "Quản lý":
                 luongInput.value = "10000000"; // Lương của quản lý
                 break;
-            case "Giám đốc":
-                luongInput.value = "20000000"; // Lương của giám đốc
-                break;
             default:
                 luongInput.value = ""; // Nếu không chọn gì
         }
     }
+
     function validateAge(dateOfBirth) {
         var ngaySinh = new Date(dateOfBirth);
         var today = new Date();
@@ -36,30 +34,52 @@
         }
         return age <= 100;
     }
-    
-    function validateForm() {
+
+    function validateForm(event) {
         var ngaySinhValue = document.getElementById("ngaySinhNV").value;
         if (!validateAge(ngaySinhValue)) {
             alert("Ngày sinh không được quá 100 tuổi.");
-            return false;
+            event.preventDefault(); // Ngăn chặn việc gửi form
         }
-        return true;
+    }
+    function validateSpecialCharacters(input) {
+        var specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        return specialCharacters.test(input);
+    }
+
+    function validateForm() {
+        var tenNhanVien = document.getElementById("ten").value;
+        var diaChiNhanVien = document.getElementById("diachi").value;
+        if (validateSpecialCharacters(tenNhanVien)) {
+            alert("Tên nhân viên không được chứa kí tự đặc biệt!");
+            event.preventDefault();
+        }
+        if (validateSpecialCharacters(diaChiNhanVien)) {
+            alert("Địa chỉ nhân viên không hợp lệ!");
+            event.preventDefault();
+        }
+        var soDienThoai = document.getElementById("sdt").value;
+        if (soDienThoai.length > 15) {
+            alert("Số điện thoại không hợp lệ!");
+            event.preventDefault();
+        }
     }
 </script>
+
 <div class="container w-50 mt-5 rounded shadow p-4 bg-body-tertiary">
-	<h1>Quản lý nhân viên</h1>
-	<hr>
+    <h1>Quản lý nhân viên</h1>
+    <hr>
     <h2>Cập nhật nhân viên</h2>
     <div th:if="${message}" th:text="${message}" class="alert alert-danger"></div>
     <hr> 
-    <form th:action="@{/updateEmployee}" th:object="${employee}" method="POST">
+    <form th:action="@{/updateEmployee}" th:object="${employee}" method="POST" onsubmit="validateForm(event)">
         <div class="mb-3 visually-hidden">
             <label for="id" class="form-label">Mã nhân viên</label>
             <input required type="text" th:field="*{idNhanVien}" placeholder="Mã nhân viên" class="form-control mb-4 col-4">
         </div>
         <div class="mb-3">
             <label for="ten" class="form-label">Tên nhân viên</label>
-            <input required type="text" th:field="*{hoTenNV}" placeholder="Tên nhân viên" class="form-control mb-4 col-4">
+            <input required type="text" th:field="*{hoTenNV}" placeholder="Tên nhân viên" id="ten" class="form-control mb-4 col-4">
         </div>
         <div class="mb-3">
             <label for="ngaysinh" class="form-label">Ngày sinh</label>
@@ -67,7 +87,7 @@
         </div>
         <div class="mb-3">
             <label for="diachi" class="form-label">Địa chỉ</label>
-            <input required type="text" th:field="*{diaChi}" placeholder="Địa chỉ" class="form-control mb-4 col-4">
+            <input required type="text" th:field="*{diaChi}" placeholder="Địa chỉ" id="diachi" class="form-control mb-4 col-4">
         </div>
         <div class="mb-3">
             <label for="chucvu" class="form-label">Chức vụ</label>
@@ -75,16 +95,15 @@
                 <option value="">Chọn chức vụ</option>
                 <option value="Nhân viên">Nhân viên</option>
                 <option value="Quản lý">Quản lý</option>
-                <option value="Giám đốc">Giám đốc</option>
             </select>
         </div>
         <div class="mb-3">
             <label for="luong" class="form-label">Lương</label>
-            <input required type="text" th:field="*{luong}" id="luong" placeholder="Lương" class="form-control mb-4 col-4">
+            <input required type="text" th:field="*{luong}" id="luong" placeholder="Lương" class="form-control mb-4 col-4" readonly>
         </div>
         <div class="mb-3">
             <label for="calam" class="form-label">Ca làm việc</label>
-            <select th:field="*{caLam}" placeholder="Ca làm" class="form-control mb-4 col-4">
+            <select th:field="*{caLam}" class="form-control mb-4 col-4">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -93,7 +112,7 @@
         </div>
         <div class="mb-3">
             <label for="sdt" class="form-label">Số điện thoại</label>
-            <input required type="text" th:field="*{sdt}" placeholder="Số điện thoại" class="form-control mb-4 col-4">
+            <input required type="number" th:field="*{sdt}" placeholder="Số điện thoại" id="sdt" class="form-control mb-4 col-4">
         </div>
         <hr>
         <div class="d-flex justify-content-between">
@@ -102,7 +121,6 @@
         </div>
     </form>
 </div>
-
 
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,15 +11,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Group3.ManagementCinema.entity.CinemaRoom;
+import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
+import com.Group3.ManagementCinema.repository.MovieRepository;
+import com.Group3.ManagementCinema.service.CinemaRoomService;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
+import com.Group3.ManagementCinema.service.MovieService;
 
 
 @Controller
 public class MovieScheduleController {
 	@Autowired
 	private MovieScheduleService movieScheduleService;// display list of movies
-	
+	@Autowired
+	private MovieService movieService;
+	@Autowired
+	private CinemaRoomService cinemaRoomService;
 	@GetMapping("/movieSchedules")
 	public String viewMovieSchedule(Model model) {
 		model.addAttribute("listMovieSchedules", movieScheduleService.getAllMovieSchedules());
@@ -28,6 +38,10 @@ public class MovieScheduleController {
     public String showNewMovieScheduleForm(Model model) {
         // create model attribute to bind form data
         MovieSchedule movieSchedule = new MovieSchedule();
+		List<Movie> movie = movieService.getAllMovies();
+		List<CinemaRoom> cinemaRoom = cinemaRoomService.getAllCinemaRooms();
+		model.addAttribute("cinemaRooms", cinemaRoom);
+		model.addAttribute("movies", movie);
         model.addAttribute("movieSchedule", movieSchedule);
         return "/movieSchedule/movieSchedule_new";
     } 
@@ -67,6 +81,10 @@ public class MovieScheduleController {
 		// get movie from the service
 		MovieSchedule movieSchedule = movieScheduleService.getMovieScheduleById(id);
 		// set movie as a model attribute to pre-populate the form
+		List<Movie> movie = movieService.getAllMovies();
+		List<CinemaRoom> cinemaRoom = cinemaRoomService.getAllCinemaRooms();
+		model.addAttribute("cinemaRooms", cinemaRoom);
+		model.addAttribute("movies", movie);
 		model.addAttribute("movieSchedule", movieSchedule);
 		return "/movieSchedule/movieSchedule_update";
 	}

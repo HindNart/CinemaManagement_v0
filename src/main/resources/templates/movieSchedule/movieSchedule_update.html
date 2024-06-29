@@ -18,25 +18,34 @@
 				<input required type="text" th:field="*{idLichChieu}" placeholder="Mã lịch chiếu" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
-				<label for="phongchieu" class="form-label">Phòng chiếu phim</label>
-				<input required type="text" th:field="*{phongChieu}" placeholder="Phòng chiếu" class="form-control mb-4 col-4">
-			</div>
+	            <label for="phim" class="form-label">Phòng chiếu phim</label>
+	            <select th:field="*{phongChieu}" class="form-control mb-4 col-4">
+	                <option th:each="cinemaRoom : ${cinemaRooms}" th:value="${cinemaRoom.idPhong}"><p th:text="${cinemaRoom.idPhong}"></p></option>
+	            </select>
+	        </div>
 			<div class="mb-3">
-				<label for="phim" class="form-label">Phim</label>
-				<input required type="text" th:field="*{phim}" placeholder="Phim" class="form-control mb-4 col-4">
-			</div>
-			<div class="mb-3">
-				<label for="tgBD" class="form-label">Thời gian bắt đầu</label>
-				<input required type="time" th:field="*{thoigianBD}" placeholder="Thời gian bắt đầu" class="form-control mb-4 col-4">
-			</div>
-			<div class="mb-3">
-				<label for="tgKT" class="form-label">Thời gian kết thúc</label>
-				<input required type="time" th:field="*{thoigianKT}" placeholder="Thời gian kết thúc" class="form-control mb-4 col-4">
+	            <label for="phim" class="form-label">Phim</label>
+	            <select th:field="*{phim}" class="form-control mb-4 col-4">
+	                <option th:each="movie:${movies}" th:value="${movie.idPhim}"><p th:text="${movie.idPhim}"></p></option>
+	            </select>
+	        </div>
+			<div class="mb-3 d-flex justify-content-between">				
+				<div class="col col-5">
+					<label for="thoigianBD" class="form-label">Thời gian bắt đầu</label>
+					<input required type="time" th:field="*{thoigianBD}" placeholder="Thời gian bắt đầu" class="form-control">
+				</div>
+				<div class="col col-5">
+					<label for="thoigianKT" class="form-label">Thời gian kết thúc</label>
+					<input required type="time" th:field="*{thoigianKT}" placeholder="Thời gian kết thúc" class="form-control">
+				</div>
 			</div>
 			<div class="mb-3">
 				<label for="ngaychieu" class="form-label">Ngày chiếu</label>
-				<input required type="date" th:field="*{ngayChieu}" placeholder="Ngày chiếu" class="form-control mb-4 col-4">
+				<input required type="date" th:field="*{ngayChieu}" placeholder="Ngày chiếu" id="ngayChieu" class="form-control mb-4 col-4">
+				<div id="dateErrorMessage" class="text-danger"></div>
 			</div>
+			
+			<hr>
 			<div class="d-flex justify-content-between">
 				<a class="btn btn-secondary" th:href="@{/}"> Quay lại</a>				
 				<button type="submit" class="btn btn-success col-2"> Cập nhật</button>
