@@ -7,90 +7,134 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
-	    document.addEventListener("DOMContentLoaded", function () {
-	        var modalToggleButtons = document.querySelectorAll('.schedule-time-item');
-	    });
+    document.addEventListener("DOMContentLoaded", function () {
+        var modalToggleButtons = document.querySelectorAll('.schedule-time-item');
+    });
 
-        document.addEventListener("DOMContentLoaded", function () {
-            let listChoosen = document.getElementById("seat-chosens");
-            let moneyCount = document.getElementById("moneyCount");
-            let totalAmount = 0;
-            
-           
-            
-            function addSeat(button) {
-                var chairValue = button.value;
-                var chairID = button.getAttribute('chairID');
-                var price = button.getAttribute('chairPrice');
-                if (button.classList.contains("choosen-seat")) {
-                    alert("Ghế này đã được đặt!");
+    document.addEventListener("DOMContentLoaded", function () {
+        let listChoosen = document.getElementById("seat-chosens");
+        let listChoosenPay = document.getElementById("seat-chosens-pay");
+        let moneyCount = document.getElementById("moneyCount");
+        let totalAmount = 0;
+        let selectedSeats = [];
+        let payButton = document.querySelector(".pay-ticket");
+
+        function addSeat(button) {
+            var chairValue = button.value;
+            var chairID = button.getAttribute('chairID');
+            var price = button.getAttribute('chairPrice');
+            if (button.classList.contains("choosen-seat")) {
+                alert("Ghế này đã được đặt!");
+                return;
+            }
+
+            var chairType = button.classList.contains("normal-seat") ? "normal" :
+                button.classList.contains("vip-seat") ? "vip" :
+                button.classList.contains("couple-seat") ? "couple" : null;
+            var chairPrice = parseInt(price);
+
+            // Kiểm tra xem ghế đã được chọn hay chưa
+            var existingSeats = listChoosen.querySelectorAll(".seat-chosen");
+            for (var i = 0; i < existingSeats.length; i++) {
+                if (existingSeats[i].textContent === chairValue) {
+                    alert("Ghế này đã được chọn!");
                     return;
                 }
-                
-                var chairType = button.classList.contains("normal-seat") ? "normal" :
-                    button.classList.contains("vip-seat") ? "vip" :
-                    button.classList.contains("couple-seat") ? "couple" : null;
-    				var chairPrice = parseInt(price) ;
-
-                // Kiểm tra xem ghế đã được chọn hay chưa
-                var existingSeats = listChoosen.querySelectorAll(".seat-chosen");
-                for (var i = 0; i < existingSeats.length; i++) {
-                    if (existingSeats[i].textContent === chairValue) {
-                        alert("Ghế này đã được chọn!");
-                        return;
-                    }
-                }
-                
-                // Them id vao list
-                if (listIdChair.value) {
-                    listIdChair.value += ',' + chairID;
-                } else {
-                    listIdChair.value = chairID;
-                }
-             // Cập nhật tổng số tiền
-                totalAmount += chairPrice;
-                moneyCount.value = totalAmount;
-
-
-             	// Thêm lớp để thay đổi màu nút ghế
-             	
-            	button.classList.add("selected-seat");
-                // Tạo một phần tử mới để chứa thông tin ghế
-                let seat = document.createElement("div");
-                seat.className = "seat-chosen";
-                seat.textContent = chairValue;
-                listChoosen.appendChild(seat);
-                
-                seat.addEventListener("click", function () {
-                    listChoosen.removeChild(seat);
-
-                    totalAmount -= chairPrice;
-                    moneyCount.value = totalAmount;
-                    button.classList.remove("selected-seat");
-                    // Xóa chairID khỏi listIdChair
-                    let ids = listIdChair.value.split(',');
-                    ids = ids.filter(id => id !== chairID);
-                    listIdChair.value = ids.join(',');
-                });
             }
-            
-            // Gán hàm addSeat cho các nút ghế
-            var seatButtons = document.querySelectorAll(".normal-seat, .vip-seat, .couple-seat");
-            seatButtons.forEach(button => {
-                button.addEventListener("click", function () {
-                    addSeat(button);
-                });
+
+            // Thêm id vào list
+            if (listIdChair.value) {
+                listIdChair.value += ',' + chairID;
+            } else {
+                listIdChair.value = chairID;
+            }
+
+            // Cập nhật tổng số tiền
+            totalAmount += chairPrice;
+            moneyCount.value = totalAmount;
+            selectedSeats.push(chairValue);
+
+            // Thêm lớp để thay đổi màu nút ghế
+            button.classList.add("selected-seat");
+
+            // Tạo một phần tử mới để chứa thông tin ghế
+            let seat = document.createElement("div");
+            seat.className = "seat-chosen";
+            seat.textContent = chairValue;
+            listChoosen.appendChild(seat);
+
+            seat.addEventListener("click", function () {
+                listChoosen.removeChild(seat);
+
+                totalAmount -= chairPrice;
+                moneyCount.value = totalAmount;
+                button.classList.remove("selected-seat");
+
+                // Xóa chairID khỏi listIdChair
+                let ids = listIdChair.value.split(',');
+                ids = ids.filter(id => id !== chairID);
+                listIdChair.value = ids.join(',');
+
+                // Xóa ghế khỏi danh sách đã chọn
+                selectedSeats = selectedSeats.filter(seat => seat !== chairValue);
+
+                // Loại bỏ ghế khỏi danh sách hiển thị thanh toán
+                let seatToRemove = listChoosenPay.querySelector(`div.seat-chosen:contains(${chairValue})`);
+                if (seatToRemove) {
+                    listChoosenPay.removeChild(seatToRemove);
+                }
+
+                // Kiểm tra lại nếu không có ghế nào được chọn thì xóa thuộc tính data-bs-toggle
+                if (selectedSeats.length === 0) {
+                    payButton.removeAttribute("data-bs-toggle", "modal");
+                }
+            });
+
+            // Thêm thuộc tính data-bs-toggle cho nút "Mua vé" nếu có ghế được chọn
+            if (selectedSeats.length > 0) {
+                payButton.setAttribute("data-bs-toggle", "modal");
+            }
+        }
+
+        // Gán hàm addSeat cho các nút ghế
+        var seatButtons = document.querySelectorAll(".normal-seat, .vip-seat, .couple-seat");
+        seatButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                addSeat(button);
             });
         });
-        function loadContent(fragment) {
-            fetch(fragment)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('content').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading content:', error));
+
+        // Cập nhật thông tin ghế và tổng tiền khi mở modal
+        document.querySelector(".pay-ticket").addEventListener("click", function (event) {
+            if (selectedSeats.length === 0) {
+                alert("Bạn chưa chọn ghế nào!");
+                event.preventDefault(); // Ngăn chặn hành động mặc định
+                return;
+            }
+
+            listChoosenPay.innerHTML = '';
+            selectedSeats.forEach(seat => {
+                let seatDiv = document.createElement("div");
+                seatDiv.className = "seat-chosen";
+                seatDiv.textContent = seat;
+                listChoosenPay.appendChild(seatDiv);
+            });
+
+            // Tính toán giá trị cuối cùng và hiển thị
+            calculateFinalPrice();
+        });
+
+        // Hàm tính toán và hiển thị giá trị cuối cùng
+        function calculateFinalPrice() {
+            let accPoints = parseInt(document.getElementById("accPoints").value);
+            let finalPrice = totalAmount;
+            if (document.getElementById("usePoints").checked) {
+                finalPrice -= accPoints;
+            }
+            document.getElementById("finalPrice").textContent = finalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
         }
-     // Hàm để lấy ngày hiện tại và định dạng theo YYYY-MM-DD
+
+        // Hàm để lấy ngày hiện tại và định dạng theo YYYY-MM-DD
         function setCurrentDate() {
             const today = new Date();
             const year = today.getFullYear();
@@ -105,15 +149,19 @@
 
         // Gọi hàm khi trang được tải
         window.onload = setCurrentDate;
+
+        // Lắng nghe sự kiện thay đổi trên checkbox sử dụng điểm
+        document.getElementById("usePoints").addEventListener("change", calculateFinalPrice);
+    });
     </script>
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-4	">
                 	<div class="buy-title">
                         <p><b>Mua vé xem phim</b></p>
                     </div>
-    			<div class="buy-section">
-                        <div class="buy-ticket">
+    			<div class="buy-section rounded-bottom ">
+                        <div class="buy-ticket pb-3">
                             <div class="seat-section">
                                <div class="seat-row"> 
 								    <div th:each="chair : ${chairs}">
@@ -198,30 +246,86 @@
                                 </div>
                             </div>
                             <div class="ticket-details">     
-                                <p class="ageFilm margin-tb-10">P</p><input type="text" disabled th:value="${movie.tenPhim}" style="display:inline;">
-                                <p style="color: rgb(220, 137, 35);">
+                                <p class="ageFilm margin-tb-10">P</p>
+                                <p th:text="${movie.tenPhim}" class=" mt-3"></p>
+                                <p class=" my-3" style="color: rgb(220, 137, 35);">
                                 <span th:text="${sche.ngayChieu}"></span>
                                 <span> • <span th:text="${sche.thoigianBD}"> </span> ~ <span th:text="${sche.thoigianKT}"></span> • Phòng chiếu <span th:text="${sche.phongChieu.idPhong}"></span> <span th:text="${sche.phongChieu.loaiPhong}"></span>  </span></p>
                                 <div class="seat-chose flex spc-btw">
-                                    <p class="mb-2">Chỗ ngồi</p>
+                                    <p class="my-2">Chỗ ngồi</p>
                                     <div id="seat-chosens" class=" flex spc-btw">
                                     </div>
                                 </div>
-                                <form th:action="@{/saveTicket}" th:object="${ticket}" method="POST">
-	                                <div class="flex spc-btw ">
-	                                    <div class="money">
-	                                        <p>Tạm tính</p>
-	                                        <input type="text" name="gia" id="moneyCount" readonly/>                                        
-		                                    <input type="hidden" th:value="${account.email}" th:field="*{taiKhoan}" readonly/>
-		                                    <input type="hidden" th:field="*{lichChieu}" th:value="${sche.idLichChieu}"/>
-		                                    <input type="hidden" th:field="*{ghe}" id="listIdChair"/>
-		                                    <input type="hidden" th:field="*{thoigianMua}" id="currentDate"readonly/>
-	                                    </div>
-	                                    <div class="">
-	                                        <input type="submit" class="btn btn-primary pay-ticket" value="Mua vé"/>
-	                                    </div>	                                
-	                                </div>
-    							</form>
+                                <div class="mt-3">
+                                	<a type="button" class="btn btn-secondary" th:href="@{/film/{id}(id=${movie.idPhim})}">Quay lại</a>
+                                 	<input type="button" class="btn btn-primary pay-ticket float-end" data-bs-target="#payModal" value="Mua vé" />
+                            	</div>
+					        <div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
+					            <div class="modal-dialog modal-dialog-centered">
+					                <div class="modal-content">
+					                    <div class="modal-header">
+					                        <h1 class="modal-title fs-5" id="payModalLabel">Xác nhận thanh toán</h1>
+					                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					                    </div>
+					                    <form th:action="@{/saveTicket}" th:object="${ticket}" method="POST">
+					                    <div class="modal-body">
+					                                <div class="flex spc-btw ">
+					                                    <div class="money">                                 
+					                                    <input type="hidden" th:value="${account.email}" th:field="*{taiKhoan}" readonly/>
+					                                    <input type="hidden" th:field="*{lichChieu}" th:value="${sche.idLichChieu}"/>
+					                                    <input type="hidden" th:field="*{thoigianMua}" id="currentDate"readonly/>				                                
+					                                    <input type="hidden" th:field="*{ghe}" id="listIdChair"/>
+					                                    <input type="hidden" th:value="${account.diem}" id="accPoints"/>
+					                                    </div>
+					                               </div>
+					                        <div class="mb-3 row">
+					                            <label class="col-sm-3 col-form-label">Ghế đã chọn:</label>
+					                            <div class="col-sm-9 col-form-label">
+					                                <div id="seat-chosens-pay" class=" flex	">	
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <div class="mb-3 row">
+					                            <label class="col-sm-3 col-form-label">Tổng tiền:</label>
+					                            <div class="col-sm-9 col-form-label">
+					                                <input type="text" name="gia" id="moneyCount" style="border:none;" readonly/>   
+					                            </div>
+					                        </div>
+					                        <div class="mb-3 row">
+					                            <div class="col-sm-3">
+					                                <label for="points" class="col-form-label">Điểm tích lũy:</label>
+					                            </div>
+					                            <div class="col-sm-9">
+					                                <label for="points" class="col-form-label" th:text="${account.diem}"></label>
+					                            </div>
+					                        </div>
+					                        <div class="mb-3">
+					                            <div class="form-check">
+					                                <input class="form-check-input" type="checkbox" id="usePoints" name="usePoints">
+					                                <label class="form-check-label " for="usePoints">
+					                                	Sử dụng điểm			                                    
+					                                </label>
+					                            </div>
+					                        </div>
+					                        <div class="mb-3 row">
+					                            <label class="col-sm-3 col-form-label">Thành tiền:</label>
+					                            <div class="col-sm-9">
+					                                <p class="form-control-plaintext" id="finalPrice"></p>
+					                            </div>
+					                        </div>
+					                   </div>
+					                    <div class="modal-footer">
+					                        <input type="submit" class="btn btn-primary" onclick="myFunction()" value="Thanh toán"/>
+					                    </div>
+					                    </form>
+					                </div>
+					            </div>
+					        </div>
+					    <script>
+					        function myFunction() {
+					            alert("Thanh toán thành công");
+					        }
+					    </script>
                             </div>
                         </div>
                         

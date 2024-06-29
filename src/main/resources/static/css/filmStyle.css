@@ -296,16 +296,6 @@ p {
     border-radius: 0 0 5px 5px;
 }
 
-.ticket-details input{
-	border:none;
-	outline:none;
-	background-color: #fff;
-	width:100%;
-}
-
-.ticket-details p {
-    margin: 10px 0;
-}
 
 .seat-chose {
     border-top: 1px solid #ccc;
@@ -322,7 +312,6 @@ p {
 }
 
 .pay-ticket {
-    margin-top: 10px;
     padding: 15px;
     border: none;
     background-color: #d630bd;

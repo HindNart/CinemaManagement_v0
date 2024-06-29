@@ -10,12 +10,16 @@ ul li {
     list-style-type: none;
 }
 .flex {
-    display: flex;
+    display: flex !important;
     align-items: center;
 }
 
 .brr-50{
     border-radius: 50%;
+}
+
+.w-20{
+	width:20% !important;
 }
 
 /* Header */
@@ -171,6 +175,7 @@ ul li {
     bottom: 20px;
     display: flex;
     justify-content: center;
+	width: 100%;
 }
 
 .now-showing-items {
