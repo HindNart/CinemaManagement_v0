@@ -1,7 +1,9 @@
 package com.Group3.ManagementCinema.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -75,5 +77,11 @@ public class RateServiceImpl implements RateService {
 		// TODO Auto-generated method stub
 		return rateRepository.count();
 	}
+
+    public Map<String, Double> getAverageRatings() {
+        List<Rate> rates = getAllRates();
+        return rates.stream().collect(Collectors.groupingBy(rate -> rate.getPhim().getIdPhim(),
+                Collectors.averagingDouble(Rate::getDiem)));
+    }
 	
 }

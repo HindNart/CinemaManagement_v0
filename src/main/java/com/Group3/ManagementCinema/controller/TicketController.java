@@ -82,26 +82,25 @@ public class TicketController {
 	}
 	
 	@PostMapping("/saveTicket")
-	public String saveTicket(@ModelAttribute("ticket") Ticket ticket, HttpServletRequest request) {	
+	public String saveTicket(@ModelAttribute("ticket") Ticket ticket, HttpServletRequest request) {    
 	    String usePoints = request.getParameter("usePoints");
-	    boolean usePointsChecked = "true".equals(usePoints);
-	    
+	    boolean usePointsChecked = (usePoints != null && usePoints.equals("on"));
+
 	    // Lưu vé và nhận đối tượng vé mới
 	    Ticket newTicket = ticketService.saveTicket(ticket);
 
 	    // Đặt lại trạng thái của ghế
 	    List<Chair> chairs = ticket.getGhe();
-	    
 	    for (Chair c : chairs) {
 	        c.setTrangThai(0);
+	        chairService.saveChair(c); // Lưu trạng thái ghế
 	    }
 
 	    // Xử lý logic điểm
 	    Account acc = ticket.getTaiKhoan();
 	    if (usePointsChecked) {
 	        // Nếu được chọn sử dụng điểm, đặt điểm của tài khoản về 0
-	    	int currentPoints = acc.getDiem();
-	        acc.setDiem(currentPoints-currentPoints);
+	        acc.setDiem(0);
 	    } else {
 	        // Nếu không được chọn, cập nhật điểm (ví dụ: thêm 1000 điểm cho mỗi ghế)
 	        int currentPoints = acc.getDiem();
@@ -109,14 +108,15 @@ public class TicketController {
 	        acc.setDiem(currentPoints + pointsToAdd);
 	    }
 
-	    // Lưu các thay đổi vào tài khoản nếu cần
+	    // Lưu các thay đổi vào tài khoản
 	    accountService.saveAccount(acc);
 
-	    // Lưu vé lại nếu cần (phụ thuộc vào logic của dịch vụ)
+	    // Lưu vé lại để đảm bảo tất cả các thay đổi được lưu
 	    ticketService.saveTicket(ticket);
 
 	    return "redirect:/qrTicket/" + newTicket.getIdVe();
 	}
+
 
 	
 	@PostMapping("/updateTicket")

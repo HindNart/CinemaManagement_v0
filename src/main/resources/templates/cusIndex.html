@@ -39,7 +39,7 @@
                         <span th:if="${account != null}"><p th:text="${account.username}"></p></span>
                         <i class="bi bi-chevron-compact-down"></i>
                         <div class="dropdown-content">
-                            <a href="#">Thông tin</a>
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal">Thông tin</a>
                             <a th:href="@{/logout}">Đăng xuất</a>
                         </div>
                     </div>
@@ -79,64 +79,111 @@
             </div>
             <div class="now-showing-list">
                  <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <!-- Carousel Item 1 -->
-        <div class="carousel-item active " data-bs-interval="10000">
-            <div class="row justify-content-around mx-5">
-                <div class="now-showing-items col-2" th:each="movie, iterStat : ${movies}" th:if="${iterStat.index < 5}">
-                    <!-- Thêm mã HTML của phim vào đây -->
-                    <div class="now-showing-img">
-                        <a th:href="@{/film/{id}(id=${movie.idPhim})}">
-                            <img th:src="${movie.LinkPoster}" alt="" width="200px" height="300px">
-                        </a>
-                    </div>
-                    <div class="now-showing-name">
-                        <p th:text="${movie.tenPhim}"></p>
-                    </div>
-                    <div class="now-showing-category">
-                        <p th:text="${movie.theLoai}"></p>
-                    </div>
-                    <div class="now-showing-rate">🌟9.1</div>
-                </div>
-            </div>
-        </div>
-        <!-- Carousel Item 2, 3, ... -->
-        <!-- Chia nhóm phim thành các carousel-item mới -->
-        <div class="carousel-item" data-bs-interval="10000">
-            <div class="row justify-content-around mx-5">
-                <div class="now-showing-items col-2" th:each="movie, iterStat : ${movies}" th:if="${iterStat.index >= 5 and iterStat.index < 10}">
-                    <!-- Thêm mã HTML của phim vào đây -->
-                    <div class="now-showing-img">
-                        <a th:href="@{/film/{id}(id=${movie.idPhim})}">
-                            <img th:src="${movie.LinkPoster}" alt="" width="200px" height="300px">
-                        </a>
-                    </div>
-                    <div class="now-showing-name">
-                        <p th:text="${movie.tenPhim}"></p>
-                    </div>
-                    <div class="now-showing-category">
-                        <p th:text="${movie.theLoai}"></p>
-                    </div>
-                    <div class="now-showing-rate">🌟9.1</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Nút điều khiển slide -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+		    <div class="carousel-inner">
+		        <!-- Carousel Item 1 -->
+		        <div class="carousel-item active " data-bs-interval="10000">
+		            <div class="row justify-content-around mx-5">
+		                <div class="now-showing-items col-2" th:each="movie, iterStat : ${movies}" th:if="${iterStat.index < 5}">
+		                    <!-- Thêm mã HTML của phim vào đây -->
+		                    <div class="now-showing-img">
+		                        <a th:href="@{/film/{id}(id=${movie.idPhim})}">
+		                            <img th:src="${movie.LinkPoster}" alt="" width="200px" height="300px">
+		                        </a>
+		                    </div>
+		                    <div class="now-showing-name">
+		                        <p th:text="${movie.tenPhim}"></p>
+		                    </div>
+		                    <div class="now-showing-category">
+		                        <p th:text="${movie.theLoai}"></p>
+		                    </div>
+		                    <div class="now-showing-rate">🌟<span th:text="${#numbers.formatDecimal(averageRatings[movie.idPhim], 1, 1)}"></span>
+							</div>
+		                </div>
+		            </div>
+		        </div>
+		        <!-- Carousel Item 2, 3, ... -->
+		        <!-- Chia nhóm phim thành các carousel-item mới -->
+		        <div class="carousel-item" data-bs-interval="10000">
+		            <div class="row justify-content-around mx-5">
+		                <div class="now-showing-items col-2" th:each="movie, iterStat : ${movies}" th:if="${iterStat.index >= 5 and iterStat.index < 10}">
+		                    <!-- Thêm mã HTML của phim vào đây -->
+		                    <div class="now-showing-img">
+		                        <a th:href="@{/film/{id}(id=${movie.idPhim})}">
+		                            <img th:src="${movie.LinkPoster}" alt="" width="200px" height="300px">
+		                        </a>
+		                    </div>
+		                    <div class="now-showing-name">
+		                        <p th:text="${movie.tenPhim}"></p>
+		                    </div>
+		                    <div class="now-showing-category">
+		                        <p th:text="${movie.theLoai}"></p>
+		                    </div>
+		                    <div class="now-showing-rate">🌟<span th:text="${#numbers.formatDecimal(averageRatings[movie.idPhim], 1, 1)}"></span></div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <!-- Nút điều khiển slide -->
+		    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+		        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		        <span class="visually-hidden">Previous</span>
+		    </button>
+		    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+		        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		        <span class="visually-hidden">Next</span>
+		    </button>
+		</div>
 
 		
             </div>
         </div>
         
+        
+        <!-- User section -->
+        
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog md">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin tài khoản</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		      
+		        <form th:action="@{/updateAccount}" th:object="${account}" method="post">
+					  <div class="row mb-3">
+					    <label for="inputEmail3" class="col-sm-3 col-form-label">Email:</label>
+					    <div class="col-sm-9">
+					      <input type="email" class="form-control" id="inputEmail3" th:field="*{email}" th:value="${account.email}"required>
+					    </div>
+					  </div>
+					  <div class="row mb-3">
+					    <label for="username" class="col-sm-3 col-form-label">Username:</label>
+					    <div class="col-sm-9">
+					      <input type="text" class="form-control" id="username" th:field="*{username}" th:value="${account.username}" required>
+					    </div>
+					  </div>
+					  
+					  
+					  <div class="row mb-3">
+					    <label for="inputPassword3" class="col-sm-3 col-form-label">Password:</label>
+					    <div class="col-sm-9">
+					      <input type="password" class="form-control" id="inputPassword3" th:field="*{password}" th:value="${account.password}"
+					       pattern=".{8,}" title="Password phải có ít nhất 8 ký tự" required>
+					    </div>
+					  </div>
+					  <div class="row mb-3">
+					    <label for="inputPassword3" class="col-sm-3 col-form-label">Điểm:</label>
+					    <div class="col-sm-9">
+					      <input type="text" class="form-control" id="" th:value="${account.diem}" th:field="*{diem}" readonly>
+					    </div>
+					  </div>
+					  <button type="submit" class="btn btn-primary float-end">Lưu</button>
+				</form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
        
         <div id="footer">
             <p>©Copyright by Huy</p>

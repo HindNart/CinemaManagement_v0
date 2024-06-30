@@ -43,7 +43,6 @@
                 <div class="user-name nav-dropdown">Admin
                      <i class="bi bi-chevron-compact-down"></i>
                     <div class="dropdown-content">
-                        <a href="#">Thông tin</a>
                         <a th:href="@{/logout}">Logout</a>
                     </div>
                 </div>
@@ -102,7 +101,7 @@
             </div>
     <!-- <a href="/testStatis.html">Xem thêm</a>  -->
     <div class="db-item">
-		<div class="mlr-20  flex">        
+		<div class="mlr-20  flex" style="justify-content: center;">        
 			<div id="donut-chart"></div>
 				<script>
 					let chart = bb.generate({
@@ -111,7 +110,7 @@
 								["Blue", 2],
 								["orange", 4],
 								["green", 3],
-								["RED", 3]
+								["RED", 13]
 							],
 							type: "donut",
 							onclick: function (d, i) {
@@ -130,7 +129,17 @@
 						bindto: "#donut-chart",
 					});					
 				</script>
+				
+    
+    <div id="myPlot" 
+    style="width:100%;max-width:700px; max-width: 700px;
+    position: relative;
+    width: 700px;
+    height: 450px;
+    left: -400px;">
+    </div>
         	</div> 
+        	
         	
         </div>
      </div>
@@ -159,6 +168,22 @@
             });
         });
     </script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script>
+	const xArray = ["Italy", "France", "Spain", "USA", "Argentina"];
+	const yArray = [55, 49, 44, 24, 15];
+	
+	const data = [{
+	  x:xArray,
+	  y:yArray,
+	  type:"bar"
+	}];
+	
+	const layout = {title:"World Wide Wine Production"};
+	
+	Plotly.newPlot("myPlot", data, layout);
+	</script>
+	    
 
 </body>
 </html>

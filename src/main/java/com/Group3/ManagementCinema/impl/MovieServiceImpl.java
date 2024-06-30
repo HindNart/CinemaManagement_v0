@@ -8,13 +8,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.Group3.ManagementCinema.entity.Movie;
+import com.Group3.ManagementCinema.entity.Rate;
 import com.Group3.ManagementCinema.repository.MovieRepository;
+import com.Group3.ManagementCinema.repository.RateRepository;
 import com.Group3.ManagementCinema.service.MovieService;
 
 @Service
 public class MovieServiceImpl implements MovieService {
 	@Autowired
 	private MovieRepository movieRepository;
+	@Autowired
+	private RateRepository rateRepository;
+	
 	@Override
 	public long countMovie() {
         return movieRepository.count();

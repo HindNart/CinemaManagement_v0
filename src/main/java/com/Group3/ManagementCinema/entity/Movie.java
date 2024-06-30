@@ -34,6 +34,16 @@ public class Movie {
 	
 	@Column(name = "linkPoster", nullable = false)
 	private String linkPoster;
+	@Transient
+    private double averageRating;
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
+    }
 
 	public String getIdPhim() {
 		return idPhim;
@@ -124,5 +134,20 @@ public class Movie {
 		this.moTa = moTa;
 		this.ngayPH = ngayPH;
 		this.linkPoster = linkPoster;
+	}
+
+	public Movie(String idPhim, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,
+			String moTa, Date ngayPH, String linkPoster, double averageRating) {
+		super();
+		this.idPhim = idPhim;
+		this.tenPhim = tenPhim;
+		this.theLoai = theLoai;
+		this.daoDien = daoDien;
+		this.dienVien = dienVien;
+		this.thoiLuong = thoiLuong;
+		this.moTa = moTa;
+		this.ngayPH = ngayPH;
+		this.linkPoster = linkPoster;
+		this.averageRating = averageRating;
 	}
 }

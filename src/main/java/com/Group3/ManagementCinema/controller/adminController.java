@@ -2,6 +2,7 @@ package com.Group3.ManagementCinema.controller;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
 import com.Group3.ManagementCinema.entity.Rate;
+import com.Group3.ManagementCinema.impl.RateServiceImpl;
+import com.Group3.ManagementCinema.impl.TicketServiceImpl;
 import com.Group3.ManagementCinema.service.AccountService;
 import com.Group3.ManagementCinema.service.CinemaRoomService;
 import com.Group3.ManagementCinema.service.CustomerService;
@@ -26,6 +29,7 @@ import com.Group3.ManagementCinema.service.EmployeeService;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
 import com.Group3.ManagementCinema.service.MovieService;
 import com.Group3.ManagementCinema.service.RateService;
+import com.Group3.ManagementCinema.service.TicketService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,7 +51,9 @@ public class adminController {
     @Autowired
     private AccountService accountService;
     @Autowired
-    private RateService rateService;
+    private RateServiceImpl rateService;
+    @Autowired
+    private TicketServiceImpl ticketServiceImpl;
     @GetMapping("/")
     public String countCustomers(Model model) {
         long customerCount = customerService.countCustomers();
@@ -62,6 +68,8 @@ public class adminController {
         model.addAttribute("movieScheduleCount", movieScheduleCount);	
         long accountCount = accountService.countAccount();
         model.addAttribute("accountCount", accountCount);	
+        List<Map<String, Object>> ticketCountByMovie = ticketServiceImpl.getTicketCountByMovieName();
+        model.addAttribute("ticketCountByMovie", ticketCountByMovie);
         return "index.html";  // Trả về tên view (index)
     }
     @GetMapping("/login")
@@ -76,13 +84,14 @@ public class adminController {
     @PostMapping("/checkLogin")
     public String checkLogin(@RequestParam("email") String email, @RequestParam("password") String password,@RequestParam(required = false) boolean rememberMe, HttpServletRequest request,HttpServletResponse response, Model model) {
         Account account = accountService.checkLogin(email, password);
-        
         if (account != null) {
             HttpSession session = request.getSession();
             session.setAttribute("account", account); // Lưu đối tượng Account vào session
-            
+            List<Movie> movies = movieService.getAllMovies();
             model.addAttribute("account", account);
-            model.addAttribute("movies", movieService.getAllMovies());
+            model.addAttribute("movies", movies); 
+            Map<String, Double> averageRatings = rateService.getAverageRatings();
+            model.addAttribute("averageRatings", averageRatings);
             
             if (rememberMe) {
                 // Tạo cookie
@@ -130,7 +139,10 @@ public class adminController {
         Rate newRate = new Rate();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-        float tbc;
+        
+
+        Map<String, Double> averageRatings = rateService.getAverageRatings();
+        model.addAttribute("averageRatings", averageRatings);
         
         newRate.setTaiKhoan(account);
         newRate.setPhim(movie);
@@ -154,6 +166,10 @@ public class adminController {
         response.addCookie(cookie);
 
         return "redirect:/login";
+    }
+    @GetMapping("/userInfo")
+    public String openInfo(Model model) {
+    	return "info";
     }
 }
 

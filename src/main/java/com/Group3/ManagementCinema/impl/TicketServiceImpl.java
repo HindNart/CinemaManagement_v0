@@ -2,6 +2,7 @@ package com.Group3.ManagementCinema.impl;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +81,8 @@ public class TicketServiceImpl implements TicketService {
 		// TODO Auto-generated method stub
 		
 	}
+	public List<Map<String, Object>> getTicketCountByMovieName() {
+        return ticketRepository.findTicketCountByMovieName();
+    }
 	
 }

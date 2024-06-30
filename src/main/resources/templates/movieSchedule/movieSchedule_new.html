@@ -32,7 +32,7 @@
 			<div class="mb-3">
 	            <label for="phim" class="form-label">Phim</label>
 	            <select th:field="*{phim}" class="form-control mb-4 col-4">
-	                <option th:each="movie:${movies}" th:value="${movie.idPhim}"><p th:text="${movie.idPhim}"></p></option>
+	                <option th:each="movie:${movies}" th:value="${movie.idPhim}"><p th:text="${movie.tenPhim}"></p></option>
 	            </select>
 	        </div>
 			<div class="mb-3 d-flex justify-content-between">				
