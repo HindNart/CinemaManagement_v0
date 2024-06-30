@@ -14,16 +14,29 @@ p {
     margin-bottom: 0 !important;
 }
 
+.user {
+    align-items: center;
+    margin-right: 20px;
+}
+
+.user-name {
+    margin-left: 10px;
+    color: #000;
+}
+
+.user-name .dropdown-content {
+    max-width: 100px;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    align-items: center;
 }
 
 .navbar .logo {
-    width: 40px;
-    height: 40px;
-    background-color: aqua;
+    width: 75px;
+    height: 75px;
 }
 
 .nav-content ul li {
@@ -38,10 +51,50 @@ p {
 
 .nav-dropdown .dropdown-content {
     display: none;
-    margin-top: 10px;
     position: absolute;
-    left: 1px;
-    background-color: #f9f9f9;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.nav-dropdown a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.nav-dropdown:hover .dropdown-content,
+.nav-dropdown .dropdown-content:hover {
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ccc;
+    color: #000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+
+.nav-content ul li {
+    float: left;
+    padding: 10px 50px;
+}
+
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.nav-dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -331,10 +384,6 @@ p {
     margin-bottom: 20px;
 }
 
-.user-avt img {
-    border-radius: 50%;
-}
-
 .user-info {
     margin-left: 10px;
 }
@@ -355,11 +404,76 @@ p {
     border-bottom: 1px solid #ccc;
 }
 
-.modal-dialog-centered {
-    justify-content: center;
+/*Binh luan*/
+.edit-comment {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical; /* Cho phép điều chỉnh kích thước dọc */
+    font-size: 14px;
 }
 
-.modal-content {
-    width: 170% !important;
-    border: none !important;
+.btn-primary.float-end {
+    margin-top: 10px;
+}
+
+/* Cải thiện giao diện của phần bình luận */
+.comments-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.user-comment {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+}
+
+.user-avt img {
+    border-radius: 50%;
+}
+
+.user-info {
+    font-weight: bold;
+}
+
+.comment-rate {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.comment-content {
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.gear-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    margin-left: 10px;
+}
+
+.gear-icon-btn:hover {
+    color: #333;
+}
+
+
+#footer {
+    background-color: #000;
+    min-height: 70px;
+    color: #fff;
+    text-align: center;
+}
+
+#footer p {
+    padding-top: 25px;
 }

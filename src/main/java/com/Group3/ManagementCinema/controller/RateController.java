@@ -1,6 +1,10 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,10 +64,13 @@ public class RateController {
     }
 	
 	@PostMapping("/updateRate")
-	public String updateRate(@ModelAttribute("movieSchedule") Rate rate, Model model) {
-		rateService.saveRate(rate);
-		return "";
-	}		
+	public ResponseEntity<Map<String, String>> updateRate(@ModelAttribute Rate rate) {
+	    // Save rate to the database
+	    rateService.saveRate(rate);
+	    Map<String, String> response = new HashMap<>();
+	    response.put("message", "Rate updated successfully.");
+	    return ResponseEntity.ok(response);
+	}
 	
 	@GetMapping("/showFormForUpdateRate/{id}")
 	public String showFormForUpdateRate(@PathVariable(value = "id") Long id, Model model) {

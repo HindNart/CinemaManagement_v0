@@ -1,6 +1,10 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,12 +51,14 @@ public class AccountController {
 		}
 		return "register/register";
 	}
-	
 	@PostMapping("/updateAccount")
-	public String updateAccount(@ModelAttribute("account") Account account) {
-		accountService.saveAccount(account);
-		return "redirect:/";
-	}
+    public String updateAccount(@ModelAttribute("account") Account account) {
+        // Lưu thông tin tài khoản
+        accountService.saveAccount(account);
+        
+        // Trả về 200 OK để biết rằng cập nhật thành công
+        return "redirect:/userSite";
+    }
 	
 	@GetMapping("/showFormForUpdateAccount/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) {

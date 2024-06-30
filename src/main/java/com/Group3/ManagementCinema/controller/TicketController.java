@@ -122,6 +122,7 @@ public class TicketController {
 	@PostMapping("/updateTicket")
 	public String updateTicket(@ModelAttribute("ticket") Ticket ticket, Model model) {
 		ticketService.saveTicket(ticket);
+		
 		return "";
 	}		
 	

@@ -53,7 +53,7 @@ public class adminController {
     @Autowired
     private RateServiceImpl rateService;
     @Autowired
-    private TicketServiceImpl ticketServiceImpl;
+    private TicketService ticketService;
     @GetMapping("/")
     public String countCustomers(Model model) {
         long customerCount = customerService.countCustomers();
@@ -68,7 +68,7 @@ public class adminController {
         model.addAttribute("movieScheduleCount", movieScheduleCount);	
         long accountCount = accountService.countAccount();
         model.addAttribute("accountCount", accountCount);	
-        List<Map<String, Object>> ticketCountByMovie = ticketServiceImpl.getTicketCountByMovieName();
+        List<Map<String, Object>> ticketCountByMovie = ticketService.getTicketCountByMovieName();
         model.addAttribute("ticketCountByMovie", ticketCountByMovie);
         return "index.html";  // Trả về tên view (index)
     }
@@ -121,6 +121,9 @@ public class adminController {
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
         model.addAttribute("movies", movieService.getAllMovies());
+
+        Map<String, Double> averageRatings = rateService.getAverageRatings();
+        model.addAttribute("averageRatings", averageRatings);
         return "cusIndex";
     }
     

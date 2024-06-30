@@ -34,7 +34,7 @@
     <div id="header">
         <div class="flex spc-btw">
             <div class="logo">
-                <a th:href="@{/}"><img src="/img/film.png" alt=""></a>
+                <a th:href="@{/}"><img  style="border-radius:50%;" src="https://st2.depositphotos.com/1588812/7317/v/450/depositphotos_73179751-stock-illustration-vector-logo-slate-board-for.jpg" width="75px" height="75px"></a>
             </div>
             <div class="user flex">
                 <div class="user-avt">
@@ -97,54 +97,17 @@
                         <p><b th:text="${movieScheduleCount}"></b></p>
                     </div>
                 </div>
-                
             </div>
     <!-- <a href="/testStatis.html">Xem thêm</a>  -->
     <div class="db-item">
-		<div class="mlr-20  flex" style="justify-content: center;">        
-			<div id="donut-chart"></div>
-				<script>
-					let chart = bb.generate({
-						data: {
-							columns: [
-								["Blue", 2],
-								["orange", 4],
-								["green", 3],
-								["RED", 13]
-							],
-							type: "donut",
-							onclick: function (d, i) {
-								console.log("onclick", d, i);
-							},
-							onover: function (d, i) {
-								console.log("onover", d, i);
-							},
-							onout: function (d, i) {
-								console.log("onout", d, i);
-							},
-						},
-						donut: {
-							title: "70",
-						},
-						bindto: "#donut-chart",
-					});					
-				</script>
-				
-    
-    <div id="myPlot" 
-    style="width:100%;max-width:700px; max-width: 700px;
-    position: relative;
-    width: 700px;
-    height: 450px;
-    left: -400px;">
-    </div>
+		<div class="flex" >        
+			<div id="donut-chart"></div> 
+		    
         	</div> 
-        	
-        	
+		    </div>
         </div>
      </div>
 
-    </div>
     <script>
         function loadContent(fragment) {
             fetch(fragment)
@@ -169,21 +132,51 @@
         });
     </script>
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-	<script>
-	const xArray = ["Italy", "France", "Spain", "USA", "Argentina"];
-	const yArray = [55, 49, 44, 24, 15];
-	
-	const data = [{
-	  x:xArray,
-	  y:yArray,
-	  type:"bar"
-	}];
-	
-	const layout = {title:"World Wide Wine Production"};
-	
-	Plotly.newPlot("myPlot", data, layout);
-	</script>
+		<script>
+			const xArray = ["Italy", "France", "Spain", "USA", "Argentina"];
+			const yArray = [55, 49, 44, 24, 15];
+			
+			const data = [{
+			  x:xArray,
+			  y:yArray,
+			  type:"bar"
+			}];
+			
+			const layout = {title:"World Wide Wine Production"};
+			
+			Plotly.newPlot("myPlot", data, layout);
+		</script>
 	    
+				<script th:inline="javascript">
+				    /*<![CDATA[*/
+				    let ticketCount = /*[[${ticketCountByMovie}]]*/ []; // Lấy dữ liệu từ Spring Model
+				
+				    let columns = [];
+				    for (let i = 0; i < ticketCount.length; i++) {
+				        columns.push([ticketCount[i].tenPhim, ticketCount[i].soLuongVe]);
+				    }
+				
+				    let chart = bb.generate({
+				        data: {
+				            columns: columns, // Sử dụng mảng columns đã xây dựng từ dữ liệu Spring Model
+				            type: "donut",
+				            onclick: function (d, i) {
+				                console.log("onclick", d, i);
+				            },
+				            onover: function (d, i) {
+				                console.log("onover", d, i);
+				            },
+				            onout: function (d, i) {
+				                console.log("onout", d, i);
+				            },
+				        },
+				        donut: {
+				            title: "Tổng lượng vé: " + ticketCount.length, // Tiêu đề của biểu đồ
+				        },
+				        bindto: "#donut-chart",
+				    });
+				    /*]]>*/
+				</script>
 
 </body>
 </html>

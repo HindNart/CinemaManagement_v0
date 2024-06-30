@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+body{
+	background: #ffab46;
+}
+
+
 .w-40 {
     width: 50%;
 }
@@ -21,7 +26,8 @@
     max-width: 65%;
     border: 1px solid #ccc;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: 65px;
+    background: #fff;
 }
 
 img {

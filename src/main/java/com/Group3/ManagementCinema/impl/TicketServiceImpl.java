@@ -1,6 +1,8 @@
 package com.Group3.ManagementCinema.impl;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,10 +13,12 @@ import org.springframework.stereotype.Service;
 
 import com.Group3.ManagementCinema.entity.Account;
 import com.Group3.ManagementCinema.entity.Chair;
+import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
 import com.Group3.ManagementCinema.entity.Ticket;
 import com.Group3.ManagementCinema.repository.AccountRepository;
 import com.Group3.ManagementCinema.repository.ChairRepository;
+import com.Group3.ManagementCinema.repository.MovieRepository;
 import com.Group3.ManagementCinema.repository.MovieScheduleRepository;
 import com.Group3.ManagementCinema.repository.TicketRepository;
 import com.Group3.ManagementCinema.service.TicketService;
@@ -29,6 +33,8 @@ public class TicketServiceImpl implements TicketService {
     private AccountRepository accountRepository;
 	@Autowired
     private ChairRepository chairRepository;
+	@Autowired
+	private MovieRepository movieRepository;
 	
 	@Override
 	public List<Ticket> getAllTickets() {
@@ -81,8 +87,26 @@ public class TicketServiceImpl implements TicketService {
 		// TODO Auto-generated method stub
 		
 	}
-	public List<Map<String, Object>> getTicketCountByMovieName() {
-        return ticketRepository.findTicketCountByMovieName();
+	@Override
+    public List<Map<String, Object>> getTicketCountByMovieName() {
+        List<Object[]> results = ticketRepository.countChairsByMovie();
+        List<Map<String, Object>> ticketCountByMovie = new ArrayList<>();
+        
+        for (Object[] result : results) {
+            String movieId = (String) result[0];
+            Long ticketCount = ((Number) result[1]).longValue();
+
+            // Get movie name by movie id
+            Optional<Movie> movieOpt = movieRepository.findById(movieId);
+            String movieName = movieOpt.map(Movie::getTenPhim).orElse("Unknown");
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("tenPhim", movieName);
+            map.put("soLuongVe", ticketCount);
+            ticketCountByMovie.add(map);
+        }
+        
+        return ticketCountByMovie;
     }
 	
 }
