@@ -67,7 +67,9 @@ public class adminController {
         long movieScheduleCount = moviescheduleService.countMovieSchedule();
         model.addAttribute("movieScheduleCount", movieScheduleCount);	
         long accountCount = accountService.countAccount();
-        model.addAttribute("accountCount", accountCount);	
+        model.addAttribute("accountCount", accountCount);
+        long ticketCount = ticketService.countTicket();
+        model.addAttribute("ticketCount", ticketCount);
         List<Map<String, Object>> ticketCountByMovie = ticketService.getTicketCountByMovieName();
         model.addAttribute("ticketCountByMovie", ticketCountByMovie);
         return "index.html";  // Trả về tên view (index)

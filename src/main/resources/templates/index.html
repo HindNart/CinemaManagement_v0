@@ -150,7 +150,7 @@
 				<script th:inline="javascript">
 				    /*<![CDATA[*/
 				    let ticketCount = /*[[${ticketCountByMovie}]]*/ []; // Lấy dữ liệu từ Spring Model
-				
+					let tk = /*[[${ticketCount}]]*/ [];
 				    let columns = [];
 				    for (let i = 0; i < ticketCount.length; i++) {
 				        columns.push([ticketCount[i].tenPhim, ticketCount[i].soLuongVe]);
@@ -171,12 +171,13 @@
 				            },
 				        },
 				        donut: {
-				            title: "Tổng lượng vé: " + ticketCount.length, // Tiêu đề của biểu đồ
+				            title: "Tổng lượng vé: " + tk, // Sử dụng độ dài của mảng ticketCount để làm tiêu đề
 				        },
 				        bindto: "#donut-chart",
 				    });
 				    /*]]>*/
 				</script>
+
 
 </body>
 </html>
