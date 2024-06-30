@@ -51,6 +51,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<Employee> searchEmp(String key) {
 		// TODO Auto-generated method stub
-		return EmployeeRepository.findByHoTenNVContaining(key);
+		return EmployeeRepository.findByhoTenNVContainingOrDiaChiContainingOrChucVuContaining(key, key,key);
 	}
 }

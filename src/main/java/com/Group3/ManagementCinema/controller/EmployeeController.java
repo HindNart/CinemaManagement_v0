@@ -40,7 +40,7 @@ public class EmployeeController {
     @GetMapping("/searchEmployee")
     public String searchEmployee(@RequestParam("id") String id, Model model) {
         List<Employee> employee = employeeService.searchEmp(id);
-        model.addAttribute("employee", employee);
+        model.addAttribute("employees", employee);
         return "employee/employee_search";
     }
     

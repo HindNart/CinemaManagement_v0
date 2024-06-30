@@ -8,63 +8,63 @@
 </head>
 <body>
 <script>
-    function updateSalary() {
-        var chucVu = document.getElementById("chucvu").value;
-        var luongInput = document.getElementById("luong");
+function updateSalary() {
+    var chucVu = document.getElementById("chucvu").value;
+    var luongInput = document.getElementById("luong");
 
-        switch(chucVu) {
-            case "Nhân viên":
-                luongInput.value = "5000000"; // Lương của nhân viên
-                break;
-            case "Quản lý":
-                luongInput.value = "10000000"; // Lương của quản lý
-                break;
-            default:
-                luongInput.value = ""; // Nếu không chọn gì
-        }
+    switch(chucVu) {
+        case "Nhân viên":
+            luongInput.value = "5000000"; // Lương của nhân viên
+            break;
+        case "Quản lý":
+            luongInput.value = "10000000"; // Lương của quản lý
+            break;
+        default:
+            luongInput.value = ""; // Nếu không chọn gì
     }
+}
 
-    function validateAge(dateOfBirth) {
-        var ngaySinh = new Date(dateOfBirth);
-        var today = new Date();
-        var age = today.getFullYear() - ngaySinh.getFullYear();
-        var m = today.getMonth() - ngaySinh.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < ngaySinh.getDate())) {
-            age--;
-        }
-        return age <= 100;
+function validateAge(dateOfBirth) {
+    var ngaySinh = new Date(dateOfBirth);
+    var today = new Date();
+    var age = today.getFullYear() - ngaySinh.getFullYear();
+    var m = today.getMonth() - ngaySinh.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < ngaySinh.getDate())) {
+        age--;
     }
+    return age <= 100;
+}
 
-    function validateForm(event) {
-        var ngaySinhValue = document.getElementById("ngaySinhNV").value;
-        if (!validateAge(ngaySinhValue)) {
-            alert("Ngày sinh không được quá 100 tuổi.");
-            event.preventDefault(); // Ngăn chặn việc gửi form
-        }
-    }
-    function validateSpecialCharacters(input) {
-        var specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-        return specialCharacters.test(input);
+function validateForm(event) {
+    var ngaySinhValue = document.getElementById("ngaySinhNV").value;
+    if (!validateAge(ngaySinhValue)) {
+        alert("Ngày sinh không được quá 100 tuổi.");
+        event.preventDefault(); // Ngăn chặn việc gửi form
     }
 
-    function validateForm() {
-        var tenNhanVien = document.getElementById("ten").value;
-        var diaChiNhanVien = document.getElementById("diachi").value;
-        if (validateSpecialCharacters(tenNhanVien)) {
-            alert("Tên nhân viên không được chứa kí tự đặc biệt!");
-            event.preventDefault();
-        }
-        if (validateSpecialCharacters(diaChiNhanVien)) {
-            alert("Địa chỉ nhân viên không hợp lệ!");
-            event.preventDefault();
-        }
-        var soDienThoai = document.getElementById("sdt").value;
-        if (soDienThoai.length > 15) {
-            alert("Số điện thoại không hợp lệ!");
-            event.preventDefault();
-        }
+    var tenNhanVien = document.getElementById("ten").value;
+    var diaChiNhanVien = document.getElementById("diachi").value;
+    if (validateSpecialCharacters(tenNhanVien)) {
+        alert("Tên nhân viên không được chứa kí tự đặc biệt!");
+        event.preventDefault();
     }
+    if (validateSpecialCharacters(diaChiNhanVien)) {
+        alert("Địa chỉ nhân viên không hợp lệ!");
+        event.preventDefault();
+    }
+    var soDienThoai = document.getElementById("sdt").value;
+    if (soDienThoai.length > 15) {
+        alert("Số điện thoại không hợp lệ!");
+        event.preventDefault();
+    }
+}
+
+function validateSpecialCharacters(input) {
+    var specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    return specialCharacters.test(input);
+}
 </script>
+
 
 <div class="container w-50 mt-5 rounded shadow p-4 bg-body-tertiary">
     <h1>Quản lý nhân viên</h1>

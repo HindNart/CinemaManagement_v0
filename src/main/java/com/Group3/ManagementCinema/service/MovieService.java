@@ -13,4 +13,5 @@ public interface MovieService {
 	Page<Movie> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	long countMovie();
 	List<Movie> searchMovie (String key);
+	
 }
