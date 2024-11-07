@@ -29,9 +29,9 @@ public class ChairController {
     private MovieScheduleService moviescheduleService;
     @Autowired
     private CinemaRoomService cinemaroomService;
-
     @Autowired
     private MovieService movieService;
+    
 	@GetMapping("/newChair")
 	public String newChair(Model model) {
 		Chair chair = new Chair();
