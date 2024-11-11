@@ -28,6 +28,7 @@ public class MovieScheduleController {
 	private MovieService movieService;
 	@Autowired
 	private CinemaRoomService cinemaRoomService;
+	
 	@GetMapping("/movieSchedules")
 	public String viewMovieSchedule(Model model) {
 		model.addAttribute("listMovieSchedules", movieScheduleService.getAllMovieSchedules());
@@ -48,7 +49,7 @@ public class MovieScheduleController {
 	
 	@GetMapping("/searchMovieSchedule")
 	public String searchMovieSchedule(@RequestParam("id") String id, Model model) {
-		MovieSchedule movieSchedule = movieScheduleService.getMovieScheduleById(id);
+		List<MovieSchedule> movieSchedule = movieScheduleService.findMovieSchedulesByMovieName(id);
 		model.addAttribute("movieSchedule", movieSchedule);
 		return "/movieSchedule/movieSchedule_search";
 	}

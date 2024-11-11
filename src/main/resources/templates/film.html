@@ -168,12 +168,12 @@
         
             // Thay thế nội dung bình luận bằng form
             commentContent.replaceWith(form);
-        
             // Xử lý sự kiện khi form được gửi đi
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
                 var editedComment = textarea.value;
-        
+
+                button.classList.remove("btn-secondary", "mt-2");
                 // Gửi dữ liệu form đi thông qua Ajax hoặc fetch
                 fetch(form.action, {
                     method: 'POST',
@@ -204,6 +204,7 @@
         
             // Đổi văn bản nút thành "Hủy" trong khi chỉnh sửa
             button.textContent = 'Hủy';
+            button.className = "btn btn-secondary mt-2";
             button.onclick = function() {
                 // Thay thế form bằng nội dung bình luận ban đầu
                 var originalCommentDiv = document.createElement('div');
@@ -213,6 +214,7 @@
         
                 // Đặt lại văn bản nút thành "⚙️"
                 button.textContent = '⚙️';
+                button.classList.remove("btn-secondary", "mt-2");
                 button.onclick = function() {
                     // Gọi đệ quy để chuyển lại thành form chỉnh sửa
                     convertToEditForm(button);
@@ -248,9 +250,9 @@
 <body>
     <div id="header" >
          <div class="navbar">
-                <div class="logo ms-3">
+                <a class="logo ms-3">
                     <img style="border-radius:50%;" src="https://st2.depositphotos.com/1588812/7317/v/450/depositphotos_73179751-stock-illustration-vector-logo-slate-board-for.jpg" width="100%" height="100%">
-                </div>
+                </a>
                 <div class="nav-content">
                     <ul>
                         <li class="nav-dropdown">Lịch chiếu
@@ -264,16 +266,18 @@
                     </ul>
                 </div>
                 <div class="user flex">
-				    <div class="user-avt">
-				        <img class="brr-50" src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="" width="50px" height="50px">
-				    </div>
-				    <div class="user-name nav-dropdown me-4" th:classappend="${account != null} ? 'light-mode' : 'dark-mode'">
-				        <span th:if="${account != null}" th:text="${account.username}">
-				        </span>
-				        <div class="dropdown-content rounded">
-				            <a data-bs-toggle="modal" class="rounded" data-bs-target="#exampleModal" style="cursor: pointer;">Thông tin</a>
-				            <a th:href="@{/logout}" class="rounded">Đăng xuất</a>
-				        </div>
+				    <div class=" nav-dropdown flex">
+				    	<div class="user-avt">
+					        <img class="brr-50" src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="" width="50px" height="50px">
+					    </div>
+					    <div class="user-name nav-dropdown me-4" th:classappend="${account != null} ? 'light-mode' : 'dark-mode'">
+					        <span th:if="${account != null}" th:text="${account.username}">
+					        </span>
+					        <div class="dropdown-content rounded">
+					            <a data-bs-toggle="modal" class="rounded" data-bs-target="#exampleModal" style="cursor: pointer;">Thông tin</a>
+					            <a th:href="@{/logout}" class="rounded">Đăng xuất</a>
+					        </div>
+					    </div>
 				    </div>
 				    <!-- Toggle button -->
 				    <button id="toggleButton" class="btn btn-outline-dark rounded-circle" onclick="toggleHeaderMode()">
@@ -364,19 +368,18 @@
                         <p th:text="${rate.taiKhoan.username}"></p>
                     </div>
                 </div>
-                <div>
+                <div class="mb-3">
 	                <input type="hidden" class="rate-id" th:value="${rate.id}"/>
 				    <input type="hidden" class="account-id" th:value="${rate.taiKhoan.email	}"/>
 				    <input type="hidden" class="movie-id" th:value="${rate.Phim.idPhim}"/>
                     <div class="comment-rate mg-10 ">🌟 <span th:text="${rate.diem}"></span>/10 •</div>
                     <div class="comment-content" th:text="${rate.binhLuan}"></div>
-                     <button class="gear-icon-btn" onclick="convertToEditForm(this)">⚙️</button>
-                </div>
-                
+                     <button th:if="${rate.taiKhoan.email == account.email}" class="gear-icon-btn" onclick="convertToEditForm(this)">⚙️</button>
+                </div>                
             </div>
-        </div>
-        
+        </div>    
     </div>
+    
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog md">
 		    <div class="modal-content">

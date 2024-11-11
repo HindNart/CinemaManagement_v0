@@ -53,10 +53,10 @@
 	                    <td><p th:text="${movie.theLoai}" class="hidden-text"></p></td>
 	                    <td th:text="${movie.daoDien}"></td>
 	                    <td><p th:text="${movie.dienVien}" class="hidden-text"></p></td>
-	                    <td> <p th:text="${movie.thoiLuong}"> phút</p></td>
+	                    <td> <p th:text="${movie.thoiLuong}"> </p> phút</td>
 	                    <td><p th:text="${movie.moTa}" class="hidden-text"></p></td>
 	                    <td th:text="${movie.ngayPH}"></td>
-	                    <td><img alt="" th:src="${movie.linkPoster}" width="100px"></td>
+	                    <td><img alt="" th:src="${movie.linkPoster}" width="50px"></td>
 	                    <td>
 	                        <a th:href="@{/showFormForUpdateMovie/{id}(id=${movie.idPhim})}" class="btn btn-primary btn-sm"><i class="bi bi-gear-fill"></i></a>
 	                        <a th:href="@{/deleteMovie/{id}(id=${movie.idPhim})}" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a>

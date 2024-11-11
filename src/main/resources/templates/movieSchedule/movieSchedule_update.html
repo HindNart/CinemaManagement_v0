@@ -12,7 +12,7 @@
 		<hr>
 		<h2>Cập nhật lịch chiếu</h2>
 		<hr>
-		<form action="#" th:action="@{/updateMovieSchedule}" th:object="${movieSchedule}" method="POST">
+		<form action="#" th:action="@{/updateMovieSchedule}" th:object="${movieSchedule}" method="POST"  onsubmit="return validateForm()">
 			<div class="mb-3 visually-hidden">
 				<label for="id" class="form-label">Mã lịch chiếu</label>
 				<input required type="text" th:field="*{idLichChieu}" placeholder="Mã lịch chiếu" class="form-control mb-4 col-4">
@@ -32,13 +32,14 @@
 			<div class="mb-3 d-flex justify-content-between">				
 				<div class="col col-5">
 					<label for="thoigianBD" class="form-label">Thời gian bắt đầu</label>
-					<input required type="time" th:field="*{thoigianBD}" placeholder="Thời gian bắt đầu" class="form-control">
+					<input required type="time" th:field="*{thoigianBD}" placeholder="Thời gian bắt đầu" id="gioBD"  class="form-control">
 				</div>
 				<div class="col col-5">
 					<label for="thoigianKT" class="form-label">Thời gian kết thúc</label>
-					<input required type="time" th:field="*{thoigianKT}" placeholder="Thời gian kết thúc" class="form-control">
-				</div>
-			</div>
+					<input required type="time" th:field="*{thoigianKT}" placeholder="Thời gian kết thúc" id="gioKT" class="form-control">
+				</div>				
+			</div>			
+				<div id="timeErrorMessage" class="text-danger mb-2"></div>
 			<div class="mb-3">
 				<label for="ngaychieu" class="form-label">Ngày chiếu</label>
 				<input required type="date" th:field="*{ngayChieu}" placeholder="Ngày chiếu" id="ngayChieu" class="form-control mb-4 col-4">
@@ -52,5 +53,25 @@
 			</div>
 		</form>
 	</div>
+	<script>
+	function validateForm() {
+        var ngayChieu = document.getElementById("ngayChieu").value;
+        var gioBD = document.getElementById("gioBD").value;
+        var gioKT = document.getElementById("gioKT").value;
+        var currentDate = new Date().toISOString().slice(0,10); // Lấy ngày hiện tại
+        
+        if (gioBD == gioKT){
+        	document.getElementById("timeErrorMessage").innerText = "Giờ không hợp lệ. Vui lòng chọn giờ không trùng nhau.";
+            return false; // Ngăn form submit nếu ngày chiếu đã trôi qua
+        }        
+        if (ngayChieu < currentDate) {
+            document.getElementById("dateErrorMessage").innerText = "Ngày chiếu không hợp lệ. Vui lòng chọn ngày trong tương lai.";
+            return false; // Ngăn form submit nếu ngày chiếu đã trôi qua
+        } else {
+        	document.getElementById("dateErrorMessage").innerText = "";
+        }
+        return true; // Cho phép submit nếu ngày chiếu hợp lệ
+    }
+    </script>
 </body>
 </html>

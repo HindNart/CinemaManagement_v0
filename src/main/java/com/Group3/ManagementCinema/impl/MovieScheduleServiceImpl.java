@@ -84,4 +84,9 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 		return movieScheduleRepository.findByPhim(phim);
 	}
 	
+	@Override
+	public List<MovieSchedule> findMovieSchedulesByMovieName(String movieName) {
+        return movieScheduleRepository.findByPhimTenPhimContaining(movieName);
+    }
+	
 }

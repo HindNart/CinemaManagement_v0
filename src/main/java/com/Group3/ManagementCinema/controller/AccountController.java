@@ -60,6 +60,12 @@ public class AccountController {
         return "redirect:/userSite";
     }
 	
+	@PostMapping("/adUpdateAccount")
+    public String adUpdateAccount(@ModelAttribute("account") Account account) {
+        accountService.saveAccount(account);
+        return "redirect:/";
+    }
+	
 	@GetMapping("/showFormForUpdateAccount/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) {
 		Account account = accountService.getAccountById(id);

@@ -61,9 +61,11 @@ ul li {
 
 .nav-dropdown .dropdown-content {
     display: none;
+    top: 35px;
+    right: -40px;
     position: absolute;
     background-color: #fff;
-    min-width: 160px;
+    min-width: 120px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }

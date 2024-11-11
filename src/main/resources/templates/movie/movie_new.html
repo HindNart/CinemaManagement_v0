@@ -36,11 +36,13 @@
 			</div>
 			<div class="mb-3">
 				<label for="thoiluong" class="form-label">Thời lượng</label>
-				<input required type="number" th:field="*{thoiLuong}" placeholder="Thời lượng" class="form-control mb-4 col-4">
+				<input required type="number" th:field="*{thoiLuong}" placeholder="Thời lượng" id="" class="form-control mb-4 col-4">
+				<div id="timeError" class="text-danger"></div>
 			</div>
 			<div class="mb-3">
 				<label for="mota" class="form-label">Mô tả</label>
-				<input required type="text" th:field="*{moTa}" placeholder="Mô tả" class="form-control mb-4 col-4">
+				<!-- <input required type="text" th:field="*{moTa}" placeholder="Mô tả" class="form-control mb-4 col-4"> -->
+				<textarea required th:field="*{moTa}" placeholder="Mô tả" class="form-control mb-4 col-4" rows=4></textarea>
 			</div>
 			<div class="mb-3">
 				<label for="ngayphathanh" class="form-label">Ngày phát hành</label>
@@ -48,15 +50,36 @@
 			</div>
 			<div class="mb-3">
 				<label for="linkposter" class="form-label">Link Poster</label>
-				<input required type="url" th:field="*{linkPoster}" placeholder="Link poster" class="form-control mb-4 col-4">
+				<input required type="url" th:field="*{linkPoster}" placeholder="Link poster" id="linkPoster" class="form-control mb-4 col-4">
+				<div id="linkPosterError" class="text-danger"></div>
 			</div>
 			<hr>
 			<div class="d-flex justify-content-between">
 				<a class="btn btn-secondary" th:href="@{/}"> Quay lại</a>
-				<button type="submit" class="btn btn-success col-2"> Lưu</button>
+				<button type="submit" class="btn btn-success col-2" onclick="validateForm(event)"> Lưu</button>
 			</div>
 		</form>
 		
 	</div>
+	<script>
+		function validateForm(event) {
+			const linkPosterInput = document.getElementById('linkPoster');
+			const linkPosterError = document.getElementById('linkPosterError');
+			const time = document.getElementById('time');
+			const timeError = document.getElementById('timeError');
+			if (linkPosterInput.value.length > 255) {
+				event.preventDefault(); // Ngăn chặn việc submit form
+				linkPosterError.textContent = "Link poster quá dài, vui lòng nhập ít hơn 255 ký tự.";
+			} else {
+				linkPosterError.textContent = "";
+			}
+			if (time.value.length > 4) {
+				event.preventDefault(); // Ngăn chặn việc submit form
+				timeError.textContent = "Thời lượng không hợp lệ!(<1000)";
+			} else {
+				timeError.textContent = "";
+			}
+		}
+	</script>
 </body>
 </html>

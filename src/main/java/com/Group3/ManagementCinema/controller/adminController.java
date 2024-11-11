@@ -145,7 +145,6 @@ public class adminController {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         
-
         Map<String, Double> averageRatings = rateService.getAverageRatings();
         model.addAttribute("averageRatings", averageRatings);
         

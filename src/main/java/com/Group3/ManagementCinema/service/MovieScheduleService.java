@@ -20,4 +20,5 @@ public interface MovieScheduleService {
 	long countMovieSchedule();
 	MovieSchedule checkMS(Date date, String tgbd, String tgkt, CinemaRoom phongchieu);
 	List<MovieSchedule> findByIdphim(Movie phim);
+	public List<MovieSchedule> findMovieSchedulesByMovieName(String movieName);
 }

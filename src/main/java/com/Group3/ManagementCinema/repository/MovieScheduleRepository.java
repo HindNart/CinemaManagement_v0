@@ -14,4 +14,5 @@ import com.Group3.ManagementCinema.entity.MovieSchedule;
 public interface MovieScheduleRepository extends JpaRepository<MovieSchedule, String>{
 	MovieSchedule findByNgayChieuAndThoigianBDAndThoigianKTAndPhongChieu(Date date, String tgbd, String tgkt, CinemaRoom phongchieu);
 	List<MovieSchedule> findByPhim(Movie phim);
+	List<MovieSchedule> findByPhimTenPhimContaining(String tenPhim);
 }

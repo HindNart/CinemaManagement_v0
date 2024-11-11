@@ -11,7 +11,7 @@
 		<h1>Quản lý tài khoản</h1>
 		<hr>
 		<h2>Cập nhật tài khoản</h2>
-		<form action="#" th:action="@{/updateAccount}" th:object="${account}" method="POST">
+		<form action="#" th:action="@{/adUpdateAccount}" th:object="${account}" method="POST">
 			<div class="mb-3 visually-hidden">
 				<label for="id" class="form-label">Email</label>
 				<input type="text" th:field="*{email}" placeholder="Mã phòng chiếu" class="form-control mb-4 col-4">
