@@ -67,17 +67,16 @@
 	    }
 
 	</script>
-    <div>
-        <div id="header" class="light-mode row d-flex align-items-center">
-            <div class="navbar" style="height:125px">
-                <div class="logo ms-5">
-                	<img src="./img/LET.png" alt="" width="200px" height="100px" >
-                </div>
+        <div id="header" >
+	         <div class="navbar">
+	                <a class="logo ms-3">
+	                    <img src="./img/LET.png" width="125px" height="100%">
+	                </a>
 	                <div class="nav-content">
 	                    <ul>
 	                        <li class="nav-dropdown">Lịch chiếu
 	                            <div class="dropdown-content">
-	                                <a href="#">Phim đang chiếu</a>
+	                                <a href="#now-showing">Phim đang chiếu</a>
 	                                <a href="#">Phim sắp chiếu</a>
 	                            </div>
 	                        </li>
@@ -86,20 +85,26 @@
 	                    </ul>
 	                </div>
 	                <div class="user flex">
-	                    <div class="user-avt">
-	                        <img class="brr-50" src="/img/phim1.jpg" alt="" width="50px" height="50px">
-	                    </div>
-	                    <div class="user-name nav-dropdown">
-	                        <span th:if="${account != null}"><p th:text="${account.username}"> <i class="bi bi-chevron-compact-down"></i></p> </span>	                       
-	                        <div class="dropdown-content">
-	                            <a href="#">Thông tin</a>
-	                            <a th:href="@{/login}">Đăng xuất</a>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	    	</div>
-        </div>
+					    <div class=" nav-dropdown flex">
+					    	<div class="user-avt">
+						        <img class="brr-50" src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="" width="50px" height="50px">
+						    </div>
+						    <div class="user-name nav-dropdown me-4" th:classappend="${account != null} ? 'light-mode' : 'dark-mode'">
+						        <span th:if="${account != null}" th:text="${account.username}">
+						        </span>
+						        <div class="dropdown-content rounded">
+						            <a data-bs-toggle="modal" class="rounded" data-bs-target="#exampleModal" style="cursor: pointer;">Thông tin</a>
+						            <a th:href="@{/logout}" class="rounded">Đăng xuất</a>
+						        </div>
+						    </div>
+					    </div>
+					    <!-- Toggle button -->
+					    <button id="toggleButton" class="btn btn-outline-dark rounded-circle" onclick="toggleHeaderMode()">
+					        <i class="bi bi-brightness-high"></i>
+					    </button>
+					</div>
+				</div>
+	    </div>
         <div id="slider" class="mt-5 mb-5">
 		        <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
 		            <div class="carousel-inner">

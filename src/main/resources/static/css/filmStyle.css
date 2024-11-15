@@ -457,14 +457,40 @@ p {
     color: #333;
 }
 
-
-#footer {
-    background-color: #000;
-    min-height: 70px;
-    color: #fff;
-    text-align: center;
+ul{
+    margin: 0 !important;
+}
+a{
+    text-decoration: none !important;
 }
 
-#footer p {
-    padding-top: 25px;
+#navigation-bar li{
+    list-style-type: none;
+}
+
+.search-bar{
+    max-width: 70%;
+}
+
+span{
+    cursor: pointer;
+}
+
+.title-footer ul li {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+.title-footer ul li a{
+    color: white;
+}
+.title-footer ul{
+    padding: 0;
+}
+#logo, #account {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+#choose-status-movie a{
+    color: black; 
 }

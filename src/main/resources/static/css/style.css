@@ -70,6 +70,7 @@ a {
 
 .user-name {
     margin-left: 10px;
+    padding:10px;
     color: #ccc;
 }
 
@@ -86,7 +87,7 @@ ul li {
 
 .nav-dropdown .dropdown-content {
     display: none;
-    top: 18px;
+    top: 35px;
     right: 0px;
     position: absolute;
     background-color: #f9f9f9;
