@@ -73,43 +73,10 @@
                 <div id="logo" class="col-3 ms-5">
 		            <img src="./img/LET.png" alt="">
 		        </div>
-                <div id="navigation-bar" class="col-5">
-	            <ul class="d-flex justify-content-around">
-	                <li>
-	                    <span href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Phim
-	                    </span>
-	                    <ul class="dropdown-menu">
-	                        <li><a class="dropdown-item" href="#">Action</a></li>
-	                        <li><a class="dropdown-item" href="#">Another action</a></li>
-	                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-	                    </ul>
-	                </li>
-	                <li><span href="#">Góc điện ảnh</span></li>
-	                <li>
-	                    <span href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Thể loại
-	                    </span>
-	                    <ul class="dropdown-menu">
-	                        <li><a class="dropdown-item" href="#">Lmao</a></li>
-	                        <li><a class="dropdown-item" href="#">One more action</a></li>
-	                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-	                    </ul>
-	                </li>
-	            </ul>
-	        </div>
                 <div class="user me-5 flex">
 				    <div class="user-avt">
 				        <img class="brr-50" src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="" width="50px" height="50px">
 				    </div>
-				    <div class="user-name nav-dropdown me-4" th:classappend="${account != null} ? 'light-mode' : 'dark-mode'">
-				        <span th:if="${account != null}" th:text="${account.username}">
-				        </span>
-				        <div class="dropdown-content rounded">
-				            <a data-bs-toggle="modal" class="rounded" data-bs-target="#exampleModal" style="cursor: pointer;">Thông tin</a>
-				            <a th:href="@{/logout}" class="rounded">Đăng xuất</a>
-				        </div>
-                <div class="logo ms-3">
-                    <img style="border-radius:50%;" src="https://st2.depositphotos.com/1588812/7317/v/450/depositphotos_73179751-stock-illustration-vector-logo-slate-board-for.jpg" width="100%" height="100%">
-                </div>
                 <div class="nav-content">
                     <ul>
                         <li class="nav-dropdown">Lịch chiếu
@@ -327,7 +294,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 </html>
