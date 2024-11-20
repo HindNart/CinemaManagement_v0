@@ -14,16 +14,25 @@ import java.util.concurrent.TimeUnit;
 
 public class UiuxTest {
     private WebDriver driver;
+    private String username;
+    private String password;
+    private String email;
 
     @BeforeEach
     public void setUp() {
         driver = new ChromeDriver();
+        username = "test@test";
+        password = "test@test";
+        email =  "test@test";
     }
     @Test
     public void testLoginPage() {
-        driver.get("http://localhost:8080");
+        driver.get("http://localhost:8080/login");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement usernameField = wait.until(ExpectedConditions.elementToBeClickable(By.id("inputEmail")));
+        usernameField.sendKeys("");
+
 
         WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("login_button_id")));
         loginButton.click();
