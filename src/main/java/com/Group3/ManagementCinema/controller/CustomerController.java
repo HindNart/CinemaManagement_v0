@@ -58,7 +58,7 @@ public class CustomerController {
 
     // Hiển thị form cập nhật thông tin khách hàng
     @GetMapping("/showFormForUpdateCustomer/{id}")
-    public String showFormForUpdateCustomer(@PathVariable(value = "id") String id, Model model) {
+    public String showFormForUpdateCustomer(@PathVariable(value = "id") Long id, Model model) {
         Customer customer = customerService.getCustomerById(id);
         model.addAttribute("customer", customer);
         return "/customer/cusUpdate"; // Trả về template cusUpdate.html trong thư mục templates/
@@ -66,7 +66,7 @@ public class CustomerController {
 
     // Xóa khách hàng
     @GetMapping("/deleteCustomer/{id}")
-    public String deleteCustomer(@PathVariable(value = "id") String id) {
+    public String deleteCustomer(@PathVariable(value = "id") Long id) {
         customerService.deleteCustomerById(id);
         return "redirect:/"; // Sau khi xóa, chuyển hướng lại danh sách khách hàng
     }

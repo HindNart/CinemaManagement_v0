@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.Group3.ManagementCinema.entity.Account;
+import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.entity.Chair;
 import com.Group3.ManagementCinema.entity.CinemaRoom;
 import com.Group3.ManagementCinema.entity.Movie;
@@ -41,6 +42,8 @@ public class TicketController {
 	private TicketService ticketService;
 	@Autowired
 	private MovieService movieService;
+	@Autowired
+	private MovieService customerService;
 	@Autowired
 	private AccountService accountService;
 	@Autowired
@@ -98,14 +101,15 @@ public class TicketController {
 
 	    // Xử lý logic điểm
 	    Account acc = ticket.getTaiKhoan();
+	    Customer customer = acc.getCustomer();
 	    if (usePointsChecked) {
 	        // Nếu được chọn sử dụng điểm, đặt điểm của tài khoản về 0
-	        acc.setDiem(0);
+	        customer.setDiem(0);
 	    } else {
 	        // Nếu không được chọn, cập nhật điểm (ví dụ: thêm 1000 điểm cho mỗi ghế)
-	        int currentPoints = acc.getDiem();
+	        int currentPoints = customer.getDiem();
 	        int pointsToAdd = chairs.size() * 1000; // Giả sử thêm 1000 điểm cho mỗi ghế
-	        acc.setDiem(currentPoints + pointsToAdd);
+	        customer.setDiem(currentPoints + pointsToAdd);
 	    }
 
 	    // Lưu các thay đổi vào tài khoản
