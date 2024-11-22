@@ -70,8 +70,8 @@ public class adminController {
         model.addAttribute("accountCount", accountCount);
         long ticketCount = ticketService.countTicket();
         model.addAttribute("ticketCount", ticketCount);
-        List<Map<String, Object>> ticketCountByMovie = ticketService.getTicketCountByMovieName();
-        model.addAttribute("ticketCountByMovie", ticketCountByMovie);
+//        List<Map<String, Object>> ticketCountByMovie = ticketService.getTicketCountByMovieName();
+//        model.addAttribute("ticketCountByMovie", ticketCountByMovie);
         return "index.html";  // Trả về tên view (index)
     }
     @GetMapping("/login")

@@ -87,26 +87,26 @@ public class TicketServiceImpl implements TicketService {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-    public List<Map<String, Object>> getTicketCountByMovieName() {
-        List<Object[]> results = ticketRepository.countChairsByMovie();
-        List<Map<String, Object>> ticketCountByMovie = new ArrayList<>();
-        
-        for (Object[] result : results) {
-            String movieId = (String) result[0];
-            Long ticketCount = ((Number) result[1]).longValue();
-
-            // Get movie name by movie id
-            Optional<Movie> movieOpt = movieRepository.findById(movieId);
-            String movieName = movieOpt.map(Movie::getTenPhim).orElse("Unknown");
-
-            Map<String, Object> map = new HashMap<>();
-            map.put("tenPhim", movieName);
-            map.put("soLuongVe", ticketCount);
-            ticketCountByMovie.add(map);
-        }
-        
-        return ticketCountByMovie;
-    }
+//	@Override
+//    public List<Map<String, Object>> getTicketCountByMovieName() {
+//        List<Object[]> results = ticketRepository.countChairsByMovie();
+//        List<Map<String, Object>> ticketCountByMovie = new ArrayList<>();
+//        
+//        for (Object[] result : results) {
+//            String movieId = (String) result[0];
+//            Long ticketCount = ((Number) result[1]).longValue();
+//
+//            // Get movie name by movie id
+//            Optional<Movie> movieOpt = movieRepository.findById(movieId);
+//            String movieName = movieOpt.map(Movie::getTenPhim).orElse("Unknown");
+//
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("tenPhim", movieName);
+//            map.put("soLuongVe", ticketCount);
+//            ticketCountByMovie.add(map);
+//        }
+//        
+//        return ticketCountByMovie;
+//    }
 	
 }

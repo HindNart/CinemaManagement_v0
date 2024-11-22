@@ -19,5 +19,5 @@ public interface TicketService {
 	Ticket saveTicket(Long idVe, String lichChieuId, String email, Long idGhe, Date thoigianMua);
 	void saveTicket(long idVe, String lichChieuId, String email, float gia, Date thoigianMua, List<Chair> list);
 	long countTicket();
-	List<Map<String, Object>> getTicketCountByMovieName();
+//	List<Map<String, Object>> getTicketCountByMovieName();
 }
