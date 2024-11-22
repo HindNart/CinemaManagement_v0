@@ -32,7 +32,6 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import jakarta.servlet.http.HttpServletResponse;
 
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -48,95 +47,90 @@ public class TicketController {
 	private AccountService accountService;
 	@Autowired
 	private ChairService chairService;// display list of movies
-    @Autowired
-    private MovieScheduleService moviescheduleService;
-    @Autowired
-    private CinemaRoomService cinemaroomService;
+	@Autowired
+	private MovieScheduleService moviescheduleService;
+	@Autowired
+	private CinemaRoomService cinemaroomService;
 
 	@GetMapping("/tickets")
 	public String viewTicket(Model model) {
 		model.addAttribute("listTickets", ticketService.getAllTickets());
 		return "";
 	}
-	
+
 	@GetMapping("/showNewTicketForm")
-    public String showNewTicketForm(Model model) {
-        // create model attribute to bind form data
-        Ticket ticket = new Ticket();
-        model.addAttribute("ticket", ticket);
-        return "/ticket/ticket_new";
-    } 
-	
+	public String showNewTicketForm(Model model) {
+		// create model attribute to bind form data
+		Ticket ticket = new Ticket();
+		model.addAttribute("ticket", ticket);
+		return "/ticket/ticket_new";
+	}
+
 	@GetMapping("/qrTicket/{id}")
 	public String qrTicket(@PathVariable(value = "id") Long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
-		
+
 		model.addAttribute("ticket", ticket);
 		return "/ticket/qrCode";
 	}
-	
+
 	@GetMapping("/searchTicketById/{id}")
 	public String searchTicketById(@PathVariable(value = "id") Long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
-		List<Chair> chair = ticket.getGhe();
+		Chair chair = ticket.getGhe();
 		model.addAttribute("chairs", chair);
 		model.addAttribute("ticket", ticket);
 		return "/ticket/ticket";
 	}
-	
+
 	@PostMapping("/saveTicket")
-	public String saveTicket(@ModelAttribute("ticket") Ticket ticket, HttpServletRequest request) {    
-	    String usePoints = request.getParameter("usePoints");
-	    boolean usePointsChecked = (usePoints != null && usePoints.equals("on"));
+	public String saveTicket(@ModelAttribute("ticket") Ticket ticket, HttpServletRequest request) {
+		String usePoints = request.getParameter("usePoints");
+		boolean usePointsChecked = (usePoints != null && usePoints.equals("on"));
 
-	    // Lưu vé và nhận đối tượng vé mới
-	    Ticket newTicket = ticketService.saveTicket(ticket);
+		// Lưu vé và nhận đối tượng vé mới
+		Ticket newTicket = ticketService.saveTicket(ticket);
 
-	    // Đặt lại trạng thái của ghế
-	    List<Chair> chairs = ticket.getGhe();
-	    for (Chair c : chairs) {
-	        c.setTrangThai(0);
-	        chairService.saveChair(c); // Lưu trạng thái ghế
-	    }
+		// Đặt lại trạng thái của ghế
+		Chair chairs = ticket.getGhe();
+		chairService.saveChair(chairs); // Lưu trạng thái ghế
 
-	    // Xử lý logic điểm
-	    Account acc = ticket.getTaiKhoan();
-	    Customer customer = acc.getCustomer();
-	    if (usePointsChecked) {
-	        // Nếu được chọn sử dụng điểm, đặt điểm của tài khoản về 0
-	        customer.setDiem(0);
-	    } else {
-	        // Nếu không được chọn, cập nhật điểm (ví dụ: thêm 1000 điểm cho mỗi ghế)
-	        int currentPoints = customer.getDiem();
-	        int pointsToAdd = chairs.size() * 1000; // Giả sử thêm 1000 điểm cho mỗi ghế
-	        customer.setDiem(currentPoints + pointsToAdd);
-	    }
+		// Xử lý logic điểm
+		Account acc = ticket.getTaiKhoan();
+		Customer customer = acc.getCustomer();
+		if (usePointsChecked) {
+			// Nếu được chọn sử dụng điểm, đặt điểm của tài khoản về 0
+			customer.setDiem(0);
+		} else {
+			// Nếu không được chọn, cập nhật điểm (ví dụ: thêm 1000 điểm cho mỗi ghế)
+			int currentPoints = customer.getDiem();
+			int pointsToAdd = 1000; // Giả sử thêm 1000 điểm cho mỗi ghế
+			customer.setDiem(currentPoints + pointsToAdd);
+		}
 
-	    // Lưu các thay đổi vào tài khoản
-	    accountService.saveAccount(acc);
+		// Lưu các thay đổi vào tài khoản
+		accountService.saveAccount(acc);
 
-	    // Lưu vé lại để đảm bảo tất cả các thay đổi được lưu
-	    ticketService.saveTicket(ticket);
+		// Lưu vé lại để đảm bảo tất cả các thay đổi được lưu
+		ticketService.saveTicket(ticket);
 
-	    return "redirect:/qrTicket/" + newTicket.getIdVe();
+		return "redirect:/qrTicket/" + newTicket.getIdVe();
 	}
 
-
-	
 	@PostMapping("/updateTicket")
 	public String updateTicket(@ModelAttribute("ticket") Ticket ticket, Model model) {
 		ticketService.saveTicket(ticket);
-		
+
 		return "";
-	}		
-	
+	}
+
 	@GetMapping("/showFormForUpdateTicket/{id}")
 	public String showFormForUpdateTicket(@PathVariable(value = "id") Long id, Model model) {
 		Ticket ticket = ticketService.getTicketById(id);
 		model.addAttribute("ticket", ticket);
 		return "";
 	}
-	
+
 	@GetMapping("/deleteTicket/{id}")
 	public String deleteTicket(@PathVariable(value = "id") Long id) {
 		this.ticketService.deleteTicketById(id);
@@ -145,44 +139,43 @@ public class TicketController {
 
 	@GetMapping("/showBuyTicket/{id}")
 	public String viewHomePage(@PathVariable(value = "id") String id, HttpServletRequest request, Model model) {
-	    // Lấy thông tin lịch chiếu, phòng chiếu và phim
-	    MovieSchedule sche = moviescheduleService.getMovieScheduleById(id);
-	    CinemaRoom room = cinemaroomService.getCinemaRoomById(sche.getPhongChieu().getIdPhong());
-	    Movie movie = movieService.getMovieById(sche.getPhim().getIdPhim());
-	    List<Chair> chair = chairService.findAllByIdPhong(room);
-	    // Lấy đối tượng account từ session
-	    HttpSession session = request.getSession();
-	    Account account = (Account) session.getAttribute("account");
-	    Ticket ticket = new Ticket();
-	    ticket.setLichChieu(sche);
-	    ticket.setTaiKhoan(account);
-	    if (account == null) {
-	        // Nếu không có account trong session, chuyển hướng đến trang đăng nhập
-	        return "redirect:/login";
-	    }
-	    
-	    // Thêm các thông tin vào model
-	    model.addAttribute("account", account);
-	    model.addAttribute("sche", sche);
-	    model.addAttribute("movie", movie);
-	    model.addAttribute("cinemaRoom", room);
-	    model.addAttribute("chairs", chair);	    
-	    model.addAttribute("ticket", ticket);
-	    return "buyticket";
+		// Lấy thông tin lịch chiếu, phòng chiếu và phim
+		MovieSchedule sche = moviescheduleService.getMovieScheduleById(id);
+		CinemaRoom room = cinemaroomService.getCinemaRoomById(sche.getPhongChieu().getIdPhong());
+		Movie movie = movieService.getMovieById(sche.getPhim().getIdPhim());
+		List<Chair> chair = chairService.findAllByIdPhong(room);
+		// Lấy đối tượng account từ session
+		HttpSession session = request.getSession();
+		Account account = (Account) session.getAttribute("account");
+		Ticket ticket = new Ticket();
+		ticket.setLichChieu(sche);
+		ticket.setTaiKhoan(account);
+		if (account == null) {
+			// Nếu không có account trong session, chuyển hướng đến trang đăng nhập
+			return "redirect:/login";
+		}
+
+		// Thêm các thông tin vào model
+		model.addAttribute("account", account);
+		model.addAttribute("sche", sche);
+		model.addAttribute("movie", movie);
+		model.addAttribute("cinemaRoom", room);
+		model.addAttribute("chairs", chair);
+		model.addAttribute("ticket", ticket);
+		return "buyticket";
 	}
 
-	
 	@GetMapping("/qrcode/{id}")
-    public void generateQRCode(@PathVariable(value = "id") String id, HttpServletResponse response) throws IOException {
-        String url = "localhost:8080/searchTicketById/" + id;
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix;
-        try {
-            bitMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
-        } catch (WriterException e) {
-            throw new IOException("Could not generate QR Code", e);
-        }
-        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", response.getOutputStream());
-    
+	public void generateQRCode(@PathVariable(value = "id") String id, HttpServletResponse response) throws IOException {
+		String url = "localhost:8080/searchTicketById/" + id;
+		QRCodeWriter qrCodeWriter = new QRCodeWriter();
+		BitMatrix bitMatrix;
+		try {
+			bitMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
+		} catch (WriterException e) {
+			throw new IOException("Could not generate QR Code", e);
+		}
+		MatrixToImageWriter.writeToStream(bitMatrix, "PNG", response.getOutputStream());
+
 	}
 }

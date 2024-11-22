@@ -5,45 +5,48 @@ import java.sql.Date;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="phim")
+@Table(name = "phim")
 public class Movie {
 	@Id
 	@Column(name = "idPhim")
 	private String idPhim;
-	
+
 	@Column(name = "tenPhim", nullable = false)
 	private String tenPhim;
-	
+
 	@Column(name = "theLoai", nullable = false)
 	private String theLoai;
-	
+
 	@Column(name = "daoDien", nullable = false)
 	private String daoDien;
-	
+
 	@Column(name = "dienVien", nullable = false)
 	private String dienVien;
-	
+
 	@Column(name = "thoiLuong", nullable = false)
 	private int thoiLuong;
-	
+
 	@Column(name = "moTa", nullable = false)
 	private String moTa;
-	
+
 	@Column(name = "ngayPH", nullable = false)
 	private Date ngayPH;
-	
+
 	@Column(name = "linkPoster", nullable = false)
 	private String linkPoster;
+
+	@Column(name = "trangthai")
+	private boolean trangthai;
 	@Transient
-    private double averageRating;
+	private double averageRating;
 
-    public double getAverageRating() {
-        return averageRating;
-    }
+	public double getAverageRating() {
+		return averageRating;
+	}
 
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
-    }
+	public void setAverageRating(double averageRating) {
+		this.averageRating = averageRating;
+	}
 
 	public String getIdPhim() {
 		return idPhim;
@@ -115,6 +118,14 @@ public class Movie {
 
 	public void setLinkPoster(String linkPoster) {
 		this.linkPoster = linkPoster;
+	}
+
+	public boolean isTrangthai() {
+		return trangthai;
+	}
+
+	public void setTrangthai(boolean trangthai) {
+		this.trangthai = trangthai;
 	}
 
 	public Movie() {

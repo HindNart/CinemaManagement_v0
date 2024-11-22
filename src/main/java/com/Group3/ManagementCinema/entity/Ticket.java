@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,13 +30,12 @@ public class Ticket {
 	@JoinColumn(name = "tai_khoan_email", nullable = false)
 	private Account taiKhoan;
 	
+	@ManyToOne
+    @JoinColumn(name = "idGhe", nullable = true)
+    private Chair idGhe;
 	
 	@Column(name = "thoigianMua")
 	private Date thoigianMua;
-	
-	@ManyToMany
-    @JoinTable(name = "ticket_chair",joinColumns = @JoinColumn(name = "ticket_id"),inverseJoinColumns = @JoinColumn(name = "chair_id"))
-    private List<Chair> ghe;
 
 	public long getIdVe() {
 		return idVe;
@@ -49,12 +49,12 @@ public class Ticket {
 		return lichChieu;
 	}
 
-	public List<Chair> getGhe() {
-		return ghe;
+	public Chair getGhe() {
+		return idGhe;
 	}
 
-	public void setGhe(List<Chair> ghe) {
-		this.ghe = ghe;
+	public void setGhe(Chair ghe) {
+		this.idGhe = ghe;
 	}
 
 	public void setLichChieu(MovieSchedule lichChieu) {
@@ -69,13 +69,13 @@ public class Ticket {
 		this.taiKhoan = taiKhoan;
 	}
 
-	public Ticket(long idVe, MovieSchedule lichChieu, Account taiKhoan, Date thoigianMua, List<Chair> ghe) {
+	public Ticket(long idVe, MovieSchedule lichChieu, Account taiKhoan, Date thoigianMua, Chair ghe) {
 		super();
 		this.idVe = idVe;
 		this.lichChieu = lichChieu;
 		this.taiKhoan = taiKhoan;
 		this.thoigianMua = thoigianMua;
-		this.ghe = ghe;
+		this.idGhe = ghe;
 	}
 
 	public Date getThoigianMua() {
