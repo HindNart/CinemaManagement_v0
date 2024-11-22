@@ -29,7 +29,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 	@Override
-	public Customer getCustomerById(String id) {
+	public Customer getCustomerById(Long id) {
 		Optional < Customer > optional = customerRepository.findById(id);
 		Customer customer = null;
 		if (optional.isPresent()) {
@@ -39,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 	@Override
-	public void deleteCustomerById(String id) {
+	public void deleteCustomerById(Long id) {
 		this.customerRepository.deleteById(id);
 	}
 	

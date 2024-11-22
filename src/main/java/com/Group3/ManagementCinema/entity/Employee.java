@@ -4,6 +4,7 @@ import java.sql.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,7 +34,10 @@ public class Employee {
 
     @Column(name = "sdt", nullable = false)
     private String sdt;
-
+    
+    @OneToOne(mappedBy = "employee")
+    private Account account;
+    
     // Getters and Setters
     public String getIdNhanVien() {
         return idNhanVien;
@@ -105,7 +109,7 @@ public class Employee {
 	}
 
 	public Employee(String idNhanVien, String hoTenNV, Date ngaySinhNV, String diaChi, String chucVu, float luong,
-			int caLam, String sdt) {
+			int caLam, String sdt, Account account) {
 		super();
 		this.idNhanVien = idNhanVien;
 		this.hoTenNV = hoTenNV;
@@ -115,6 +119,7 @@ public class Employee {
 		this.luong = luong;
 		this.caLam = caLam;
 		this.sdt = sdt;
+		this.account = account;
 	}
     
 }

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.Group3.ManagementCinema.entity.Customer;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, String>{
+public interface CustomerRepository extends JpaRepository<Customer, Long>{
 	List<Customer> findByTenKhachContaining (String key);
 }
