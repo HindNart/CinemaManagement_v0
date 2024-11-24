@@ -62,7 +62,7 @@ public class RateServiceImpl implements RateService {
 	}
 
 	@Override
-	public void saveRate(Long idDanhGia, String email, String idPhim, int diem, String binhLuan) {
+	public void saveRate(Long idDanhGia, String email, Long idPhim, int diem, String binhLuan) {
 		// TODO Auto-generated method stub
 		Account taiKhoan = accountRepository.findById(email).orElseThrow(() -> new RuntimeException("Account not found"));
 		Movie phim = movieRepository.findById(idPhim).orElseThrow(() -> new RuntimeException("Movie not found"));
@@ -78,7 +78,7 @@ public class RateServiceImpl implements RateService {
 		return rateRepository.count();
 	}
 
-    public Map<String, Double> getAverageRatings() {
+    public Map<Long, Double> getAverageRatings() {
         List<Rate> rates = getAllRates();
         return rates.stream().collect(Collectors.groupingBy(rate -> rate.getPhim().getIdPhim(),
                 Collectors.averagingDouble(Rate::getDiem)));

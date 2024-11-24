@@ -9,5 +9,5 @@ import com.Group3.ManagementCinema.entity.Rate;
 
 @Repository
 public interface RateRepository extends JpaRepository<Rate, Long>{
-	List<Rate> findByPhimIdPhim(String idPhim);
+	List<Rate> findByPhimIdPhim(Long idPhim);
 }

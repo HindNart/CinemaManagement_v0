@@ -3,6 +3,8 @@ package com.Group3.ManagementCinema.entity;
 import java.sql.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -11,8 +13,9 @@ import jakarta.persistence.Table;
 @Table(name="nhanvien")
 public class Employee {
     @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idNhanVien")
-    private String idNhanVien;
+    private Long idNhanVien;
 
     @Column(name = "hoTenNV", nullable = false)
     private String hoTenNV;
@@ -39,11 +42,11 @@ public class Employee {
     private Account account;
     
     // Getters and Setters
-    public String getIdNhanVien() {
+    public Long getIdNhanVien() {
         return idNhanVien;
     }
 
-    public void setIdNhanVien(String idNhanVien) {
+    public void setIdNhanVien(Long idNhanVien) {
         this.idNhanVien = idNhanVien;
     }
 
@@ -108,7 +111,7 @@ public class Employee {
 		super();
 	}
 
-	public Employee(String idNhanVien, String hoTenNV, Date ngaySinhNV, String diaChi, String chucVu, float luong,
+	public Employee(Long idNhanVien, String hoTenNV, Date ngaySinhNV, String diaChi, String chucVu, float luong,
 			int caLam, String sdt, Account account) {
 		super();
 		this.idNhanVien = idNhanVien;

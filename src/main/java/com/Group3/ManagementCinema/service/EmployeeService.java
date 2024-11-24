@@ -9,8 +9,8 @@ import com.Group3.ManagementCinema.entity.Employee;
 public interface EmployeeService {
 	List<Employee> getAllEmployees();
 	void saveEmployee(Employee Employee);
-	Employee getEmployeeById(String id);
-	void deleteEmployeeById(String id);
+	Employee getEmployeeById(Long id);
+	void deleteEmployeeById(Long id);
 	Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	long countEmployee();
 	List<Employee> searchEmp(String key);

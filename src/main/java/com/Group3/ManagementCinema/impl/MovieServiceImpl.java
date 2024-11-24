@@ -35,7 +35,7 @@ public class MovieServiceImpl implements MovieService {
 	}
 	
 	@Override
-	public Movie getMovieById(String id) {
+	public Movie getMovieById(Long id) {
 		Optional < Movie > optional = movieRepository.findById(id);
 		Movie movie = null;
 		if (optional.isPresent()) {
@@ -45,7 +45,7 @@ public class MovieServiceImpl implements MovieService {
 	}
 	
 	@Override
-	public void deleteMovieById(String id) {
+	public void deleteMovieById(Long id) {
 		this.movieRepository.deleteById(id);
 	}
 	

@@ -12,6 +12,6 @@ public interface RateService {
 	void deleteRateById(Long id);
 	Page<Rate> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	void saveRate(Rate rate);
-	void saveRate(Long idDanhGia, String email, String idPhim, int diem, String binhLuan);
+	void saveRate(Long idDanhGia, String email, Long idPhim, int diem, String binhLuan);
 	long countRate();
 }

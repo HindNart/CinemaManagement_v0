@@ -11,11 +11,11 @@ import com.Group3.ManagementCinema.entity.MovieSchedule;
 
 public interface MovieScheduleService {
 	List<MovieSchedule> getAllMovieSchedules();
-	MovieSchedule getMovieScheduleById(String id);
-	void deleteMovieScheduleById(String id);
+	MovieSchedule getMovieScheduleById(Long id);
+	void deleteMovieScheduleById(Long id);
 	Page<MovieSchedule> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	void saveMovieSchedule(MovieSchedule movieSchedule);
-	void saveMovieSchedule(String idLichChieu, String phongChieuId, String phimId, String thoigianBD, String thoigianKT,
+	void saveMovieSchedule(Long idLichChieu, String phongChieuId, Long phimId, String thoigianBD, String thoigianKT,
 			java.util.Date ngayChieu);
 	long countMovieSchedule();
 	MovieSchedule checkMS(Date date, String tgbd, String tgkt, CinemaRoom phongchieu);

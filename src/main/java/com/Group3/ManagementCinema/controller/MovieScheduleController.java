@@ -78,7 +78,7 @@ public class MovieScheduleController {
 	}
 	
 	@GetMapping("/showFormForUpdateMovieSchedule/{id}")
-	public String showFormForUpdateSchedule(@PathVariable(value = "id") String id, Model model) {
+	public String showFormForUpdateSchedule(@PathVariable(value = "id") Long id, Model model) {
 		// get movie from the service
 		MovieSchedule movieSchedule = movieScheduleService.getMovieScheduleById(id);
 		// set movie as a model attribute to pre-populate the form
@@ -91,7 +91,7 @@ public class MovieScheduleController {
 	}
 	
 	@GetMapping("/deleteMovieSchedule/{id}")
-	public String deleteMovieSchedule(@PathVariable(value = "id") String id) {
+	public String deleteMovieSchedule(@PathVariable(value = "id") Long id) {
 		// call delete movie method
 		this.movieScheduleService.deleteMovieScheduleById(id);
 		return "redirect:/";

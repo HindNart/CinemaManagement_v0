@@ -9,8 +9,9 @@ import jakarta.persistence.*;
 @Table(name = "lichchieu")
 public class MovieSchedule {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idLichChieu")
-	private String idLichChieu;
+	private Long idLichChieu;
 	
 	@ManyToOne
     @JoinColumn(name = "phong_chieu_idPhong", nullable = false)
@@ -29,11 +30,11 @@ public class MovieSchedule {
 	@Column(name = "ngayChieu")
 	private Date ngayChieu;
 
-	public String getIdLichChieu() {
+	public Long getIdLichChieu() {
 		return idLichChieu;
 	}
 
-	public void setIdLichChieu(String idLichChieu) {
+	public void setIdLichChieu(Long idLichChieu) {
 		this.idLichChieu = idLichChieu;
 	}
 
@@ -82,7 +83,7 @@ public class MovieSchedule {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MovieSchedule(String idLichChieu, CinemaRoom phongChieu, Movie phim, String thoigianBD, String thoigianKT,
+	public MovieSchedule(Long idLichChieu, CinemaRoom phongChieu, Movie phim, String thoigianBD, String thoigianKT,
 			java.util.Date ngayChieu) {
 		super();
 		this.idLichChieu = idLichChieu;

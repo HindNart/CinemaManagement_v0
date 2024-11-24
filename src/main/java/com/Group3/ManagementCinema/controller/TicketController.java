@@ -138,7 +138,7 @@ public class TicketController {
 	}
 
 	@GetMapping("/showBuyTicket/{id}")
-	public String viewHomePage(@PathVariable(value = "id") String id, HttpServletRequest request, Model model) {
+	public String viewHomePage(@PathVariable(value = "id") Long id, HttpServletRequest request, Model model) {
 		// Lấy thông tin lịch chiếu, phòng chiếu và phim
 		MovieSchedule sche = moviescheduleService.getMovieScheduleById(id);
 		CinemaRoom room = cinemaroomService.getCinemaRoomById(sche.getPhongChieu().getIdPhong());

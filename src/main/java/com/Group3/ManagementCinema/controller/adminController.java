@@ -92,7 +92,7 @@ public class adminController {
             List<Movie> movies = movieService.getAllMovies();
             model.addAttribute("account", account);
             model.addAttribute("movies", movies);  
-            Map<String, Double> averageRatings = rateService.getAverageRatings();
+            Map<Long, Double> averageRatings = rateService.getAverageRatings();
             model.addAttribute("averageRatings", averageRatings);
             
             if (rememberMe) {
@@ -129,7 +129,7 @@ public class adminController {
         model.addAttribute("account", account);
         model.addAttribute("movies", movieService.getAllMovies());
         model.addAttribute("customer", customer); 
-        Map<String, Double> averageRatings = rateService.getAverageRatings();
+        Map<Long, Double> averageRatings = rateService.getAverageRatings();
         model.addAttribute("averageRatings", averageRatings);
         return "cusIndex";
     }
@@ -140,7 +140,7 @@ public class adminController {
     }
     
     @GetMapping("/film/{id}")
-    public String openFilm(@PathVariable(value = "id") String idPhong, HttpServletRequest request, Model model) {
+    public String openFilm(@PathVariable(value = "id") Long idPhong, HttpServletRequest request, Model model) {
         Movie movie = movieService.getMovieById(idPhong);
         List<MovieSchedule> movieSchedule = moviescheduleService.findByIdphim(movie);
         List<Rate> rates = rateService.getAllRates();
@@ -150,7 +150,7 @@ public class adminController {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         
-        Map<String, Double> averageRatings = rateService.getAverageRatings();
+        Map<Long, Double> averageRatings = rateService.getAverageRatings();
         model.addAttribute("averageRatings", averageRatings);
         
         newRate.setTaiKhoan(account);
