@@ -91,7 +91,7 @@ public class adminController {
             session.setAttribute("account", account); // Lưu đối tượng Account vào session
             List<Movie> movies = movieService.getAllMovies();
             model.addAttribute("account", account);
-            model.addAttribute("movies", movies); 
+            model.addAttribute("movies", movies);  
             Map<String, Double> averageRatings = rateService.getAverageRatings();
             model.addAttribute("averageRatings", averageRatings);
             
@@ -103,11 +103,15 @@ public class adminController {
                 response.addCookie(cookie);
             }
             
-            if ("admin@gmail.com".equals(email)) {
+            if (account.getRole().equals("admin")) {
                 session.setAttribute("role", "admin");
                 model.addAttribute("account", account);
                 return "redirect:/"; // Điều hướng đến trang admin
             } else {
+
+                Customer customer = customerService.getCustomerById(account.getCustomer().getIdKhach());
+
+                model.addAttribute("customer", customer);
                 return "cusIndex"; // Điều hướng đến trang người dùng
             }
         } else {
@@ -121,9 +125,10 @@ public class adminController {
     public String openUserSite(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
+        Customer customer = customerService.getCustomerById(account.getCustomer().getIdKhach());
         model.addAttribute("account", account);
         model.addAttribute("movies", movieService.getAllMovies());
-
+        model.addAttribute("customer", customer); 
         Map<String, Double> averageRatings = rateService.getAverageRatings();
         model.addAttribute("averageRatings", averageRatings);
         return "cusIndex";

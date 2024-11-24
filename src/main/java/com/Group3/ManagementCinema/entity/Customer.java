@@ -11,9 +11,9 @@ public class Customer {
 	private Long idKhach;
 	@Column(name = "tenKhach")
 	private String tenKhach;
-	@Column(name = "sdt")
+	@Column(name = "sdt", nullable= true)
 	private String sdt;
-	@Column(name = "diem")
+	@Column(name = "diem", nullable= true)
 	private int diem;
 	@OneToOne(mappedBy = "customer")
 	private Account account;

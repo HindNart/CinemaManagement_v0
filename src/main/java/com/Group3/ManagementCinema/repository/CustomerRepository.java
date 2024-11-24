@@ -9,4 +9,5 @@ import com.Group3.ManagementCinema.entity.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long>{
 	List<Customer> findByTenKhachContaining (String key);
+	Customer findByIdKhach(Long id);
 }
