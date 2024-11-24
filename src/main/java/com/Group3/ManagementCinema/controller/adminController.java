@@ -149,7 +149,7 @@ public class adminController {
         Rate newRate = new Rate();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-        
+        Customer customer = customerService.getCustomerById(account.getCustomer().getIdKhach());
         Map<Long, Double> averageRatings = rateService.getAverageRatings();
         model.addAttribute("averageRatings", averageRatings);
         
@@ -157,6 +157,7 @@ public class adminController {
         newRate.setPhim(movie);
         model.addAttribute("newRate", newRate);
         model.addAttribute("account", account);
+        model.addAttribute("customer", customer);
         model.addAttribute("rates", rates);
         model.addAttribute("movie", movie);
         model.addAttribute("uniqueDates", uniqueDates);

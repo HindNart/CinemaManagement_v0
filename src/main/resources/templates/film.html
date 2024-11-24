@@ -1,43 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${movie.tenPhim}"></title>
-    <link rel="stylesheet" href="/css/filmStyle.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <style>
-    	#header.light-mode {
-        background-color: #f8f9fa;
-        color: #212529;
-	    }
-	
-	    /* Dark Mode */
-	    #header.dark-mode {
-	        background-color: #212529;
-	        color: #f8f9fa;
-	    }
-	
-	    /* Adjust user dropdown content text color */
-	    #header.light-mode .dropdown-content a,
-	    #header.dark-mode .dropdown-content a {
-	        color: inherit; /* Use inherited color */
-	    }
-	    
-	    #header.light-mode.user-name span,
-	    #header.dark-mode.user-name span{
-	    	color: inherit;
-	    }
-	
-	    /* Adjust chevron icon color */
-	    #header.light-mode .bi-chevron-compact-down,
-	    #header.dark-mode .bi-chevron-compact-down {
-	        color: inherit; /* Use inherited color */
-	    }
-    </style>
-    <script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${movie.tenPhim}"></title>
+<link rel="stylesheet" href="/css/filmStyle.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
+<style>
+#header.light-mode {
+	background-color: #f8f9fa;
+	color: #212529;
+}
+
+/* Dark Mode */
+#header.dark-mode {
+	background-color: #212529;
+	color: #f8f9fa;
+}
+
+/* Adjust user dropdown content text color */
+#header.light-mode .dropdown-content a, #header.dark-mode .dropdown-content a
+	{
+	color: inherit; /* Use inherited color */
+}
+
+#header.light-mode.user-name span, #header.dark-mode.user-name span {
+	color: inherit;
+}
+
+/* Adjust chevron icon color */
+#header.light-mode .bi-chevron-compact-down, #header.dark-mode .bi-chevron-compact-down
+	{
+	color: inherit; /* Use inherited color */
+}
+</style>
+<script>
 	    document.addEventListener("DOMContentLoaded", function () {
 	        var modalToggleButtons = document.querySelectorAll('.schedule-time-item');      
 	        modalToggleButtons.forEach(button => {
@@ -246,220 +253,268 @@
     </script>
 </head>
 <body>
-    <div id="header" >
-	    <div class="navbar">
-	                <a class="logo ms-3">
-	                    <img src="./img/LET.png" width="125px" height="100%">
-	                </a>
-	                <div class="nav-content">
-	                    <ul>
-	                        <li class="nav-dropdown">Lịch chiếu
-	                            <div class="dropdown-content">
-	                                <a href="#">Phim đang chiếu</a>
-	                                <a href="#">Phim sắp chiếu</a>
-	                            </div>
-	                        </li>
-	                        <li>Phim chiếu</li>
-	                        <li>Review phim</li>
-	                    </ul>
-	                </div>
-	                <div class="user flex">
-					    <div class=" nav-dropdown flex">
-					    	<div class="user-avt">
-						        <img class="brr-50" src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="" width="50px" height="50px">
-						    </div>
-						    <div class="user-name nav-dropdown me-4" th:classappend="${account != null} ? 'light-mode' : 'dark-mode'">
-						        <span th:if="${account != null}" th:text="${account.username}">
-						        </span>
-						        <div class="dropdown-content rounded">
-						            <a data-bs-toggle="modal" class="rounded" data-bs-target="#exampleModal" style="cursor: pointer;">Thông tin</a>
-						            <a th:href="@{/logout}" class="rounded">Đăng xuất</a>
-						        </div>
-						    </div>
-					    </div>
-					    <!-- Toggle button -->
-					    <button id="toggleButton" class="btn btn-outline-dark rounded-circle" onclick="toggleHeaderMode()">
-					        <i class="bi bi-brightness-high"></i>
-					    </button>
+	<div id="header">
+		<div class="navbar">
+			<a class="logo ms-3"> <img src="./img/LET.png" width="125px"
+				height="100%">
+			</a>
+			<div class="nav-content">
+				<ul>
+					<li class="nav-dropdown">Lịch chiếu
+						<div class="dropdown-content">
+							<a href="#">Phim đang chiếu</a> <a href="#">Phim sắp chiếu</a>
+						</div>
+					</li>
+					<li>Phim chiếu</li>
+					<li>Review phim</li>
+				</ul>
+			</div>
+			<div class="user flex">
+				<div class=" nav-dropdown flex">
+					<div class="user-avt">
+						<img class="brr-50"
+							src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
+							alt="" width="50px" height="50px">
+					</div>
+					<div class="user-name nav-dropdown me-4"
+						th:classappend="${account != null} ? 'light-mode' : 'dark-mode'">
+						<span th:if="${account != null}" th:text="${account.username}">
+						</span>
+						<div class="dropdown-content rounded">
+							<a data-bs-toggle="modal" class="rounded"
+								data-bs-target="#exampleModal" style="cursor: pointer;">Thông
+								tin</a> <a th:href="@{/logout}" class="rounded">Đăng xuất</a>
+						</div>
 					</div>
 				</div>
-	    </div>
-    <div class="film-info pa-64">
-        <div class="film-info-img"><img th:src="${movie.LinkPoster}" alt="" width="250px" height="350px"></div>
-        <div class="film-info-details">
-            <p class="ageFilm margin-tb-10">P</p>
-            <h1 th:text="${movie.tenPhim}"></h1>
-            <p class="opacity-7 margin-tb-10" th:text="${movie.tenPhim}"> · <p ><span th:text="${movie.thoiLuong}"></span> phút</p>
-            <p>🌟 <span th:text="${#numbers.formatDecimal(averageRatings[movie.idPhim], 1, 1)}"></span> </p>
-            <b>Nội dung</b>
-            <p class="opacity-7" th:text="${movie.moTa}"></p>
-            <div class="flex justify-content-between margin-tb-10">
-                <div class="">
-                    <p class="opacity-7">Ngày chiếu</p>
-                    <b th:text="${movie.ngayPH}"></b>
-                </div>
-                <div class="">
-                    <p class="opacity-7">Thể loại</p>
-                    <b th:text="${movie.theLoai}"></b>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="schedule-show pa-64">
-        <h3>Lịch chiếu <span th:text="${movie.tenPhim}"></span></h3>
-        <div class="schedule-container" th:each="date : ${uniqueDates}">
-            <div class="schedule-list"  >
-                <div class="schedule-date">
-                    <p class="bg-gray" th:text="${date}"></p>
-                </div>
-            </div>
-            <div class="schedule-time-container">
-                <div class="schedule-time">
-                    <p><b>2D Lồng tiếng</b></p>
-                    <div class="" style="margin-left:-3px;" >                	
-                        <div  th:each="schedule : ${movieSchedule}"
-                        	th:if="${date == schedule.ngayChieu}"  
-                        	class="schedule-time-item btn btn-primary ms-1 me-1" data-bs-target="#exampleModalToggle"  
-                            data-bs-toggle="modal"
-                            th:attr="data-start-time=${schedule.thoigianBD}, data-end-time=${schedule.thoigianKT}, data-show-time=${schedule.ngayChieu}, data-room=${schedule.phongChieu.idPhong},data-room-type=${schedule.phongChieu.loaiPhong}">
-                            <a class="text-white" style="text-decoration: none" th:href="@{/showBuyTicket/{id}(id=${schedule.idLichChieu})}"><span th:text="${schedule.thoigianBD}"></span> ~ <span th:text="${schedule.thoigianKT}"></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="comments pa-64">
-    	
-	    <form action="#" th:action="@{/saveRate}" th:object="${newRate}" method="post">
-            <div class="">
-                <select class="form-select w-auto mb-3" id="selectRating" th:field="*{diem}" aria-label="Default select example" required>
-                    <option value="10" disabled selected>Điểm</option>
-                    <option th:value="1">1</option>
-                    <option th:value="2">2</option>
-                    <option th:value="3">3</option>
-                    <option th:value="4">4</option>
-                    <option th:value="5">5</option>
-                    <option th:value="6">6</option>
-                    <option th:value="7">7</option>
-                    <option th:value="8">8</option>
-                    <option th:value="9">9</option>
-                    <option th:value="10">10</option>
-                </select>
-                
-                <label for="textareaComment" class="form-label mb-3">Bình luận</label>
-                <textarea class="form-control" id="textareaComment" th:field="*{binhLuan}" rows="3"></textarea>                
-    			<input type="hidden" th:field="*{taiKhoan}"/>
-    			<input type="hidden" th:field="*{Phim}"/>
-            </div>
-            <button type="submit" class="btn btn-primary mb-3 mt-3">Gửi đánh giá</button>
-        </form>
-        <div class="">
-            <h3 class="comments-title">Bình luận từ người xem</h3>
-            <div class="user-comment" th:each="rate:${rates}" th:if="${rate.Phim.idPhim == movie.idPhim}">
-                <div class=" flex" >
-                    <div class="user-avt"><img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg" alt="" width="50px" height="50px"></div>
-                    <div class="user-info">
-                        <p th:text="${rate.taiKhoan.username}"></p>
-                    </div>
-                </div>
-                <div class="mb-3">
-	                <input type="hidden" class="rate-id" th:value="${rate.id}"/>
-				    <input type="hidden" class="account-id" th:value="${rate.taiKhoan.email	}"/>
-				    <input type="hidden" class="movie-id" th:value="${rate.Phim.idPhim}"/>
-                    <div class="comment-rate mg-10 ">🌟 <span th:text="${rate.diem}"></span>/10 •</div>
-                    <div class="comment-content" th:text="${rate.binhLuan}"></div>
-                     <button th:if="${rate.taiKhoan.email == account.email}" class="gear-icon-btn" onclick="convertToEditForm(this)">⚙️</button>
-                </div>                
-            </div>
-        </div>    
-    </div>
-    
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog md">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin tài khoản</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      <div class="modal-body">
-		      
-		        <form th:action="@{/updateAccount}" th:object="${account}" method="post">
-					  <div class="row mb-3">
-					    <label for="inputEmail3" class="col-sm-3 col-form-label">Email:</label>
-					    <div class="col-sm-9">
-					      <input type="email" class="form-control" id="inputEmail3" th:field="*{email}" th:value="${account.email}"required>
-					    </div>
-					  </div>
-					  <div class="row mb-3">
-					    <label for="username" class="col-sm-3 col-form-label">Username:</label>
-					    <div class="col-sm-9">
-					      <input type="text" class="form-control" id="username" th:field="*{username}" th:value="${account.username}" required>
-					    </div>
-					  </div>
-					  
-					  
-					  <div class="row mb-3">
-					    <label for="inputPassword3" class="col-sm-3 col-form-label">Password:</label>
-					    <div class="col-sm-9">
-					      <input type="password" class="form-control" id="inputPassword3" th:field="*{password}" th:value="${account.password}"
-					       pattern=".{8,}" title="Password phải có ít nhất 8 ký tự" required>
-					    </div>
-					  </div>
-					  <div class="row mb-3">
-					    <label for="inputPassword3" class="col-sm-3 col-form-label">Điểm:</label>
-					    <div class="col-sm-9">
-					      <input type="text" class="form-control" id="" th:value="${account.diem}" th:field="*{diem}" readonly>
-					    </div>
-					  </div>
-					  <button type="submit" class="btn btn-primary float-end">Lưu</button>
-				</form>
-		      </div>
-		    </div>
-		  </div>
+				<!-- Toggle button -->
+				<button id="toggleButton"
+					class="btn btn-outline-dark rounded-circle"
+					onclick="toggleHeaderMode()">
+					<i class="bi bi-brightness-high"></i>
+				</button>
+			</div>
 		</div>
-		<div id="footer" class=" bg-dark p-3 pt-5">
-        <div class="row p-64  ms-5 me-5 text-white border-bottom">
-            <div class="col mb-4">
-                <div class="title-footer"> <b>Giới thiệu</b>
-                    <ul class="mt-3">
-                        <li><a href="#">Về chúng tôi</a></li>
-                        <li><a href="#">Thỏa thuận sử dụng</a></li>
-                        <li><a href="#">Quy chế hoạt động</a></li>
-                        <li><a href="#">Chính sách bảo mật</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col">
-                <div class="title-footer"> <b>Góc điện ảnh</b>
-                    <ul class="mt-3">
-                        <li><a href="#">Thể loại phim</a></li>
-                        <li><a href="#">Bình luận phim</a></li>
-                        <li><a href="#">Phim hay của tháng </a></li>
-                    </ul>
-            </div>
-            </div>
-            <div class="col">
-                <div class="title-footer"> <b>Hỗ trợ</b>
-                    <ul class="mt-3">
-                        <li><a href="#">Sales</a></li>
-                        <li><a href="#">Rạp</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col">
-                <div id="logo" class="col-3">
-                    <img src="./img/LET.png" alt="" class="">
-                    <div class="row">
-                        <div class="col-4 fs-3"><i class="bi bi-facebook"></i></div>
-                        <div class="col-4 fs-3"><i class="bi bi-youtube"></i></div>
-                        <div class="col-4 fs-3"><i class="bi bi-instagram"></i></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	</div>
+	<div class="film-info pa-64">
+		<div class="film-info-img">
+			<img th:src="${movie.LinkPoster}" alt="" width="250px" height="350px">
+		</div>
+		<div class="film-info-details">
+			<p class="ageFilm margin-tb-10">P</p>
+			<h1 th:text="${movie.tenPhim}"></h1>
+			<p class="opacity-7 margin-tb-10" th:text="${movie.tenPhim}">·
+			<p>
+				<span th:text="${movie.thoiLuong}"></span> phút
+			</p>
+			<p>
+				🌟 <span
+					th:text="${#numbers.formatDecimal(averageRatings[movie.idPhim], 1, 1)}"></span>
+			</p>
+			<b>Nội dung</b>
+			<p class="opacity-7" th:text="${movie.moTa}"></p>
+			<div class="flex justify-content-between margin-tb-10">
+				<div class="">
+					<p class="opacity-7">Ngày chiếu</p>
+					<b th:text="${movie.ngayPH}"></b>
+				</div>
+				<div class="">
+					<p class="opacity-7">Thể loại</p>
+					<b th:text="${movie.theLoai}"></b>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="schedule-show pa-64">
+		<h3>
+			Lịch chiếu <span th:text="${movie.tenPhim}"></span>
+		</h3>
+		<div class="schedule-container" th:each="date : ${uniqueDates}">
+			<div class="schedule-list">
+				<div class="schedule-date">
+					<p class="bg-gray" th:text="${date}"></p>
+				</div>
+			</div>
+			<div class="schedule-time-container">
+				<div class="schedule-time">
+					<p>
+						<b>2D Lồng tiếng</b>
+					</p>
+					<div class="" style="margin-left: -3px;">
+						<div th:each="schedule : ${movieSchedule}"
+							th:if="${date == schedule.ngayChieu}"
+							class="schedule-time-item btn btn-primary ms-1 me-1"
+							data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+							th:attr="data-start-time=${schedule.thoigianBD}, data-end-time=${schedule.thoigianKT}, data-show-time=${schedule.ngayChieu}, data-room=${schedule.phongChieu.idPhong},data-room-type=${schedule.phongChieu.loaiPhong}">
+							<a class="text-white" style="text-decoration: none"
+								th:href="@{/showBuyTicket/{id}(id=${schedule.idLichChieu})}"><span
+								th:text="${schedule.thoigianBD}"></span> ~ <span
+								th:text="${schedule.thoigianKT}"></span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="comments pa-64">
+
+		<form action="#" th:action="@{/saveRate}" th:object="${newRate}"
+			method="post">
+			<div class="">
+				<select class="form-select w-auto mb-3" id="selectRating"
+					th:field="*{diem}" aria-label="Default select example" required>
+					<option value="10" disabled selected>Điểm</option>
+					<option th:value="1">1</option>
+					<option th:value="2">2</option>
+					<option th:value="3">3</option>
+					<option th:value="4">4</option>
+					<option th:value="5">5</option>
+					<option th:value="6">6</option>
+					<option th:value="7">7</option>
+					<option th:value="8">8</option>
+					<option th:value="9">9</option>
+					<option th:value="10">10</option>
+				</select> <label for="textareaComment" class="form-label mb-3">Bình
+					luận</label>
+				<textarea class="form-control" id="textareaComment"
+					th:field="*{binhLuan}" rows="3"></textarea>
+				<input type="hidden" th:field="*{taiKhoan}" /> <input type="hidden"
+					th:field="*{Phim}" />
+			</div>
+			<button type="submit" class="btn btn-primary mb-3 mt-3">Gửi
+				đánh giá</button>
+		</form>
+		<div class="">
+			<h3 class="comments-title">Bình luận từ người xem</h3>
+			<div class="user-comment" th:each="rate:${rates}"
+				th:if="${rate.Phim.idPhim == movie.idPhim}">
+				<div class=" flex">
+					<div class="user-avt">
+						<img
+							src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg"
+							alt="" width="50px" height="50px">
+					</div>
+					<div class="user-info">
+						<p th:text="${rate.taiKhoan.username}"></p>
+					</div>
+				</div>
+				<div class="mb-3">
+					<input type="hidden" class="rate-id" th:value="${rate.id}" /> <input
+						type="hidden" class="account-id"
+						th:value="${rate.taiKhoan.email	}" /> <input type="hidden"
+						class="movie-id" th:value="${rate.Phim.idPhim}" />
+					<div class="comment-rate mg-10 ">
+						🌟 <span th:text="${rate.diem}"></span>/10 •
+					</div>
+					<div class="comment-content" th:text="${rate.binhLuan}"></div>
+					<button th:if="${rate.taiKhoan.email == account.email}"
+						class="gear-icon-btn" onclick="convertToEditForm(this)">⚙️</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin
+						người dùng</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+
+					<form th:action="@{/updateCustomer}" th:object="${customer}"
+						method="post">
+						<div class="row mb-3">
+							<div class="col-sm-9">
+								<input type="hidden" class="form-control" id="idCus"
+									th:field="*{idKhach}" th:value="${customer.idKhach}">
+							</div>
+						</div>
+
+						<div class="row mb-3">
+							<label for="username" class="col-sm-3 col-form-label">Username:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="username"
+									th:field="*{tenKhach}" th:value="${customer.tenKhach}" required>
+							</div>
+						</div>
+
+						<div class="row mb-3">
+							<label for="inputPassword3" class="col-sm-3 col-form-label">Số
+								điện thoại:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="phoneNum"
+									th:value="${customer.sdt}" th:field="*{sdt}">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label for="inputPassword3" class="col-sm-3 col-form-label">Điểm:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="phoneNum"
+									th:value="${customer.diem}" th:field="*{diem}" readonly>
+							</div>
+						</div>
+						<button type="submit" class="btn btn-primary float-end">Lưu</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer" class=" bg-dark p-3 pt-5">
+		<div class="row p-64  ms-5 me-5 text-white border-bottom">
+			<div class="col mb-4">
+				<div class="title-footer">
+					<b>Giới thiệu</b>
+					<ul class="mt-3">
+						<li><a href="#">Về chúng tôi</a></li>
+						<li><a href="#">Thỏa thuận sử dụng</a></li>
+						<li><a href="#">Quy chế hoạt động</a></li>
+						<li><a href="#">Chính sách bảo mật</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col">
+				<div class="title-footer">
+					<b>Góc điện ảnh</b>
+					<ul class="mt-3">
+						<li><a href="#">Thể loại phim</a></li>
+						<li><a href="#">Bình luận phim</a></li>
+						<li><a href="#">Phim hay của tháng </a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col">
+				<div class="title-footer">
+					<b>Hỗ trợ</b>
+					<ul class="mt-3">
+						<li><a href="#">Sales</a></li>
+						<li><a href="#">Rạp</a></li>
+						<li><a href="#">FAQ</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col">
+				<div id="logo" class="col-3">
+					<img src="./img/LET.png" alt="" class="">
+					<div class="row">
+						<div class="col-4 fs-3">
+							<i class="bi bi-facebook"></i>
+						</div>
+						<div class="col-4 fs-3">
+							<i class="bi bi-youtube"></i>
+						</div>
+						<div class="col-4 fs-3">
+							<i class="bi bi-instagram"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

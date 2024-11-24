@@ -36,11 +36,7 @@ public class MovieServiceImpl implements MovieService {
 	
 	@Override
 	public Movie getMovieById(Long id) {
-		Optional < Movie > optional = movieRepository.findById(id);
-		Movie movie = null;
-		if (optional.isPresent()) {
-			movie = optional.get();
-		}
+		Movie movie = movieRepository.findByIdPhim(id);
 		return movie;
 	}
 	
