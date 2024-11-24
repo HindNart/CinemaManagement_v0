@@ -59,6 +59,12 @@ public class MovieController {
 	
 	@PostMapping("/saveMovie")
     public String saveMovie(@ModelAttribute("movie") Movie movie, RedirectAttributes redirectAttributes) {
+        movieService.saveMovie(movie);
+        return "redirect:/showNewMovieForm";
+    }
+	
+	@PostMapping("/checkMovie")
+	public String checkMovie(@ModelAttribute("movie") Movie movie, RedirectAttributes redirectAttributes) {
 		Movie existMovie = movieService.getMovieById(movie.getIdPhim());
         if (existMovie == null) {
         	movieService.saveMovie(movie);

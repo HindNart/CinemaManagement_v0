@@ -10,7 +10,6 @@ import jakarta.persistence.*;
 public class MovieSchedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idLichChieu")
 	private Long idLichChieu;
 	
 	@ManyToOne

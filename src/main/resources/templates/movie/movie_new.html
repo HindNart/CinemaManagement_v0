@@ -14,6 +14,9 @@
     	<div th:if="${message}" th:text="${message}" class="alert alert-danger"></div>
 		<hr>
 		<form th:action="@{/saveMovie}" th:object="${movie}" method="POST">
+			<div class="mb-3">				
+				<input required type="hidden" th:field="*{idPhim}">
+			</div>
 			<div class="mb-3">
 				<label for="tenphim" class="form-label">Tên phim</label>
 				<input required type="text" th:field="*{tenPhim}" placeholder="Tên phim" class="form-control mb-4 col-4">
@@ -47,6 +50,11 @@
 			<div class="mb-3">
 				<label for="linkposter" class="form-label">Link Poster</label>
 				<input required type="url" th:field="*{linkPoster}" placeholder="Link poster" id="linkPoster" class="form-control mb-4 col-4">
+				<div id="linkPosterError" class="text-danger"></div>
+			</div>			
+			<div class="mb-3">
+				<label for="linkposter" class="form-label">Trạng thái</label>
+				<input required type="text" th:field="*{trangthai}" placeholder="Trạng thái" id="trangthai" class="form-control mb-4 col-4">
 				<div id="linkPosterError" class="text-danger"></div>
 			</div>
 			<hr>

@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 public class Movie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idPhim")
 	private Long idPhim;
 
 	@Column(name = "tenPhim", nullable = false)

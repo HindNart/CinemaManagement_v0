@@ -14,8 +14,7 @@ import jakarta.persistence.Table;
 public class Employee {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idNhanVien")
-    private Long idNhanVien;
+    private Long employee_id;
 
     @Column(name = "hoTenNV", nullable = false)
     private String hoTenNV;
@@ -43,11 +42,11 @@ public class Employee {
     
     // Getters and Setters
     public Long getIdNhanVien() {
-        return idNhanVien;
+        return employee_id;
     }
 
     public void setIdNhanVien(Long idNhanVien) {
-        this.idNhanVien = idNhanVien;
+        this.employee_id = idNhanVien;
     }
 
     public String getHoTenNV() {
@@ -114,7 +113,7 @@ public class Employee {
 	public Employee(Long idNhanVien, String hoTenNV, Date ngaySinhNV, String diaChi, String chucVu, float luong,
 			int caLam, String sdt, Account account) {
 		super();
-		this.idNhanVien = idNhanVien;
+		this.employee_id = idNhanVien;
 		this.hoTenNV = hoTenNV;
 		this.ngaySinhNV = ngaySinhNV;
 		this.diaChi = diaChi;
