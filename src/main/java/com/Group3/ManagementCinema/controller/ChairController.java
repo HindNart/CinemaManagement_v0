@@ -29,7 +29,6 @@ public class ChairController {
     private MovieScheduleService moviescheduleService;
     @Autowired
     private CinemaRoomService cinemaroomService;
-
     @Autowired
     private MovieService movieService;
 	@GetMapping("/newChair")
@@ -69,4 +68,25 @@ public class ChairController {
 		this.chairService.deleteChair(id);
 		return "redirect:/";
 	}
+	
+	@GetMapping("/addChair")
+	public String addChair() {
+		// save movie to database
+		CinemaRoom cineRoom = cinemaroomService.getCinemaRoomById("pc4");
+		
+		for(int i = 1; i < 9; i++) {
+			Chair chair = new Chair();
+			chair.setGiaGhe(120000);
+			chair.setHangGhe("D");
+			chair.setIdPhong(cineRoom);
+			chair.setTrangThai(1);
+			chair.setLoaiGhe("Couple");
+			chair.setGheSo(i);
+			chairService.saveChair(chair);
+		}
+		
+		
+		return "redirect:/";
+	}
+	
 }

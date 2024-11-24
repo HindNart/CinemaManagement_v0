@@ -21,6 +21,7 @@ import com.Group3.ManagementCinema.entity.Ticket;
 import com.Group3.ManagementCinema.service.AccountService;
 import com.Group3.ManagementCinema.service.ChairService;
 import com.Group3.ManagementCinema.service.CinemaRoomService;
+import com.Group3.ManagementCinema.service.CustomerService;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
 import com.Group3.ManagementCinema.service.MovieService;
 import com.Group3.ManagementCinema.service.TicketService;
@@ -42,7 +43,7 @@ public class TicketController {
 	@Autowired
 	private MovieService movieService;
 	@Autowired
-	private MovieService customerService;
+	private CustomerService customerService;
 	@Autowired
 	private AccountService accountService;
 	@Autowired
@@ -147,16 +148,18 @@ public class TicketController {
 		// Lấy đối tượng account từ session
 		HttpSession session = request.getSession();
 		Account account = (Account) session.getAttribute("account");
+		Customer customer = customerService.getCustomerById(account.getCustomer().getIdKhach());
 		Ticket ticket = new Ticket();
 		ticket.setLichChieu(sche);
 		ticket.setTaiKhoan(account);
-		if (account == null) {
+		if (account == null || chair == null) {
 			// Nếu không có account trong session, chuyển hướng đến trang đăng nhập
 			return "redirect:/login";
 		}
 
 		// Thêm các thông tin vào model
 		model.addAttribute("account", account);
+		model.addAttribute("customer", customer);
 		model.addAttribute("sche", sche);
 		model.addAttribute("movie", movie);
 		model.addAttribute("cinemaRoom", room);

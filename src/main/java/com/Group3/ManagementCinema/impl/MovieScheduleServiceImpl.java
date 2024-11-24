@@ -37,7 +37,6 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	@Override
 	public void saveMovieSchedule(MovieSchedule movieSchedule) {
 		this.movieScheduleRepository.save(movieSchedule);
-		
 	}
 	
 	@Override
@@ -46,7 +45,7 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 		Movie phim = movieRepository.findById(phimId).orElseThrow(() -> new RuntimeException("Movie not found"));
 
 		MovieSchedule movieSchedule = new MovieSchedule(idLichChieu, phongChieu, phim, thoigianBD, thoigianKT, ngayChieu);
-      
+//		List<MovieSchedule> list_movieSchedules = movieScheduleRepository.findAll();
 		movieScheduleRepository.save(movieSchedule);
 	}
 

@@ -34,6 +34,12 @@ public class Chair {
 	@Column(name = "giaGhe")
 	private int giaGhe;
 	
+	@Column(name = "loaiGhe")
+	private String loaiGhe;
+	
+	@Column(name = "trangThai")
+	private int trangThai;
+	
 	@OneToMany(mappedBy = "idGhe", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Ticket> tickets;
 	
@@ -77,6 +83,23 @@ public class Chair {
 		this.giaGhe = giaGhe;
 	}
 	
+	
+	public String getLoaiGhe() {
+		return loaiGhe;
+	}
+
+	public void setLoaiGhe(String loaiGhe) {
+		this.loaiGhe = loaiGhe;
+	}
+
+	public int getTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(int trangThai) {
+		this.trangThai = trangThai;
+	}
+
 	public List<Ticket> getTickets() {
 		return tickets;
 	}
@@ -90,7 +113,7 @@ public class Chair {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Chair(long idGhe, CinemaRoom idPhong, String hangGhe, int gheSo, int giaGhe, List<Ticket> tickets) {
+	public Chair(long idGhe, CinemaRoom idPhong, String hangGhe, int gheSo, int giaGhe, List<Ticket> tickets, String loaiGhe, int trangThai) {
 		super();
 		this.idGhe = idGhe;
 		this.idPhong = idPhong;
@@ -98,6 +121,8 @@ public class Chair {
 		this.gheSo = gheSo;
 		this.giaGhe = giaGhe;
 		this.tickets = tickets;
+		this.loaiGhe = loaiGhe;
+		this.trangThai = trangThai;
 	}
 
 }

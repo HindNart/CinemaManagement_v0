@@ -4,9 +4,16 @@
 <meta charset="UTF-8">
 <title>Đặt vé</title>
 <link rel="stylesheet" href="/css/filmStyle.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
+<script>
     document.addEventListener("DOMContentLoaded", function () {
         var modalToggleButtons = document.querySelectorAll('.schedule-time-item');
     });
@@ -156,181 +163,215 @@
     </script>
 </head>
 <body>
-    <div class="container mt-4	">
-                	<div class="buy-title">
-                        <p><b>Mua vé xem phim</b></p>
-                    </div>
-    			<div class="buy-section rounded-bottom ">
-                        <div class="buy-ticket pb-3">
-                            <div class="seat-section">
-                               <div class="seat-row"> 
-								    <div th:each="chair : ${chairs}">
-								        <div  th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'A' and chair.trangThai == 0}">
-								        	<input type="button" th:value="${chair.hangGhe} + ${chair.gheSo}"  class="choosen-seat"/> 
-								        </div>
-								        <div th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'A' and chair.trangThai == 1}">
-										    <input onclick="addSeat(this)" type="button" 
-										           th:value="${chair.hangGhe} + ${chair.gheSo}" 
-										           th:attr="chairPrice=${chair.loaiGhe.getGia}, 
-										           chairID=${chair.idGhe}" 
-										           class="normal-seat"/>
-										</div>
+	<div class="container mt-4	">
+		<div class="buy-title">
+			<p>
+				<b>Mua vé xem phim</b>
+			</p>
+		</div>
+		<div class="buy-section rounded-bottom ">
+			<div class="buy-ticket pb-3">
+				<div class="seat-section">
+					<div class="seat-row">
+						<div th:each="chair : ${chairs}">
+							<div
+								th:if="${chair.hangGhe == 'A' and chair.trangThai == 0}">
+								<input type="button"
+									th:value="${chair.hangGhe} + ${chair.gheSo}"
+									class="choosen-seat" />
+							</div>
+							<div
+								th:if="${chair.hangGhe == 'A' and chair.trangThai == 1}">
+								<input onclick="addSeat(this)" type="button"
+									th:value="${chair.hangGhe} + ${chair.gheSo}"
+									th:attr="chairPrice=${chair.getGiaGhe()}, 
+										           chairID=${chair.idGhe}"
+									class="normal-seat" />
+							</div>
 
-								    </div>
+						</div>
+					</div>
+					<div class="seat-row">
+						<div th:each="chair : ${chairs}">
+							<div
+								th:if="${chair.hangGhe == 'B' and chair.trangThai == 0}">
+								<input type="button"
+									th:value="${chair.hangGhe} + ${chair.gheSo}"
+									class="choosen-seat" />
+							</div>
+							<div
+								th:if="${chair.hangGhe == 'B' and chair.trangThai == 1}">
+								<input onclick="addSeat(this)" type="button"
+									th:value="${chair.hangGhe} + ${chair.gheSo}"
+									th:attr="chairPrice=${chair.getGiaGhe()}, 
+										           chairID=${chair.idGhe}"
+									class="normal-seat" />
+							</div>
+
+						</div>
+					</div>
+					<div class="seat-row">
+						<div th:each="chair : ${chairs}">
+							<div
+								th:if="${chair.hangGhe == 'C' and chair.trangThai == 0}">
+								<input type="button"
+									th:value="${chair.hangGhe} + ${chair.gheSo}"
+									class="choosen-seat" />
+							</div>
+							<div
+								th:if="${chair.hangGhe == 'C' and chair.trangThai == 1}">
+								<input onclick="addSeat(this)" type="button"
+									th:value="${chair.hangGhe} + ${chair.gheSo}"
+									th:attr="chairPrice=${chair.getGiaGhe()}, 
+										           chairID=${chair.idGhe}"
+									class="normal-seat" />
+							</div>
+
+						</div>
+					</div>
+					<div class="seat-row center-item">
+						<div th:each="chair : ${chairs}">
+							<div>
+								<input
+									th:if="${chair.hangGhe == 'D' and chair.trangThai == 0}"
+									onclick="addSeat(this)" type="button"
+									th:value="${chair.hangGhe} + ${chair.gheSo}"
+									class="choosen-seat" /> <input
+									th:if="${chair.hangGhe == 'D' and chair.trangThai == 1}"
+									th:attr="chairPrice=${chair.getGiaGhe()}, 
+										           chairID=${chair.idGhe}"
+									onclick="addSeat(this)" type="button"
+									th:value="${chair.hangGhe} + ${chair.gheSo}"
+									class="couple-seat" />
+							</div>
+						</div>
+					</div>
+					<div class="seat-details flex">
+						<div class="seat-details-item">
+							<div class="flex al-center">
+								<div class="seat-black"></div>
+								<p>Đã đặt</p>
+							</div>
+						</div>
+						<div class="seat-details-item">
+							<div class="flex al-center">
+								<div class="chosen"></div>
+								<p>Đang chọn</p>
+							</div>
+							<div class="flex al-center">
+								<div class="couple"></div>
+								<p>Ghế đôi</p>
+							</div>
+						</div>
+						<div class="seat-details-item">
+							<div class="flex al-center">
+								<div class="normal"></div>
+								<p>Ghế thường</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ticket-details">
+					<p class="ageFilm margin-tb-10">P</p>
+					<p th:text="${movie.tenPhim}" class=" mt-3"></p>
+					<p class=" my-3" style="color: rgb(220, 137, 35);">
+						<span th:text="${sche.ngayChieu}"></span> <span> • <span
+							th:text="${sche.thoigianBD}"> </span> ~ <span
+							th:text="${sche.thoigianKT}"></span> • Phòng chiếu <span
+							th:text="${sche.phongChieu.idPhong}"></span> <span
+							th:text="${sche.phongChieu.loaiPhong}"></span>
+						</span>
+					</p>
+					<div class="seat-chose flex spc-btw">
+						<p class="my-2">Chỗ ngồi</p>
+						<div id="seat-chosens" class=" flex spc-btw"></div>
+					</div>
+					<div class="mt-3">
+						<a type="button" class="btn btn-secondary"
+							th:href="@{/film/{id}(id=${movie.idPhim})}">Quay lại</a> <input
+							type="button" class="btn btn-primary pay-ticket float-end"
+							data-bs-target="#payModal" value="Mua vé" />
+					</div>
+					<div class="modal fade" id="payModal" tabindex="-1"
+						aria-labelledby="payModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="payModalLabel">Xác nhận
+										thanh toán</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
 								</div>
-                                <div class="seat-row">
-                                    <div th:each="chair : ${chairs}">
-								        <div>
-								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'B' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
-								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'normal' and chair.hangGhe == 'B' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}, 
-										           chairID=${chair.idGhe}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="normal-seat"/>
-								        </div>
-								    </div>
-
-                                </div>
-                                <div class="seat-row">
-                                    <div th:each="chair : ${chairs}">
-								        <div>								        	
-								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'C' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
-								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'C' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}, 
-										           chairID=${chair.idGhe}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="vip-seat"/>
-								        </div>
-								    </div>
-
-                                </div>
-                                <div class="seat-row">
-                                    <div th:each="chair : ${chairs}">
-								        <div>								        	
-								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'D' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
-								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'vip' and chair.hangGhe == 'D' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}, 
-										           chairID=${chair.idGhe}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="vip-seat"/>
-								        </div>
-								    </div>
-                                </div>
-                                <div class="seat-row center-item">
-                                	<div th:each="chair : ${chairs}">
-								        <div>
-								        	<input th:if="${chair.loaiGhe.getLoaiGhe() == 'couple' and chair.hangGhe == 'E' and chair.trangThai == 0}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="choosen-seat"/> 
-								            <input th:if="${chair.loaiGhe.getLoaiGhe() == 'couple' and chair.hangGhe == 'E' and chair.trangThai == 1}" th:attr="chairPrice=${chair.loaiGhe.getGia}, 
-										           chairID=${chair.idGhe}" onclick="addSeat(this)" type="button" th:value="${chair.hangGhe} + ${chair.gheSo}" class="couple-seat"/>
-								        </div>
-								    </div>
-                                </div>
-                                <div class="seat-details flex">
-                                    <div class="seat-details-item">
-                                        <div class="flex al-center">
-                                            <div class="seat-black"></div>
-                                            <p>Đã đặt</p>
-                                        </div>
-                                        <div class="flex al-center">
-                                            <div class="seat-red"></div>
-                                            <p>Ghế vip</p>
-                                        </div>
-                                    </div>
-                                    <div class="seat-details-item">
-                                        <div class="flex al-center">
-                                            <div class="chosen"></div>
-                                            <p>Đang chọn</p>
-                                        </div>
-                                        <div class="flex al-center">
-                                            <div class="couple"></div>
-                                            <p>Ghế đôi</p>
-                                        </div>
-                                    </div>
-                                    <div class="seat-details-item">
-                                        <div class="flex al-center">
-                                            <div class="normal"></div>
-                                            <p>Ghế thường</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ticket-details">     
-                                <p class="ageFilm margin-tb-10">P</p>
-                                <p th:text="${movie.tenPhim}" class=" mt-3"></p>
-                                <p class=" my-3" style="color: rgb(220, 137, 35);">
-                                <span th:text="${sche.ngayChieu}"></span>
-                                <span> • <span th:text="${sche.thoigianBD}"> </span> ~ <span th:text="${sche.thoigianKT}"></span> • Phòng chiếu <span th:text="${sche.phongChieu.idPhong}"></span> <span th:text="${sche.phongChieu.loaiPhong}"></span>  </span></p>
-                                <div class="seat-chose flex spc-btw">
-                                    <p class="my-2">Chỗ ngồi</p>
-                                    <div id="seat-chosens" class=" flex spc-btw">
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                	<a type="button" class="btn btn-secondary" th:href="@{/film/{id}(id=${movie.idPhim})}">Quay lại</a>
-                                 	<input type="button" class="btn btn-primary pay-ticket float-end" data-bs-target="#payModal" value="Mua vé" />
-                            	</div>
-					        <div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
-					            <div class="modal-dialog modal-dialog-centered">
-					                <div class="modal-content">
-					                    <div class="modal-header">
-					                        <h1 class="modal-title fs-5" id="payModalLabel">Xác nhận thanh toán</h1>
-					                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					                    </div>
-					                    <form th:action="@{/saveTicket}" th:object="${ticket}" method="POST">
-					                    <div class="modal-body">
-					                                <div class="flex spc-btw ">
-					                                    <div class="money">                                 
-					                                    <input type="hidden" th:value="${account.email}" th:field="*{taiKhoan}" readonly/>
-					                                    <input type="hidden" th:field="*{lichChieu}" th:value="${sche.idLichChieu}"/>
-					                                    <input type="hidden" th:field="*{thoigianMua}" id="currentDate"readonly/>				                                
-					                                    <input type="hidden" th:field="*{ghe}" id="listIdChair"/>
-					                                    <input type="hidden" th:value="${account.diem}" id="accPoints"/>
-					                                    </div>
-					                               </div>
-					                        <div class="mb-3 row">
-					                            <label class="col-sm-3 col-form-label">Ghế đã chọn:</label>
-					                            <div class="col-sm-9 col-form-label">
-					                                <div id="seat-chosens-pay" class=" flex	">	
-					                                </div>
-					                            </div>
-					                        </div>
-					                        <div class="mb-3 row">
-					                            <label class="col-sm-3 col-form-label">Tổng tiền:</label>
-					                            <div class="col-sm-9 col-form-label">
-					                                <input type="text" name="gia" id="moneyCount" style="border:none;" readonly/>   
-					                            </div>
-					                        </div>
-					                        <div class="mb-3 row">
-					                            <div class="col-sm-3">
-					                                <label for="points" class="col-form-label">Điểm tích lũy:</label>
-					                            </div>
-					                            <div class="col-sm-9">
-					                                <label for="points" class="col-form-label" th:text="${account.diem}"></label>
-					                            </div>
-					                        </div>
-					                        <div class="mb-3">
-					                            <div class="form-check">
-					                                <input class="form-check-input" type="checkbox" id="usePoints" name="usePoints">
-					                                <label class="form-check-label " for="usePoints">
-					                                	Sử dụng điểm			                                    
-					                                </label>
-					                            </div>
-					                        </div>
-					                        <div class="mb-3 row">
-					                            <label class="col-sm-3 col-form-label">Thành tiền:</label>
-					                            <div class="col-sm-9">
-					                                <p class="form-control-plaintext" id="finalPrice"></p>
-					                            </div>
-					                        </div>
-					                   </div>
-					                    <div class="modal-footer">
-					                        <input type="submit" class="btn btn-primary" onclick="myFunction()" value="Thanh toán"/>
-					                    </div>
-					                    </form>
-					                </div>
-					            </div>
-					        </div>
-					    <script>
+								<form th:action="@{/saveTicket}" th:object="${ticket}"
+									method="POST">
+									<div class="modal-body">
+										<div class="flex spc-btw ">
+											<div class="money">
+												<input type="hidden" th:value="${account.email}"
+													th:field="*{taiKhoan}" readonly /> <input type="hidden"
+													th:field="*{lichChieu}" th:value="${sche.idLichChieu}" />
+												<input type="hidden" th:field="*{thoigianMua}"
+													id="currentDate" readonly /> <input type="hidden"
+													th:field="*{ghe}" id="listIdChair" /> <input type="hidden"
+													th:value="${customer.diem}" id="accPoints" />
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-sm-3 col-form-label">Ghế đã chọn:</label>
+											<div class="col-sm-9 col-form-label">
+												<div id="seat-chosens-pay" class=" flex	"></div>
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-sm-3 col-form-label">Tổng tiền:</label>
+											<div class="col-sm-9 col-form-label">
+												<input type="text" name="gia" id="moneyCount"
+													style="border: none;" readonly />
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<div class="col-sm-3">
+												<label for="points" class="col-form-label">Điểm tích
+													lũy:</label>
+											</div>
+											<div class="col-sm-9">
+												<label for="points" class="col-form-label"
+													th:text="${customer.diem}"></label>
+											</div>
+										</div>
+										<div class="mb-3">
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox"
+													id="usePoints" name="usePoints"> <label
+													class="form-check-label " for="usePoints"> Sử dụng
+													điểm </label>
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-sm-3 col-form-label">Thành tiền:</label>
+											<div class="col-sm-9">
+												<p class="form-control-plaintext" id="finalPrice"></p>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<input type="submit" class="btn btn-primary"
+											onclick="myFunction()" value="Thanh toán" />
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<script>
 					        function myFunction() {
 					            alert("Thanh toán thành công");
 					        }
 					    </script>
-                            </div>
-                        </div>
-                        
-                    </div>
-                 </div>
-	             
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 </body>
 </html>

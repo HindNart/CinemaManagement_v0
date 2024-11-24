@@ -15,4 +15,5 @@ public interface MovieScheduleRepository extends JpaRepository<MovieSchedule, Lo
 	MovieSchedule findByNgayChieuAndThoigianBDAndThoigianKTAndPhongChieu(Date date, String tgbd, String tgkt, CinemaRoom phongchieu);
 	List<MovieSchedule> findByPhim(Movie phim);
 	List<MovieSchedule> findByPhimTenPhimContaining(String tenPhim);
+	List<MovieSchedule> findAll();
 }
