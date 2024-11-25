@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +17,9 @@ public class CinemaRoom {
 	@Column(name = "loaiPhong", nullable = false)
 	private String loaiPhong;
 
+	@OneToMany(mappedBy = "idPhong", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Chair> chairs;
+	
 	public String getIdPhong() {
 		return idPhong;
 	}
@@ -38,17 +43,27 @@ public class CinemaRoom {
 	public void setLoaiPhong(String loaiPhong) {
 		this.loaiPhong = loaiPhong;
 	}
+	
+
+	public List<Chair> getChairs() {
+		return chairs;
+	}
+
+	public void setChairs(List<Chair> chairs) {
+		this.chairs = chairs;
+	}
 
 	public CinemaRoom() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CinemaRoom(String idPhong, int soLuongGhe, String loaiPhong) {
+	public CinemaRoom(String idPhong, int soLuongGhe, String loaiPhong, List<Chair> chairs) {
 		super();
 		this.idPhong = idPhong;
 		this.soLuongGhe = soLuongGhe;
 		this.loaiPhong = loaiPhong;
+		this.chairs = chairs;
 	}
 	
 }

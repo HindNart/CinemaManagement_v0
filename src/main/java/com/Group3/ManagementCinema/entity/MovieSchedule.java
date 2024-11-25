@@ -1,6 +1,7 @@
 package com.Group3.ManagementCinema.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -28,7 +29,7 @@ public class MovieSchedule {
 	
 	@Column(name = "ngayChieu")
 	private Date ngayChieu;
-
+	
 	public Long getIdLichChieu() {
 		return idLichChieu;
 	}

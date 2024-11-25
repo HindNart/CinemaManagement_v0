@@ -84,21 +84,21 @@
             	<h2>Vé Xem Phim</h2>
         	</div>
         </div>
-        <strong class="ticket-subheader"><span th:text="${ticket.lichChieu.phim.tenPhim}"></span></strong>
+        <strong class="ticket-subheader"><span th:text="${ticket.idLichChieu.phim.tenPhim}"></span></strong>
         <div class="customer-info">
         	<div class="row">
         		<div class="col">
-	        		<p>Ngày chiếu: <strong th:text="${#dates.format(ticket.lichChieu.ngayChieu, 'dd-MM-yy')}"></strong></p>
+	        		<p>Ngày chiếu: <strong th:text="${#dates.format(ticket.idLichChieu.ngayChieu, 'dd-MM-yy')}"></strong></p>
 	        	</div>
 	        	<div class="col">
-	            	<p>Giờ chiếu: <strong th:text="${ticket.lichChieu.thoigianBD}"></strong></p>
+	            	<p>Giờ chiếu: <strong th:text="${ticket.idLichChieu.thoigianBD}"></strong></p>
 	        	</div>
         	</div>
         	<div class="row">
         		<p>Khách hàng: <strong th:text="${ticket.taiKhoan.username}"></strong></p>
         	</div>
         	<div class="row">
-        		<p>Giá tiền: <strong th:text="${chair.loaiGhe.gia}"></strong></p>
+        		<p>Giá tiền: <strong th:text="${chair.giaGhe}"></strong></p>
         	</div>
         	<div class="row">
         		<p>Ngày mua: <strong th:text="${ticket.thoigianMua}"></strong></p>
@@ -107,7 +107,7 @@
         <div class="ticket-footer">
             <div>
                 <span>Phòng</span>
-                <strong th:text="${ticket.lichChieu.phongChieu.idPhong}"></strong>
+                <strong th:text="${ticket.idLichChieu.phongChieu.idPhong}"></strong>
             </div>
             <div>
                 <span>Hàng</span>

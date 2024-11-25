@@ -56,4 +56,13 @@ public class MovieServiceImpl implements MovieService {
 		// TODO Auto-generated method stub
 		return movieRepository.findByDaoDienContainingOrDienVienContainingOrTenPhimContainingOrTheLoaiContaining(key, key, key, key);
 	}
+	@Override
+	public Movie getMovieByName(String name) {
+		Optional < Movie > optional = movieRepository.findByTenPhim(name);
+        Movie movie = null;
+        if (optional.isPresent()) {
+            movie = optional.get();
+        }
+        return movie;
+	}
 }

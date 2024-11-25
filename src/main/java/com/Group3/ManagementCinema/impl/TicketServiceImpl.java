@@ -108,5 +108,12 @@ public class TicketServiceImpl implements TicketService {
 //        
 //        return ticketCountByMovie;
 //    }
+
+	@Override
+	public List<Ticket> findByLichChieu(MovieSchedule id) {
+		// TODO Auto-generated method stub
+		return ticketRepository.findByIdLichChieu(id);
+	}
+
 	
 }

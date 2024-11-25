@@ -65,7 +65,7 @@ public class MovieController {
 	
 	@PostMapping("/checkMovie")
 	public String checkMovie(@ModelAttribute("movie") Movie movie, RedirectAttributes redirectAttributes) {
-		Movie existMovie = movieService.getMovieById(movie.getIdPhim());
+		Movie existMovie = movieService.getMovieByName(movie.getTenPhim());
         if (existMovie == null) {
         	movieService.saveMovie(movie);
             redirectAttributes.addFlashAttribute("message", "Thêm phim thành công!");
