@@ -54,7 +54,7 @@ public class EmployeeController {
     @PostMapping("/saveEmployee")
     public String saveEmployee(@ModelAttribute("employee") Employee employee, RedirectAttributes redirectAttributes) {
         // save employee to database
-    	Employee existEmployee = employeeService.getEmployeeById(employee.getIdNhanVien());
+    	Employee existEmployee = employeeService.getEmployeeByName(employee.getHoTenNV());
         if (existEmployee == null) {
         	employeeService.saveEmployee(employee);
             redirectAttributes.addFlashAttribute("message", "Thêm nhân viên thành công!");

@@ -87,13 +87,14 @@ public class TicketServiceImpl implements TicketService {
 		// TODO Auto-generated method stub
 		
 	}
+	
 //	@Override
 //    public List<Map<String, Object>> getTicketCountByMovieName() {
-//        List<Object[]> results = ticketRepository.countChairsByMovie();
+//        List<Object[]> results = ticketRepository.countTicket();
 //        List<Map<String, Object>> ticketCountByMovie = new ArrayList<>();
 //        
 //        for (Object[] result : results) {
-//            String movieId = (String) result[0];
+//            Long movieId = (Long) result[0];
 //            Long ticketCount = ((Number) result[1]).longValue();
 //
 //            // Get movie name by movie id
