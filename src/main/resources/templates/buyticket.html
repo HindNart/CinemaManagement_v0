@@ -139,6 +139,9 @@
                 finalPrice -= accPoints;
             }
             document.getElementById("finalPrice").textContent = finalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        	
+         	// Cập nhật giá trị vào hidden input
+            document.getElementById("amount").value = finalPrice;
         }
 
         // Hàm để lấy ngày hiện tại và định dạng theo YYYY-MM-DD
@@ -174,14 +177,12 @@
 				<div class="seat-section">
 					<div class="seat-row">
 						<div th:each="chair : ${chairs}">
-							<div
-								th:if="${chair.hangGhe == 'A' and chair.trangThai == 0}">
+							<div th:if="${chair.hangGhe == 'A' and chair.trangThai == 0}">
 								<input type="button"
 									th:value="${chair.hangGhe} + ${chair.gheSo}"
 									class="choosen-seat" />
 							</div>
-							<div
-								th:if="${chair.hangGhe == 'A' and chair.trangThai == 1}">
+							<div th:if="${chair.hangGhe == 'A' and chair.trangThai == 1}">
 								<input onclick="addSeat(this)" type="button"
 									th:value="${chair.hangGhe} + ${chair.gheSo}"
 									th:attr="chairPrice=${chair.getGiaGhe()}, 
@@ -193,14 +194,12 @@
 					</div>
 					<div class="seat-row">
 						<div th:each="chair : ${chairs}">
-							<div
-								th:if="${chair.hangGhe == 'B' and chair.trangThai == 0}">
+							<div th:if="${chair.hangGhe == 'B' and chair.trangThai == 0}">
 								<input type="button"
 									th:value="${chair.hangGhe} + ${chair.gheSo}"
 									class="choosen-seat" />
 							</div>
-							<div
-								th:if="${chair.hangGhe == 'B' and chair.trangThai == 1}">
+							<div th:if="${chair.hangGhe == 'B' and chair.trangThai == 1}">
 								<input onclick="addSeat(this)" type="button"
 									th:value="${chair.hangGhe} + ${chair.gheSo}"
 									th:attr="chairPrice=${chair.getGiaGhe()}, 
@@ -212,14 +211,12 @@
 					</div>
 					<div class="seat-row">
 						<div th:each="chair : ${chairs}">
-							<div
-								th:if="${chair.hangGhe == 'C' and chair.trangThai == 0}">
+							<div th:if="${chair.hangGhe == 'C' and chair.trangThai == 0}">
 								<input type="button"
 									th:value="${chair.hangGhe} + ${chair.gheSo}"
 									class="choosen-seat" />
 							</div>
-							<div
-								th:if="${chair.hangGhe == 'C' and chair.trangThai == 1}">
+							<div th:if="${chair.hangGhe == 'C' and chair.trangThai == 1}">
 								<input onclick="addSeat(this)" type="button"
 									th:value="${chair.hangGhe} + ${chair.gheSo}"
 									th:attr="chairPrice=${chair.getGiaGhe()}, 
@@ -232,8 +229,7 @@
 					<div class="seat-row center-item">
 						<div th:each="chair : ${chairs}">
 							<div>
-								<input
-									th:if="${chair.hangGhe == 'D' and chair.trangThai == 0}"
+								<input th:if="${chair.hangGhe == 'D' and chair.trangThai == 0}"
 									onclick="addSeat(this)" type="button"
 									th:value="${chair.hangGhe} + ${chair.gheSo}"
 									class="choosen-seat" /> <input
@@ -302,8 +298,7 @@
 									<button type="button" class="btn-close" data-bs-dismiss="modal"
 										aria-label="Close"></button>
 								</div>
-								<form th:action="@{/saveTicket}" th:object="${ticket}"
-									method="POST">
+								<form th:action="@{/create_pay}" th:object="${ticket}" method="POST">
 									<div class="modal-body">
 										<div class="flex spc-btw ">
 											<div class="money">
@@ -314,6 +309,10 @@
 													id="currentDate" readonly /> <input type="hidden"
 													th:field="*{ghe}" id="listIdChair" /> <input type="hidden"
 													th:value="${customer.diem}" id="accPoints" />
+												
+												<input type="hidden" name="amount" id="amount" />
+
+
 											</div>
 										</div>
 										<div class="mb-3 row">
@@ -355,23 +354,15 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<input type="submit" class="btn btn-primary"
-											onclick="myFunction()" value="Thanh toán" />
+										<input type="submit" class="btn btn-primary" value="Thanh toán" />
 									</div>
 								</form>
 							</div>
 						</div>
 					</div>
-					<script>
-					        function myFunction() {
-					            alert("Thanh toán thành công");
-					        }
-					    </script>
 				</div>
 			</div>
-
 		</div>
 	</div>
-
 </body>
 </html>
