@@ -146,7 +146,18 @@ public class adminController {
     public String MovieGenreOrNation(@RequestParam("genre") String genre, @RequestParam("nation") String nation, Model model, HttpSession session) {
     	Account account = (Account) session.getAttribute("account");
     	model.addAttribute("account", account);
-    	model.addAttribute("movies", movieService.getMovieByTheLoaiOrQuocGia(genre));
+    	if (genre != "" && nation != "") {
+    		model.addAttribute("movies", movieService.getMovieByTheLoaiAndQuocGia(genre, nation));
+    	}
+    	else if (genre != "") {
+    		model.addAttribute("movies", movieService.getMovieByTheLoaiOrQuocGia(genre));
+    	}
+    	else if (nation != "") {
+    		model.addAttribute("movies", movieService.getMovieByTheLoaiOrQuocGia(nation));
+    	}
+    	else if (genre == "" && nation == ""){
+    		model.addAttribute("movies", movieService.getAllMovies()); 		
+    	}
         return "moviegenre"; // Trả về tên của file HTML trong thư mục templates
     }
     

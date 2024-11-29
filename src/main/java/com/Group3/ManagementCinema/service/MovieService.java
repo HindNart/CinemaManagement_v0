@@ -17,4 +17,5 @@ public interface MovieService {
 	List<Movie> searchMovie (String key);
 	Movie getMovieByName(String name);
 	List<Movie> getMovieByTheLoaiOrQuocGia (String key);
+	List<Movie> getMovieByTheLoaiAndQuocGia (String theLoai, String quocGia);
 }
