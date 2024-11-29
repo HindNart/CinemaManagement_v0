@@ -48,6 +48,10 @@
 				<input required type="date" th:field="*{ngayPH}" placeholder="Ngày phát hành" class="form-control mb-4 col-4">
 			</div>
 			<div class="mb-3">
+				<label for="quocgia" class="form-label">Quốc gia</label>
+				<input required th:field="*{quocGia}" placeholder="Quốc gia" class="form-control mb-4 col-4">
+			</div>
+			<div class="mb-3">
 				<label for="linkposter" class="form-label">Link Poster</label>
 				<input required type="url" th:field="*{linkPoster}" placeholder="Link poster" id="linkPoster" class="form-control mb-4 col-4">
 				<div id="linkPosterError" class="text-danger"></div>

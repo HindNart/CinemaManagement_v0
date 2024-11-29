@@ -65,4 +65,9 @@ public class MovieServiceImpl implements MovieService {
         }
         return movie;
 	}
+	@Override
+	public List<Movie> getMovieByTheLoaiOrQuocGia(String key) {
+		// TODO Auto-generated method stub
+		return movieRepository.findByTheLoaiContainingOrQuocGiaContaining(key, key);
+	}
 }

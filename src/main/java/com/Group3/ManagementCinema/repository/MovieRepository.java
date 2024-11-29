@@ -13,4 +13,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long>{
 	List<Movie> findByDaoDienContainingOrDienVienContainingOrTenPhimContainingOrTheLoaiContaining(String key1, String key2, String key3, String key4);
 	Movie findByIdPhim(Long id);
 	Optional<Movie> findByTenPhim(String tenPhim);
+	List<Movie> findByTheLoaiContainingOrQuocGiaContaining(String theLoai, String quocGia);
 }

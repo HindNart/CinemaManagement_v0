@@ -55,6 +55,7 @@ public class adminController {
     private RateServiceImpl rateService;
     @Autowired
     private TicketService ticketService;
+    
     @GetMapping("/")
     public String countCustomers(Model model) {
         long customerCount = customerService.countCustomers();
@@ -131,6 +132,22 @@ public class adminController {
         Map<Long, Double> averageRatings = rateService.getAverageRatings();
         model.addAttribute("averageRatings", averageRatings);
         return "cusIndex";
+    }
+    
+    @GetMapping("/showMovieGenre")
+    public String showMovieGenre(Model model, HttpSession session) {
+    	Account account = (Account) session.getAttribute("account");
+    	model.addAttribute("account", account);
+    	model.addAttribute("movies", movieService.getAllMovies());
+        return "moviegenre"; // Trả về tên của file HTML trong thư mục templates
+    }
+    
+    @PostMapping("/getMovieGenreOrNation")
+    public String MovieGenreOrNation(@RequestParam("genre") String genre, @RequestParam("nation") String nation, Model model, HttpSession session) {
+    	Account account = (Account) session.getAttribute("account");
+    	model.addAttribute("account", account);
+    	model.addAttribute("movies", movieService.getMovieByTheLoaiOrQuocGia(genre));
+        return "moviegenre"; // Trả về tên của file HTML trong thư mục templates
     }
     
     @GetMapping("/buyticket")

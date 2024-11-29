@@ -42,6 +42,7 @@
 	                    <th>Thời lượng</th>
 	                    <th class="hidden-text">Mô tả</th>
 	                    <th>Ngày phát hành</th>
+	                    <th>Quốc gia</th>
 	                    <th>Poster</th>
 	                    <th>Chức năng</th>
 	                </tr>
@@ -56,6 +57,7 @@
 	                    <td> <p th:text="${movie.thoiLuong}"> </p> phút</td>
 	                    <td><p th:text="${movie.moTa}" class="hidden-text"></p></td>
 	                    <td th:text="${movie.ngayPH}"></td>
+	                    <td th:text="${movie.quocGia}"></td>
 	                    <td><img alt="" th:src="${movie.linkPoster}" width="50px"></td>
 	                    <td>
 	                        <a th:href="@{/showFormForUpdateMovie/{id}(id=${movie.idPhim})}" class="btn btn-primary btn-sm"><i class="bi bi-gear-fill"></i></a>

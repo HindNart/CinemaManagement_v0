@@ -16,4 +16,5 @@ public interface MovieService {
 	long countMovie();
 	List<Movie> searchMovie (String key);
 	Movie getMovieByName(String name);
+	List<Movie> getMovieByTheLoaiOrQuocGia (String key);
 }
