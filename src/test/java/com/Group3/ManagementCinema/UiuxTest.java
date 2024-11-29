@@ -11,242 +11,144 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class UiuxTest {
+public class UiuxTest extends Thread{
     private static final Logger log = LoggerFactory.getLogger(UiuxTest.class);
-    private WebDriver driver;
+    private static WebDriver driver; // Dùng static để chia sẻ driver giữa các test
+
+    private String _admin_username;
+    private String _admin_password;
+    private String _admin_email;
+
     private String _username;
     private String _password;
+
     private String _email;
+
+    private String _url_local;
+    private String _url_login;
+
+    @BeforeAll
+    public static void setUpAll() {
+        log.info("Khởi tạo trình duyệt cho toàn bộ test");
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+    }
 
     @BeforeEach
     public void setUp() {
-        driver = new ChromeDriver();
+        // Khởi tạo các thông tin test
+        _admin_username = "Admin";
+        _admin_password = "12345678";
+        _admin_email = "admin@gmail.com";
+
         _username = "test@test";
         _password = "test@test";
-        _email =  "test@test";
+        _email = "test@test";
+
+        _url_local = "http://localhost:8080/";
+        _url_login = "http://localhost:8080/login";
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        if (driver != null) {
+            log.info("Đóng trình duyệt");
+            driver.quit();
+        }
+    }
+
+    private void fillInputField(By locator, String value) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        element.sendKeys(value);
+    }
+
+    private void clickButton(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        button.click();
+    }
+
+    private void findText(String value) {
+        WebElement element = driver.findElement(By.xpath("//*[contains(text(), '" + value + "')]"));
     }
 
     @Test
     @Order(1)
-    public void testRegister() {
-        String link_check = null;
-        String alertText = null;
-        String linkLogin = null;
-        String linkRegister = null;
-
-        //1 forward to target
-        driver.get("http://localhost:8080/login");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        linkRegister = "http://localhost:8080/regis";
-        WebElement registerButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div[2]/form/div[3]/p/a")));
-        registerButton.click();
-        link_check = driver.getCurrentUrl();
-        if (linkRegister.equals(link_check)){
-            log.info("ID: 1 - OK - Button \"Tạo tài khoản\" Active - Chuyển hướng đến trang đăng ký "+ link_check);
-        } else {
-            log.info("ID: 1 - False - Button \"Tạo tài khoản\" Non-active - Không chuyển hướng đến trang đăng ký \"http://localhost:8080/regis\" | Trang hiện tại: "+ link_check);
-            fail("testRegister - Id: 1");
-        }
-
-        // 2 account is not exists
+    void UU1() {
+        log.info("Start UU1:");
         try {
-            WebElement inputEmail = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[1]/input")));
-            inputEmail.sendKeys(_email);
-            WebElement inputUsername = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[2]/input")));
-            inputUsername.sendKeys(_username);
-            WebElement inputPassword = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[3]/input")));
-            inputPassword.sendKeys(_password);
-            WebElement inputPasswordValid = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[4]/input")));
-            inputPasswordValid.sendKeys(_password);
-            WebElement registerButton2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[6]/input")));
-            registerButton2.click();
-            wait.until(ExpectedConditions.alertIsPresent());
-            Alert alert = driver.switchTo().alert();
-            alertText = alert.getText();
-            if (alertText.equals("Đăng ký thành công!")){
-                alert.accept();
-                log.info("ID: 2 - OK - Button \"Đăng ký\" Active - "+ alertText);
-            }
-        } catch (Exception e){
-            log.info("ID: 2 - False - Button \"Đăng ký\" Non-active - Đăng ký không thành công - "+ link_check);
-            fail("testRegister - Id: 2");
+            driver.get(_url_local); // Truy cập URL chính
+            clickButton(By.xpath("/html/body/div[2]/a[1]/div"));
+            Thread.sleep(1500);
+            findText("Danh sách tài khoản");
+            log.info("✔ Success UU1");
+        } catch (Exception e) {
+            log.error("❌ Fail UU1: " + e.getMessage());
+            Assertions.fail();
         }
-
-        //3 account is exists
-        try {
-            linkRegister = "http://localhost:8080/regis";
-            driver.get(linkRegister);
-            WebElement inputEmail = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[1]/input")));
-            inputEmail.sendKeys(_email);
-            WebElement inputUsername = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[2]/input")));
-            inputUsername.sendKeys(_username);
-            WebElement inputPassword = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[3]/input")));
-            inputPassword.sendKeys(_password);
-            WebElement inputPasswordValid = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[4]/input")));
-            inputPasswordValid.sendKeys(_password);
-            WebElement registerButton2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[6]/input")));
-            registerButton2.click();
-            link_check = driver.getCurrentUrl();
-            wait.until(ExpectedConditions.alertIsPresent());
-            Alert alert = driver.switchTo().alert();
-            alertText = alert.getText();
-            if (alertText.equals("Đăng ký thành công!")){
-                alert.accept();
-                log.info("ID: 3 - False - Button \"Đăng ký\" Non-active - Đăng ký  thành công "+ alertText);
-                fail("testRegister - Id: 3");
-            }
-        } catch (Exception e){
-        } finally {
-            log.info("ID: 3 - OK - Button \"Đăng ký\" Active - Đăng ký không thành công - "+ link_check);
-        }
-
-        //4
-        try {
-            linkRegister = "http://localhost:8080/regis";
-            driver.get(linkRegister);
-            linkLogin = "http://localhost:8080/login";
-            WebElement backButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/form/div[1]/div[5]/a")));
-            backButton.click();
-            link_check = driver.getCurrentUrl();
-            if (linkLogin.equals(link_check)){
-                log.info("ID: 4 - OK - Button \"Quay lại\" Active - Chuyển hướng đến trang đăng nhập "+ link_check);
-            }
-        } catch (Exception e){
-            log.info("ID: 4 - False - Button \"Quay lại\" Non-active - Không chuyển hướng đến trang đăng nhập\"http://localhost:8080/login\" | Trang hiện tại: "+ link_check);
-            fail("testRegister - Id: 4");
-        }
-        driver.quit();
     }
 
     @Test
     @Order(2)
-    void testLogin() {
-        String link_check = null;
-        String linkLogin = null;
-
-        driver.get("http://localhost:8080/login");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        // 5
+    void UU2() {
+        log.info("Start UU2:");
+        log.info("-- Not empty:");
         try {
-            linkLogin = "http://localhost:8080/checkLogin";
-            WebElement inputEmail = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div[2]/form/div[1]/div/input")));
-            inputEmail.sendKeys(_email);
-            WebElement inputPassword = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div[2]/form/div[2]/div/input")));
-            inputPassword.sendKeys(_password);
-            WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div[2]/form/div[3]/button")));
-            loginButton.click();
-            link_check = driver.getCurrentUrl();
-
-            if (link_check.equals(linkLogin)) {
-                log.info("ID: 5 - OK - Button \"Đăng nhập\" Active - Chuyển hướng đến giao diện chính " + link_check);
-            }
+            fillInputField(By.xpath("/html/body/div[3]/div/div/div[1]/div[2]/form/div/input"), "test");
+            clickButton(By.xpath("/html/body/div[3]/div/div/div[1]/div[2]/form/div/button"));
+            findText(_username);
+            log.info("✔ Success UU2 (Not empty)");
         } catch (Exception e) {
-            log.info("ID: 5 - False - Button \"Đăng nhập\" Non-active - Không chuyển hướng đến giao diện chính " + link_check);
-            fail("testLogin - Id: 5");
+            log.error("❌ Fail UU2 (Not empty): " + e.getMessage());
+            Assertions.fail();
         }
 
-        // 6
-        driver.get("http://localhost:8080/login");
+        log.info("-- Empty:");
         try {
-            linkLogin = "http://localhost:8080/checkLogin";
-            WebElement inputEmail = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div[2]/form/div[1]/div/input")));
-            inputEmail.sendKeys(_email + "!");
-            WebElement inputPassword = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div[2]/form/div[2]/div/input")));
-            inputPassword.sendKeys(_password + "!");
-            WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div[2]/form/div[3]/button")));
-            loginButton.click();
-            link_check = driver.getCurrentUrl();
-
-            if (!link_check.equals(linkLogin)) {
-                log.info("ID: 6 - OK - Button \"Đăng nhập\" Active - Không chuyển hướng đến giao diện chính " + link_check);
-            }
+            fillInputField(By.xpath("/html/body/div[3]/div/div/div[1]/div[2]/form/div/input"), "");
+            clickButton(By.xpath("/html/body/div[3]/div/div/div[1]/div[2]/form/div/button"));
+            findText(_username);
+            log.info("✔ Success UU2 (Empty)");
         } catch (Exception e) {
-            log.info("ID: 6 - False - Button \"Đăng nhập\" Non-active - Chuyển hướng đến giao diện chính " + link_check);
-            fail("testLogin - Id: 6");
+            log.error("❌ Fail UU2 (Empty): " + e.getMessage());
+            Assertions.fail();
         }
-        driver.quit();
     }
+
     @Test
     @Order(3)
-    void testAction(){
-        String link_check = null;
-        String linkLogin = null;
+    void UU3(){
+        log.info("Start UU3:");
+        try{
+            clickButton(By.xpath("/html/body/div[3]/div/div/div[2]/table/tbody/tr[1]/td[5]/a[1]"));
 
-        driver.get("http://localhost:8080/login");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        linkLogin = "http://localhost:8080/checkLogin";
-        WebElement inputEmail = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div[2]/form/div[1]/div/input")));
-        inputEmail.sendKeys(_email);
-        WebElement inputPassword = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div[2]/form/div[2]/div/input")));
-        inputPassword.sendKeys(_password);
-        WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div[2]/form/div[3]/button")));
-        loginButton.click();
-
-        //7 menu lich chieu
-        try {
-            WebElement elementToHover = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/ul/li[1]"));
-
-            Actions actions = new Actions(driver);
-            actions.moveToElement(elementToHover).perform();
-
-            WebElement movieShowing = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/ul/li[1]/div/a[1]"));
-            WebElement movieUpcoming = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/ul/li[1]/div/a[2]"));
-            String buttonMS = "Phim đang chiếu";
-            String buttonMU = "Phim sắp chiếu";
-            if (movieShowing.getText().equals(buttonMS) && movieUpcoming.getText().equals(buttonMU)){
-                log.info("ID: 7 - OK - Select Hover \"Lịch chiếu\" Active - Hiển thị 2 nút bấm \"" + movieShowing.getText() +"\" \"" + movieUpcoming.getText());
-            }
-
-        } catch (Exception e) {
-            log.info("ID: 7 - False - Select Hover \"Lịch chiếu\" Non-active - Không hiển thị 2 nút bấm ");
-            fail("testLogin - Id: 7");
+            log.info("✔ Success UU3");
         }
-
-        //8 button phim dang chieu
-        try {
-            WebElement movieShowing = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/ul/li[1]/div/a[1]"))));
-            movieShowing.click();
-
-            WebElement listMovies = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("/html/body/div[3]/div[2]/div/div/div[2]/div"))));
-            listMovies.getText();
-            log.info("ID: 8 - OK - Button \"Phim đang chiếu\" Active - Hiển thị banner phim");
-
-        } catch (Exception e) {
-            log.info("ID: 8 - OK - Button \"Phim đang chiếu\" Non-active - Không hiển thị banner phim");
-            fail("testLogin - Id: 8");
+        catch (Exception e){
+            log.error("❌ Fail UU3: " + e.getMessage());
+            Assertions.fail();
         }
-
-        //9 menu tai khoan
-        try {
-            WebElement elementToHover = driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div"));
-
-            Actions actions = new Actions(driver);
-            actions.moveToElement(elementToHover).perform();
-
-            WebElement accountInfo = driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div/div[2]/div/a[1]"));
-            WebElement logOut = driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div/div[2]/div/a[2]"));
-            String buttonAC = "Thông tin";
-            String buttonLO = "Đăng xuất";
-            if (accountInfo.getText().equals(buttonAC) && logOut.getText().equals(buttonLO)){
-                log.info("ID: 9 - OK - Select Hover Account \"<name>\" Active - Hiển thị 2 nút bấm \"" + accountInfo.getText() +"\" \"" + logOut.getText());
-            }
-
-        } catch (Exception e) {
-            log.info("ID: 9 - False - elect Hover Account \"<name>\" Non-active - Không hiển thị 2 nút bấm ");
-            fail("testLogin - Id: 9");
-        }
-
-        //10
     }
 
-//    @Test
-//    @Order(4)
+    @Test
+    @Order(100)
+    void UU(){
+        log.info("Start UU:");
+        try{
+
+            log.info("✔ Success UU");
+        }
+        catch (Exception e){
+            log.error("❌ Fail UU: " + e.getMessage());
+            Assertions.fail();
+        }
+    }
 }
