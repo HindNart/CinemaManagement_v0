@@ -31,6 +31,7 @@ import com.Group3.ManagementCinema.service.MovieService;
 import com.Group3.ManagementCinema.service.RateService;
 import com.Group3.ManagementCinema.service.TicketService;
 
+import jakarta.persistence.metamodel.SetAttribute;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -84,10 +85,9 @@ public class adminController {
     	return "/register/register";
     }
     @PostMapping("/checkLogin")
-    public String checkLogin(@RequestParam("email") String email, @RequestParam("password") String password,@RequestParam(required = false) boolean rememberMe, HttpServletRequest request,HttpServletResponse response, Model model) {
+    public String checkLogin(@RequestParam("email") String email, @RequestParam("password") String password,@RequestParam(required = false) boolean rememberMe, HttpServletRequest request,HttpServletResponse response, Model model, HttpSession session) {
         Account account = accountService.checkLogin(email, password);
         if (account != null) {
-            HttpSession session = request.getSession();
             session.setAttribute("account", account); // Lưu đối tượng Account vào session
             List<Movie> movies = movieService.getAllMovies();
             model.addAttribute("account", account);
@@ -122,8 +122,7 @@ public class adminController {
     }
     
     @GetMapping("/userSite")
-    public String openUserSite(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
+    public String openUserSite(HttpServletRequest request, Model model, HttpSession session) {
         Account account = (Account) session.getAttribute("account");
         Customer customer = customerService.getCustomerById(account.getCustomer().getIdKhach());
         model.addAttribute("account", account);

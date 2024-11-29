@@ -13,4 +13,7 @@ import com.Group3.ManagementCinema.entity.MovieSchedule;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long>{
 	List<Ticket> findByIdLichChieu(MovieSchedule id);
+	
+	@Query(value = "SELECT COUNT(*) FROM ve", nativeQuery = true)
+    List<Object[]> countTicket();
 }
