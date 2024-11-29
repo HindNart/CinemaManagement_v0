@@ -21,7 +21,7 @@ public class Rate {
 	private Account taiKhoan;
 	
     @ManyToOne
-    @JoinColumn(name = "phim_idPhim")
+    @JoinColumn(name = "idPhim")
     private Movie phim;
     
     @Column(name = "diem")

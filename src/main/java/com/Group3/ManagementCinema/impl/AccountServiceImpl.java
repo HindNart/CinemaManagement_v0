@@ -8,13 +8,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.Group3.ManagementCinema.entity.Account;
+import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.repository.AccountRepository;
+import com.Group3.ManagementCinema.repository.CustomerRepository;
 import com.Group3.ManagementCinema.service.AccountService;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private AccountRepository accountRepository;
+	@Autowired
+	private CustomerRepository customertRepository;
 	public long countAccount() {
         return accountRepository.count();
     }
@@ -25,6 +29,11 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Override
 	public void saveAccount(Account account) {
+		Customer customer = new Customer();
+		customer.setTenKhach(account.getUsername());
+		this.customertRepository.save(customer);
+		account.setRole("Customer");
+		account.setCustomer(customer);
 		this.accountRepository.save(account);
 	}
 	
@@ -57,5 +66,10 @@ public class AccountServiceImpl implements AccountService {
 	public Account checkLogin(String id, String mk) {
 		// TODO Auto-generated method stub
 		return accountRepository.findByEmailAndPassword(id,mk);
+	}
+	@Override
+	public void updateAccount(Account account) {
+		// TODO Auto-generated method stub
+		this.accountRepository.save(account);
 	}
 }

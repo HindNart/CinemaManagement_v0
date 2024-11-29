@@ -70,8 +70,8 @@ public class adminController {
         model.addAttribute("accountCount", accountCount);
         long ticketCount = ticketService.countTicket();
         model.addAttribute("ticketCount", ticketCount);
-        List<Map<String, Object>> ticketCountByMovie = ticketService.getTicketCountByMovieName();
-        model.addAttribute("ticketCountByMovie", ticketCountByMovie);
+//        List<Map<String, Object>> ticketCountByMovie = ticketService.getTicketCountByMovieName();
+//        model.addAttribute("ticketCountByMovie", ticketCountByMovie);
         return "index.html";  // Trả về tên view (index)
     }
     @GetMapping("/login")
@@ -91,8 +91,8 @@ public class adminController {
             session.setAttribute("account", account); // Lưu đối tượng Account vào session
             List<Movie> movies = movieService.getAllMovies();
             model.addAttribute("account", account);
-            model.addAttribute("movies", movies); 
-            Map<String, Double> averageRatings = rateService.getAverageRatings();
+            model.addAttribute("movies", movies);  
+            Map<Long, Double> averageRatings = rateService.getAverageRatings();
             model.addAttribute("averageRatings", averageRatings);
             
             if (rememberMe) {
@@ -103,11 +103,15 @@ public class adminController {
                 response.addCookie(cookie);
             }
             
-            if ("admin@gmail.com".equals(email)) {
+            if (account.getRole().equals("admin")) {
                 session.setAttribute("role", "admin");
                 model.addAttribute("account", account);
                 return "redirect:/"; // Điều hướng đến trang admin
             } else {
+
+                Customer customer = customerService.getCustomerById(account.getCustomer().getIdKhach());
+
+                model.addAttribute("customer", customer);
                 return "cusIndex"; // Điều hướng đến trang người dùng
             }
         } else {
@@ -121,10 +125,11 @@ public class adminController {
     public String openUserSite(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
+        Customer customer = customerService.getCustomerById(account.getCustomer().getIdKhach());
         model.addAttribute("account", account);
         model.addAttribute("movies", movieService.getAllMovies());
-
-        Map<String, Double> averageRatings = rateService.getAverageRatings();
+        model.addAttribute("customer", customer); 
+        Map<Long, Double> averageRatings = rateService.getAverageRatings();
         model.addAttribute("averageRatings", averageRatings);
         return "cusIndex";
     }
@@ -135,7 +140,7 @@ public class adminController {
     }
     
     @GetMapping("/film/{id}")
-    public String openFilm(@PathVariable(value = "id") String idPhong, HttpServletRequest request, Model model) {
+    public String openFilm(@PathVariable(value = "id") Long idPhong, HttpServletRequest request, Model model) {
         Movie movie = movieService.getMovieById(idPhong);
         List<MovieSchedule> movieSchedule = moviescheduleService.findByIdphim(movie);
         List<Rate> rates = rateService.getAllRates();
@@ -144,14 +149,15 @@ public class adminController {
         Rate newRate = new Rate();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-        
-        Map<String, Double> averageRatings = rateService.getAverageRatings();
+        Customer customer = customerService.getCustomerById(account.getCustomer().getIdKhach());
+        Map<Long, Double> averageRatings = rateService.getAverageRatings();
         model.addAttribute("averageRatings", averageRatings);
         
         newRate.setTaiKhoan(account);
         newRate.setPhim(movie);
         model.addAttribute("newRate", newRate);
         model.addAttribute("account", account);
+        model.addAttribute("customer", customer);
         model.addAttribute("rates", rates);
         model.addAttribute("movie", movie);
         model.addAttribute("uniqueDates", uniqueDates);

@@ -21,6 +21,7 @@ import com.Group3.ManagementCinema.entity.Ticket;
 import com.Group3.ManagementCinema.service.AccountService;
 import com.Group3.ManagementCinema.service.ChairService;
 import com.Group3.ManagementCinema.service.CinemaRoomService;
+import com.Group3.ManagementCinema.service.CustomerService;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
 import com.Group3.ManagementCinema.service.MovieService;
 import com.Group3.ManagementCinema.service.TicketService;
@@ -42,7 +43,7 @@ public class TicketController {
 	@Autowired
 	private MovieService movieService;
 	@Autowired
-	private MovieService customerService;
+	private CustomerService customerService;
 	@Autowired
 	private AccountService accountService;
 	@Autowired
@@ -85,6 +86,7 @@ public class TicketController {
 
 	@PostMapping("/saveTicket")
 	public String saveTicket(@ModelAttribute("ticket") Ticket ticket, HttpServletRequest request) {
+		
 		String usePoints = request.getParameter("usePoints");
 		boolean usePointsChecked = (usePoints != null && usePoints.equals("on"));
 
@@ -98,6 +100,7 @@ public class TicketController {
 		// Xử lý logic điểm
 		Account acc = ticket.getTaiKhoan();
 		Customer customer = acc.getCustomer();
+		
 		if (usePointsChecked) {
 			// Nếu được chọn sử dụng điểm, đặt điểm của tài khoản về 0
 			customer.setDiem(0);
@@ -138,18 +141,46 @@ public class TicketController {
 	}
 
 	@GetMapping("/showBuyTicket/{id}")
-	public String viewHomePage(@PathVariable(value = "id") String id, HttpServletRequest request, Model model) {
+	public String viewHomePage(@PathVariable(value = "id") Long id, HttpServletRequest request, Model model) {
 		// Lấy thông tin lịch chiếu, phòng chiếu và phim
 		MovieSchedule sche = moviescheduleService.getMovieScheduleById(id);
 		CinemaRoom room = cinemaroomService.getCinemaRoomById(sche.getPhongChieu().getIdPhong());
 		Movie movie = movieService.getMovieById(sche.getPhim().getIdPhim());
-		List<Chair> chair = chairService.findAllByIdPhong(room);
+		List<Chair> chairs = chairService.findAllByIdPhong(room);
 		// Lấy đối tượng account từ session
+		
+//		List<Ticket> tickets = ticketService.getAllTickets();
+//		
+//		for (Ticket check_ticket : tickets) {
+//			MovieSchedule check_sche = check_ticket.getLichChieu();
+//			CinemaRoom check_room = cinemaroomService.getCinemaRoomById(check_sche.getPhongChieu().getIdPhong());
+//			for (Chair check_chair : chairs) {
+//				if(check_ticket.getGhe().equals(check_chair)) {
+//					if(check_room.getIdPhong().equals(check_chair.getIdPhong().getIdPhong())) {
+//						check_chair.setTrangThai(0);
+//					}
+//				}
+//			}
+//		}
+		
+		List<Ticket> check_tickets = ticketService.findByLichChieu(sche);
+		CinemaRoom check_room = cinemaroomService.getCinemaRoomById(sche.getPhongChieu().getIdPhong());
+		chairs = chairService.findAllByIdPhong(check_room);
+		for (Chair check_chair : chairs) {
+			for (Ticket check_ticket : check_tickets) {
+				if (check_chair.getIdGhe() == check_ticket.getGhe().getIdGhe()) {
+					check_chair.setTrangThai(0);
+				}
+			}
+		}
+		
 		HttpSession session = request.getSession();
 		Account account = (Account) session.getAttribute("account");
+		Customer customer = customerService.getCustomerById(account.getCustomer().getIdKhach());
 		Ticket ticket = new Ticket();
-		ticket.setLichChieu(sche);
+		ticket.setIdLichChieu(sche);
 		ticket.setTaiKhoan(account);
+		
 		if (account == null) {
 			// Nếu không có account trong session, chuyển hướng đến trang đăng nhập
 			return "redirect:/login";
@@ -157,10 +188,11 @@ public class TicketController {
 
 		// Thêm các thông tin vào model
 		model.addAttribute("account", account);
+		model.addAttribute("customer", customer);
 		model.addAttribute("sche", sche);
 		model.addAttribute("movie", movie);
 		model.addAttribute("cinemaRoom", room);
-		model.addAttribute("chairs", chair);
+		model.addAttribute("chairs", chairs);
 		model.addAttribute("ticket", ticket);
 		return "buyticket";
 	}

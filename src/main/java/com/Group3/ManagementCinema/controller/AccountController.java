@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Group3.ManagementCinema.entity.Account;
+import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.service.AccountService;
+import com.Group3.ManagementCinema.service.CustomerService;
 
 @Controller
 public class AccountController {
 	@Autowired
 	private AccountService accountService;
-	
+	@Autowired
+	private CustomerService customerService;
 	 @GetMapping("/showAllAccount")
 	    public String showEmployeeList(Model model) {
 	        model.addAttribute("listAccounts", accountService.getAllAccounts());
@@ -59,6 +62,15 @@ public class AccountController {
         // Trả về 200 OK để biết rằng cập nhật thành công
         return "redirect:/userSite";
     }
+	
+	@PostMapping("/updateCustomer")
+    public String updateCustomer(@ModelAttribute("customer") Customer customer) {
+        // Lưu thông tin tài khoản
+        customerService.saveCustomer(customer);        
+        // Trả về 200 OK để biết rằng cập nhật thành công
+        return "redirect:/userSite";
+    }
+	
 	
 	@PostMapping("/adUpdateAccount")
     public String adUpdateAccount(@ModelAttribute("account") Account account) {

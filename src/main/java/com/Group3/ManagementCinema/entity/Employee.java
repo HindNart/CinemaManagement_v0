@@ -3,6 +3,8 @@ package com.Group3.ManagementCinema.entity;
 import java.sql.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -11,8 +13,8 @@ import jakarta.persistence.Table;
 @Table(name="nhanvien")
 public class Employee {
     @Id
-    @Column(name = "idNhanVien")
-    private String idNhanVien;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long employee_id;
 
     @Column(name = "hoTenNV", nullable = false)
     private String hoTenNV;
@@ -39,12 +41,12 @@ public class Employee {
     private Account account;
     
     // Getters and Setters
-    public String getIdNhanVien() {
-        return idNhanVien;
+    public Long getIdNhanVien() {
+        return employee_id;
     }
 
-    public void setIdNhanVien(String idNhanVien) {
-        this.idNhanVien = idNhanVien;
+    public void setIdNhanVien(Long idNhanVien) {
+        this.employee_id = idNhanVien;
     }
 
     public String getHoTenNV() {
@@ -108,10 +110,10 @@ public class Employee {
 		super();
 	}
 
-	public Employee(String idNhanVien, String hoTenNV, Date ngaySinhNV, String diaChi, String chucVu, float luong,
+	public Employee(Long idNhanVien, String hoTenNV, Date ngaySinhNV, String diaChi, String chucVu, float luong,
 			int caLam, String sdt, Account account) {
 		super();
-		this.idNhanVien = idNhanVien;
+		this.employee_id = idNhanVien;
 		this.hoTenNV = hoTenNV;
 		this.ngaySinhNV = ngaySinhNV;
 		this.diaChi = diaChi;

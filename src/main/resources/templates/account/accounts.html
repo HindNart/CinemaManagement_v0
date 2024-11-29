@@ -28,11 +28,11 @@
             <table class="main-content-list">
                 <thead>
 	                <tr>
-	                    <th>Email</th>
+	                    <th class="hidden-text">Email</th>
 	                    <th class="hidden-text">Tên tài khoản</th>
 	                    <th class="hidden-text">Mật khẩu</th>
-	                    <th class="hidden-text">Điểm</th>
-	                    <th>Chức năng</th>
+	                   	<th class="hidden-text">Vai trò</th>
+	                    <th class="hidden-text">Chức năng</th>
 	                </tr>
 	            </thead>
 	            <tbody>
@@ -40,7 +40,7 @@
 	                    <td th:text="${acc.email}"></td>
 	                    <td><p th:text="${acc.username}" class="hidden-text"></p></td>
 	                    <td><p th:text="${acc.password}" class="hidden-text"></p></td>
-	                    <td th:text="${acc.diem}"></td>
+	                    <td><p th:text="${acc.role}" class="hidden-text"></p></td>
 	                    <td>
 	                    	<a th:href="@{/showFormForUpdateAccount/{id}(id=${acc.email})}" class="btn btn-primary btn-sm"><i class="bi bi-gear-fill"></i></a>
 	                        <a th:href="@{/deleteMovie/{id}(id=${acc.email})}" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a>

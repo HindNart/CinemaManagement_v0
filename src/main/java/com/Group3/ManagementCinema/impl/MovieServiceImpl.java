@@ -35,17 +35,13 @@ public class MovieServiceImpl implements MovieService {
 	}
 	
 	@Override
-	public Movie getMovieById(String id) {
-		Optional < Movie > optional = movieRepository.findById(id);
-		Movie movie = null;
-		if (optional.isPresent()) {
-			movie = optional.get();
-		}
+	public Movie getMovieById(Long id) {
+		Movie movie = movieRepository.findByIdPhim(id);
 		return movie;
 	}
 	
 	@Override
-	public void deleteMovieById(String id) {
+	public void deleteMovieById(Long id) {
 		this.movieRepository.deleteById(id);
 	}
 	
@@ -59,5 +55,14 @@ public class MovieServiceImpl implements MovieService {
 	public List<Movie> searchMovie(String key) {
 		// TODO Auto-generated method stub
 		return movieRepository.findByDaoDienContainingOrDienVienContainingOrTenPhimContainingOrTheLoaiContaining(key, key, key, key);
+	}
+	@Override
+	public Movie getMovieByName(String name) {
+		Optional < Movie > optional = movieRepository.findByTenPhim(name);
+        Movie movie = null;
+        if (optional.isPresent()) {
+            movie = optional.get();
+        }
+        return movie;
 	}
 }

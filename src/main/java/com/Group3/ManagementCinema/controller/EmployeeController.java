@@ -31,7 +31,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/searchEmployeeById")
-    public String searchEmployeeId(@RequestParam("id") String id, Model model) {
+    public String searchEmployeeId(@RequestParam("id") Long id, Model model) {
         Employee employee = employeeService.getEmployeeById(id);
         model.addAttribute("employee", employee);
         return "employee/employee_search";
@@ -65,7 +65,7 @@ public class EmployeeController {
     }
     
     @GetMapping("/showFormForUpdateEmployee/{id}")
-    public String showFormForUpdateEmployee(@PathVariable(value = "id") String id, Model model) {
+    public String showFormForUpdateEmployee(@PathVariable(value = "id") Long id, Model model) {
         // get employee from the service
         Employee employee = employeeService.getEmployeeById(id);
         // set employee as a model attribute to pre-populate the form
@@ -74,7 +74,7 @@ public class EmployeeController {
     }
     
     @GetMapping("/deleteEmployee/{id}")
-    public String deleteEmployee(@PathVariable(value = "id") String id) {
+    public String deleteEmployee(@PathVariable(value = "id") Long id) {
         // call delete employee method
         employeeService.deleteEmployeeById(id);
         return "redirect:/";

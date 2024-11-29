@@ -37,21 +37,20 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	@Override
 	public void saveMovieSchedule(MovieSchedule movieSchedule) {
 		this.movieScheduleRepository.save(movieSchedule);
-		
 	}
 	
 	@Override
-	public void saveMovieSchedule(String idLichChieu, String phongChieuId, String phimId, String thoigianBD, String thoigianKT, Date ngayChieu) {
+	public void saveMovieSchedule(Long idLichChieu, String phongChieuId, Long phimId, String thoigianBD, String thoigianKT, Date ngayChieu) {
 		CinemaRoom phongChieu = cinemaRoomRepository.findById(phongChieuId).orElseThrow(() -> new RuntimeException("CinemaRoom not found"));
 		Movie phim = movieRepository.findById(phimId).orElseThrow(() -> new RuntimeException("Movie not found"));
 
 		MovieSchedule movieSchedule = new MovieSchedule(idLichChieu, phongChieu, phim, thoigianBD, thoigianKT, ngayChieu);
-      
+//		List<MovieSchedule> list_movieSchedules = movieScheduleRepository.findAll();
 		movieScheduleRepository.save(movieSchedule);
 	}
 
 	@Override
-	public MovieSchedule getMovieScheduleById(String id) {
+	public MovieSchedule getMovieScheduleById(Long id) {
 		Optional < MovieSchedule > optional = movieScheduleRepository.findById(id);
 		MovieSchedule movieSchedule = null;
 		if (optional.isPresent()) {
@@ -61,7 +60,7 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	}
 
 	@Override
-	public void deleteMovieScheduleById(String id) {
+	public void deleteMovieScheduleById(Long id) {
 		this.movieScheduleRepository.deleteById(id);;
 		
 	}

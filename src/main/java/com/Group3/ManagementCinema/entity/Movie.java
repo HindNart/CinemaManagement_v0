@@ -8,8 +8,8 @@ import jakarta.persistence.*;
 @Table(name = "phim")
 public class Movie {
 	@Id
-	@Column(name = "idPhim")
-	private String idPhim;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idPhim;
 
 	@Column(name = "tenPhim", nullable = false)
 	private String tenPhim;
@@ -48,11 +48,11 @@ public class Movie {
 		this.averageRating = averageRating;
 	}
 
-	public String getIdPhim() {
+	public Long getIdPhim() {
 		return idPhim;
 	}
 
-	public void setIdPhim(String idPhim) {
+	public void setIdPhim(Long idPhim) {
 		this.idPhim = idPhim;
 	}
 
@@ -133,7 +133,7 @@ public class Movie {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Movie(String idPhim, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,
+	public Movie(Long idPhim, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,
 			String moTa, Date ngayPH, String linkPoster) {
 		super();
 		this.idPhim = idPhim;
@@ -147,7 +147,7 @@ public class Movie {
 		this.linkPoster = linkPoster;
 	}
 
-	public Movie(String idPhim, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,
+	public Movie(Long idPhim, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,
 			String moTa, Date ngayPH, String linkPoster, double averageRating) {
 		super();
 		this.idPhim = idPhim;

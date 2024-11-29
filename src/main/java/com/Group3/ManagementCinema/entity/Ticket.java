@@ -23,8 +23,8 @@ public class Ticket {
     private Long idVe;
 	
 	@ManyToOne
-    @JoinColumn(name = "lich_chieu_idLichChieu", nullable = false)
-    private MovieSchedule lichChieu;
+    @JoinColumn(name = "idLichChieu", nullable = false)
+    private MovieSchedule idLichChieu;
 	
 	@ManyToOne
 	@JoinColumn(name = "tai_khoan_email", nullable = false)
@@ -45,8 +45,8 @@ public class Ticket {
 		this.idVe = idVe;
 	}
 
-	public MovieSchedule getLichChieu() {
-		return lichChieu;
+	public MovieSchedule getIdLichChieu() {
+		return idLichChieu;
 	}
 
 	public Chair getGhe() {
@@ -57,8 +57,8 @@ public class Ticket {
 		this.idGhe = ghe;
 	}
 
-	public void setLichChieu(MovieSchedule lichChieu) {
-		this.lichChieu = lichChieu;
+	public void setIdLichChieu(MovieSchedule idLichChieu) {
+		this.idLichChieu = idLichChieu;
 	}
 
 	public Account getTaiKhoan() {
@@ -69,10 +69,10 @@ public class Ticket {
 		this.taiKhoan = taiKhoan;
 	}
 
-	public Ticket(long idVe, MovieSchedule lichChieu, Account taiKhoan, Date thoigianMua, Chair ghe) {
+	public Ticket(long idVe, MovieSchedule idLichChieu, Account taiKhoan, Date thoigianMua, Chair ghe) {
 		super();
 		this.idVe = idVe;
-		this.lichChieu = lichChieu;
+		this.idLichChieu = idLichChieu;
 		this.taiKhoan = taiKhoan;
 		this.thoigianMua = thoigianMua;
 		this.idGhe = ghe;

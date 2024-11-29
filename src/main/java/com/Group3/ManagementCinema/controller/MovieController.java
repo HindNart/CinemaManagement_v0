@@ -37,7 +37,7 @@ public class MovieController {
 	}
 	
 	@GetMapping("/searchMovieById")
-	public String searchMovieById(@RequestParam("id") String id, Model model) {
+	public String searchMovieById(@RequestParam("id") Long id, Model model) {
 		Movie movie = movieService.getMovieById(id);
 		model.addAttribute("movie", movie);
 		return "/movie/movie_search";
@@ -59,7 +59,13 @@ public class MovieController {
 	
 	@PostMapping("/saveMovie")
     public String saveMovie(@ModelAttribute("movie") Movie movie, RedirectAttributes redirectAttributes) {
-		Movie existMovie = movieService.getMovieById(movie.getIdPhim());
+        movieService.saveMovie(movie);
+        return "redirect:/showNewMovieForm";
+    }
+	
+	@PostMapping("/checkMovie")
+	public String checkMovie(@ModelAttribute("movie") Movie movie, RedirectAttributes redirectAttributes) {
+		Movie existMovie = movieService.getMovieByName(movie.getTenPhim());
         if (existMovie == null) {
         	movieService.saveMovie(movie);
             redirectAttributes.addFlashAttribute("message", "Thêm phim thành công!");
@@ -70,7 +76,7 @@ public class MovieController {
     }
 	
 	@GetMapping("/showFormForUpdateMovie/{id}")
-	public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) {
+	public String showFormForUpdate(@PathVariable(value = "id") Long id, Model model) {
 		// get movie from the service
 		Movie movie = movieService.getMovieById(id);
 		// set movie as a model attribute to pre-populate the form
@@ -79,7 +85,7 @@ public class MovieController {
 	}
 	
 	@GetMapping("/deleteMovie/{id}")
-	public String deleteMovie(@PathVariable(value = "id") String id) {
+	public String deleteMovie(@PathVariable(value = "id") Long id) {
 		// call delete movie method
 		this.movieService.deleteMovieById(id);
 		return "redirect:/";

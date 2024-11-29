@@ -15,4 +15,5 @@ public interface AccountService {
 	Page<Account> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	long countAccount();
 	Account checkLogin(String tk, String mk);
+	void updateAccount(Account account);
 }
