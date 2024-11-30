@@ -1,5 +1,6 @@
 package com.Group3.ManagementCinema.controller;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
 import com.Group3.ManagementCinema.entity.Rate;
+import com.Group3.ManagementCinema.entity.TicketCountByMonthDTO;
 import com.Group3.ManagementCinema.impl.RateServiceImpl;
 import com.Group3.ManagementCinema.impl.TicketServiceImpl;
 import com.Group3.ManagementCinema.service.AccountService;
@@ -72,19 +74,32 @@ public class adminController {
         model.addAttribute("accountCount", accountCount);
         long ticketCount = ticketService.countTicket();
         model.addAttribute("ticketCount", ticketCount);
-//        List<Map<String, Object>> ticketCountByMovie = ticketService.getTicketCountByMovieName();
-//        model.addAttribute("ticketCountByMovie", ticketCountByMovie);
+        BigDecimal totalRevenue = ticketService.totalRevenue();
+        model.addAttribute("totalRevenue", totalRevenue);
+        
+        List<Object[]> amountTickets = ticketService.countTicketByMonth();
+        List<TicketCountByMonthDTO> amount = amountTickets.stream().map(obj -> {
+            int month = (int) obj[0]; // Phần tử đầu tiên là tháng
+            long ticketCountMonth = (long) obj[1]; // Phần tử thứ hai là số lượng vé
+            return new TicketCountByMonthDTO(month, ticketCountMonth);
+        }).collect(Collectors.toList());
+        System.out.println("Stats: " + amount); // Debug log
+        model.addAttribute("amountTicketsByMonth", amount);
+        
         return "index.html";  // Trả về tên view (index)
     }
+    
     @GetMapping("/login")
     public String openLogin(Model model) {
     	return "/login/login";
     }
+    
     @GetMapping("/regis")
     public String openRegis(Model model) {
     	model.addAttribute("account", new Account());
     	return "/register/register";
     }
+    
     @PostMapping("/checkLogin")
     public String checkLogin(@RequestParam("email") String email, @RequestParam("password") String password,@RequestParam(required = false) boolean rememberMe, HttpServletRequest request,HttpServletResponse response, Model model, HttpSession session) {
         Account account = accountService.checkLogin(email, password);

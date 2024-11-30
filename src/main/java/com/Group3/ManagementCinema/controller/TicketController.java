@@ -1,6 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.Group3.ManagementCinema.entity.Account;
 import com.Group3.ManagementCinema.entity.Customer;
@@ -18,6 +20,7 @@ import com.Group3.ManagementCinema.entity.CinemaRoom;
 import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.entity.MovieSchedule;
 import com.Group3.ManagementCinema.entity.Ticket;
+import com.Group3.ManagementCinema.entity.TicketCountByMonthDTO;
 import com.Group3.ManagementCinema.service.AccountService;
 import com.Group3.ManagementCinema.service.ChairService;
 import com.Group3.ManagementCinema.service.CinemaRoomService;
