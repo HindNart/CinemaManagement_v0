@@ -2,6 +2,7 @@ package com.Group3.ManagementCinema.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,8 @@ import com.Group3.ManagementCinema.entity.Account;
 import com.Group3.ManagementCinema.entity.Chair;
 import com.Group3.ManagementCinema.entity.Customer;
 import com.Group3.ManagementCinema.entity.Ticket;
+import com.Group3.ManagementCinema.entity.TicketCountByMonthDTO;
+import com.Group3.ManagementCinema.entity.TicketPriceOnMonthDTO;
 import com.Group3.ManagementCinema.service.AccountService;
 import com.Group3.ManagementCinema.service.ChairService;
 import com.Group3.ManagementCinema.service.TicketService;
@@ -168,5 +172,25 @@ public class PaymentController {
 
 //		return "redirect:/qrTicket/" + newTicket.getIdVe();
 		response.sendRedirect("http://localhost:8080/qrTicket/" + newTicket.getIdVe());
+	}
+	
+	@GetMapping("/countTickets")
+	public List<TicketCountByMonthDTO> countTicket() {
+		List<Object[]> amountTickets = ticketService.countTicketByMonth();
+        return amountTickets.stream().map(obj -> {
+            int month = (int) obj[0]; // Phần tử đầu tiên là tháng
+            long ticketCount = (long) obj[1]; // Phần tử thứ hai là số lượng vé
+            return new TicketCountByMonthDTO(month, ticketCount);
+        }).collect(Collectors.toList());
+	}
+	
+	@GetMapping("/totalPriceTicketsMonth")
+	public List<TicketPriceOnMonthDTO> priceTicket() {
+		List<Object[]> priceTickets = ticketService.totalPriceOnMonth();
+        return priceTickets.stream().map(obj -> {
+            int month = (int) obj[0]; // Phần tử đầu tiên là tháng
+            BigDecimal price =  (BigDecimal) obj[1]; // Phần tử thứ hai là số lượng vé
+            return new TicketPriceOnMonthDTO(month, price);
+        }).collect(Collectors.toList());
 	}
 }

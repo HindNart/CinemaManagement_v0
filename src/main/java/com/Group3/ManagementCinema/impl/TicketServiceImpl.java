@@ -1,5 +1,6 @@
 package com.Group3.ManagementCinema.impl;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,6 +115,24 @@ public class TicketServiceImpl implements TicketService {
 	public List<Ticket> findByLichChieu(MovieSchedule id) {
 		// TODO Auto-generated method stub
 		return ticketRepository.findByIdLichChieu(id);
+	}
+
+	@Override
+	public List<Object[]> countTicketByMonth() {
+		// TODO Auto-generated method stub
+		return ticketRepository.countTicketsByMonth();
+	}
+
+	@Override
+	public List<Object[]> totalPriceOnMonth() {
+		// TODO Auto-generated method stub
+		return ticketRepository.priceOnMonth();
+	}
+
+	@Override
+	public BigDecimal totalRevenue() {
+		// TODO Auto-generated method stub
+		return ticketRepository.totalRevenue();
 	}
 
 	

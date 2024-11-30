@@ -1,5 +1,6 @@
 package com.Group3.ManagementCinema.service;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,8 @@ public interface TicketService {
 	Ticket saveTicket(Long idVe, String lichChieuId, String email, Long idGhe, Date thoigianMua);
 	void saveTicket(long idVe, String lichChieuId, String email, float gia, Date thoigianMua, List<Chair> list);
 	long countTicket();
+	List<Object[]> countTicketByMonth();
+	List<Object[]> totalPriceOnMonth();
+	BigDecimal totalRevenue();
 	List<Ticket> findByLichChieu(MovieSchedule id);
-//	List<Map<String, Object>> getTicketCountByMovieName();
 }

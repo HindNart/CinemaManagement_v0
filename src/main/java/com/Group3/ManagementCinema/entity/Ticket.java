@@ -69,15 +69,6 @@ public class Ticket {
 		this.taiKhoan = taiKhoan;
 	}
 
-	public Ticket(long idVe, MovieSchedule idLichChieu, Account taiKhoan, Date thoigianMua, Chair ghe) {
-		super();
-		this.idVe = idVe;
-		this.idLichChieu = idLichChieu;
-		this.taiKhoan = taiKhoan;
-		this.thoigianMua = thoigianMua;
-		this.idGhe = ghe;
-	}
-
 	public Date getThoigianMua() {
 		return thoigianMua;
 	}
@@ -89,5 +80,14 @@ public class Ticket {
 	public Ticket() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Ticket(long idVe, MovieSchedule idLichChieu, Account taiKhoan, Date thoigianMua, Chair ghe) {
+		super();
+		this.idVe = idVe;
+		this.idLichChieu = idLichChieu;
+		this.taiKhoan = taiKhoan;
+		this.thoigianMua = thoigianMua;
+		this.idGhe = ghe;
 	}
 }
