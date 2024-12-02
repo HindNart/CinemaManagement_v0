@@ -49,14 +49,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	// TODO Auto-generated method stub
 		return null;
 	}
+	
 	@Override
 	public List<Employee> searchEmp(String key) {
 		// TODO Auto-generated method stub
 		return EmployeeRepository.findByhoTenNVContainingOrDiaChiContainingOrChucVuContaining(key, key,key);
 	}
+	
 	@Override
 	public Employee getEmployeeByName(String name) {
-		Optional < Employee > optional =  EmployeeRepository.findByHoTenNV(name);
+		// TODO Auto-generated method stub
+		Optional < Employee > optional = EmployeeRepository.findByHoTenNV(name);
 		Employee employee = null;
         if (optional.isPresent()) {
         	employee = optional.get();

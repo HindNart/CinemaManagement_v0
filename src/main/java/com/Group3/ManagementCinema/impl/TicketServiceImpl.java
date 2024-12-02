@@ -1,5 +1,6 @@
 package com.Group3.ManagementCinema.impl;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,13 +88,14 @@ public class TicketServiceImpl implements TicketService {
 		// TODO Auto-generated method stub
 		
 	}
+	
 //	@Override
 //    public List<Map<String, Object>> getTicketCountByMovieName() {
-//        List<Object[]> results = ticketRepository.countChairsByMovie();
+//        List<Object[]> results = ticketRepository.countTicket();
 //        List<Map<String, Object>> ticketCountByMovie = new ArrayList<>();
 //        
 //        for (Object[] result : results) {
-//            String movieId = (String) result[0];
+//            Long movieId = (Long) result[0];
 //            Long ticketCount = ((Number) result[1]).longValue();
 //
 //            // Get movie name by movie id
@@ -113,6 +115,24 @@ public class TicketServiceImpl implements TicketService {
 	public List<Ticket> findByLichChieu(MovieSchedule id) {
 		// TODO Auto-generated method stub
 		return ticketRepository.findByIdLichChieu(id);
+	}
+
+	@Override
+	public List<Object[]> countTicketByMonth() {
+		// TODO Auto-generated method stub
+		return ticketRepository.countTicketsByMonth();
+	}
+
+	@Override
+	public List<Object[]> totalPriceOnMonth() {
+		// TODO Auto-generated method stub
+		return ticketRepository.priceOnMonth();
+	}
+
+	@Override
+	public BigDecimal totalRevenue() {
+		// TODO Auto-generated method stub
+		return ticketRepository.totalRevenue();
 	}
 
 	

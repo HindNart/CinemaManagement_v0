@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quản lý rạp phim</title>
+<link rel="shortcut icon" type="image/png" href="/img/film.png" />
 <link rel="stylesheet" href="/css/style.css">
 <script src="/js/script.js"></script>
 <link rel="stylesheet"
@@ -34,9 +35,9 @@
 	<div id="header">
 		<div class="flex spc-btw">
 			<div class="logo">
-				<a th:href="@{/}"><img style="border-radius: 50%;"
-					src="https://st2.depositphotos.com/1588812/7317/v/450/depositphotos_73179751-stock-illustration-vector-logo-slate-board-for.jpg"
-					width="75px" height="75px"></a>
+				<a th:href="@{/}"> <img src="/img/LET.png" width="125px"
+					height="100%">
+				</a>
 			</div>
 			<div class="user flex">
 				<div class="user-avt">
@@ -88,35 +89,49 @@
 				<h2>Dashboard</h2>
 			</div>
 			<div class="db-item">
-				<div class="mlr-20  flex">
-					<div class="total-emp db-card">
+				<div class="mlr-20 flex row">
+					<div class="total-emp db-card col-2">
 						<p>Số lượng nhân viên</p>
 						<p>
 							<b th:text="${employeeCount}"></b>
 						</p>
 					</div>
-					<div class="total-acc db-card">
+					<div class="total-acc db-card col-2">
 						<p>Số lượng tài khoản</p>
 						<p>
 							<b th:text="${accountCount}"></b>
 						</p>
 					</div>
-					<div class="total-movie db-card">
+					<div class="total-movie db-card col-2">
 						<p>Số lượng phim</p>
 						<p>
 							<b th:text="${movieCount}"></b>
 						</p>
 					</div>
-					<div class="total-room db-card">
+					<div class="total-room db-card col-2">
 						<p>Số lượng phòng</p>
 						<p>
 							<b th:text="${cinemaRoomCount}"></b>
 						</p>
 					</div>
-					<div class="total-sche db-card">
+				</div>
+				<div class="mlr-20 flex row" style = "margin-top:20px">
+					<div class="total-sche db-card col-2">
 						<p>Số lượng lịch chiếu</p>
 						<p>
 							<b th:text="${movieScheduleCount}"></b>
+						</p>
+					</div>
+					<div class="total-sche db-card col-2" style = "background-color: lightblue">
+						<p>Số lượng vé</p>
+						<p>
+							<b th:text="${ticketCount}"></b>
+						</p>
+					</div>
+					<div class="total-sche db-card col-2" style = "background-color: yellow">
+						<p>Tổng doanh thu</p>
+						<p>
+							<b th:text="${totalRevenue}"></b><b> VND</b>
 						</p>
 					</div>
 				</div>
@@ -124,8 +139,10 @@
 			<!-- <a href="/testStatis.html">Xem thêm</a>  -->
 			<div class="db-item">
 				<div class="flex">
-					<div id="donut-chart"></div>
-
+					<canvas id="ticketChart" width="50%"></canvas>
+				</div>
+				<div class="flex">
+					<canvas id="totalPriceTicketChart" width="50%"></canvas>
 				</div>
 			</div>
 		</div>
@@ -154,53 +171,72 @@
             });
         });
     </script>
-	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
-			const xArray = ["Italy", "France", "Spain", "USA", "Argentina"];
-			const yArray = [55, 49, 44, 24, 15];
-			
-			const data = [{
-			  x:xArray,
-			  y:yArray,
-			  type:"bar"
-			}];
-			
-			const layout = {title:"World Wide Wine Production"};
-			
-			Plotly.newPlot("myPlot", data, layout);
-		</script>
+	    fetch('/countTickets')
+	        .then(response => response.json())
+	        .then(data => {
+	            console.log("Fetched stats:", data);
+	            const months = data.map(stat => `Tháng ${stat.month}`);
+	            const ticketCounts = data.map(stat => stat.ticketCount);
+	
+	            // Khởi tạo biểu đồ Chart.js
+	            const ctx = document.getElementById('ticketChart').getContext('2d');
+	            new Chart(ctx, {
+	                type: 'bar',
+	                data: {
+	                    labels: months,
+	                    datasets: [{
+	                        label: 'Số vé bán được',
+	                        data: ticketCounts,
+	                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+	                        borderColor: 'rgba(75, 192, 192, 1)',
+	                        borderWidth: 1
+	                    }]
+	                },
+	                options: {
+	                    scales: {
+	                        y: {
+	                            beginAtZero: true
+	                        }
+	                    }
+	                }
+	            });
+	        })
+	        .catch(err => console.error("Error fetching ticket:", err));
+	    
+	    fetch('/totalPriceTicketsMonth')
+        .then(response => response.json())
+        .then(data => {
+            console.log("Fetched stats:", data);
+            const months = data.map(stat => `Tháng ${stat.month}`);
+            const priceTicket = data.map(stat => stat.totalPrice);
 
-	<script th:inline="javascript">
-				    /*<![CDATA[*/
-				    let ticketCount = /*[[${ticketCountByMovie}]]*/ []; // Lấy dữ liệu từ Spring Model
-					let tk = /*[[${ticketCount}]]*/ [];
-				    let columns = [];
-				    for (let i = 0; i < ticketCount.length; i++) {
-				        columns.push([ticketCount[i].tenPhim, ticketCount[i].soLuongVe]);
-				    }
-				
-				    let chart = bb.generate({
-				        data: {
-				            columns: columns, // Sử dụng mảng columns đã xây dựng từ dữ liệu Spring Model
-				            type: "donut",
-				            onclick: function (d, i) {
-				                console.log("onclick", d, i);
-				            },
-				            onover: function (d, i) {
-				                console.log("onover", d, i);
-				            },
-				            onout: function (d, i) {
-				                console.log("onout", d, i);
-				            },
-				        },
-				        donut: {
-				            title: "Tổng lượng vé: " + tk, // Sử dụng độ dài của mảng ticketCount để làm tiêu đề
-				        },
-				        bindto: "#donut-chart",
-				    });
-				    /*]]>*/
-				</script>
-
-
+            // Khởi tạo biểu đồ Chart.js
+            const ctx = document.getElementById('totalPriceTicketChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Doanh thu (VND)',
+                        data: priceTicket,
+                        backgroundColor: 'rgba(255, 255, 0, 0.2)',
+                        borderColor: 'rgba(255, 255, 0, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch(err => console.error("Error fetching ticket price:", err));
+	</script>
 </body>
 </html>

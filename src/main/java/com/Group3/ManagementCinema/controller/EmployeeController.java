@@ -30,31 +30,31 @@ public class EmployeeController {
 		model.addAttribute("employee", employee);
 		return "employee/employee_new";
 	}
-
-	@GetMapping("/searchEmployeeById")
-	public String searchEmployeeId(@RequestParam("id") Long id, Model model) {
-		Employee employee = employeeService.getEmployeeById(id);
-		model.addAttribute("employee", employee);
-		return "employee/employee_search";
-	}
-
-	@GetMapping("/searchEmployee")
-	public String searchEmployee(@RequestParam("id") String id, Model model) {
-		List<Employee> employee = employeeService.searchEmp(id);
-		model.addAttribute("employees", employee);
-		return "employee/employee_search";
-	}
-
-	@PostMapping("/updateEmployee")
-	public String updateEmployee(@ModelAttribute("employee") Employee employee) {
-		// save employee to database
-		employeeService.saveEmployee(employee);
-		return "redirect:/";
-	}
-
-	@PostMapping("/saveEmployee")
-	public String saveEmployee(@ModelAttribute("employee") Employee employee, RedirectAttributes redirectAttributes) {
-		Employee existEmployee = employeeService.getEmployeeByName(employee.getHoTenNV());
+    @GetMapping("/searchEmployeeById")
+    public String searchEmployeeId(@RequestParam("id") Long id, Model model) {
+        Employee employee = employeeService.getEmployeeById(id);
+        model.addAttribute("employee", employee);
+        return "employee/employee_search";
+    }
+    
+    @GetMapping("/searchEmployee")
+    public String searchEmployee(@RequestParam("id") String id, Model model) {
+        List<Employee> employee = employeeService.searchEmp(id);
+        model.addAttribute("employees", employee);
+        return "employee/employee_search";
+    }
+    
+    @PostMapping("/updateEmployee")
+    public String updateEmployee(@ModelAttribute("employee") Employee employee) {
+        // save employee to database
+        employeeService.saveEmployee(employee);
+        return "redirect:/";
+    }
+    
+    @PostMapping("/saveEmployee")
+    public String saveEmployee(@ModelAttribute("employee") Employee employee, RedirectAttributes redirectAttributes) {
+        // save employee to database
+    	Employee existEmployee = employeeService.getEmployeeByName(employee.getHoTenNV());
         if (existEmployee == null) {
         	employeeService.saveEmployee(employee);
             redirectAttributes.addFlashAttribute("message", "Thêm nhân viên thành công!");

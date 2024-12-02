@@ -31,6 +31,9 @@ public class Movie {
 
 	@Column(name = "ngayPH", nullable = false)
 	private Date ngayPH;
+	
+	@Column(name = "quocGia", nullable = false)
+	private String quocGia;
 
 	@Column(name = "linkPoster", nullable = false)
 	private String linkPoster;
@@ -112,6 +115,14 @@ public class Movie {
 		this.ngayPH = ngayPH;
 	}
 
+	public String getQuocGia() {
+		return quocGia;
+	}
+
+	public void setQuocGia(String quocGia) {
+		this.quocGia = quocGia;
+	}
+
 	public String getLinkPoster() {
 		return linkPoster;
 	}
@@ -134,7 +145,7 @@ public class Movie {
 	}
 
 	public Movie(Long idPhim, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,
-			String moTa, Date ngayPH, String linkPoster) {
+			String moTa, Date ngayPH, String quocGia, String linkPoster) {
 		super();
 		this.idPhim = idPhim;
 		this.tenPhim = tenPhim;
@@ -144,11 +155,12 @@ public class Movie {
 		this.thoiLuong = thoiLuong;
 		this.moTa = moTa;
 		this.ngayPH = ngayPH;
+		this.quocGia = quocGia;
 		this.linkPoster = linkPoster;
 	}
 
 	public Movie(Long idPhim, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,
-			String moTa, Date ngayPH, String linkPoster, double averageRating) {
+			String moTa, Date ngayPH, String quocGia, String linkPoster, double averageRating) {
 		super();
 		this.idPhim = idPhim;
 		this.tenPhim = tenPhim;
@@ -158,7 +170,9 @@ public class Movie {
 		this.thoiLuong = thoiLuong;
 		this.moTa = moTa;
 		this.ngayPH = ngayPH;
+		this.quocGia = quocGia;
 		this.linkPoster = linkPoster;
 		this.averageRating = averageRating;
 	}
+	
 }
