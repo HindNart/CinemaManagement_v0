@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.Group3.ManagementCinema.entity.Employee;
+import com.Group3.ManagementCinema.entity.Movie;
 import com.Group3.ManagementCinema.repository.EmployeeRepository;
 import com.Group3.ManagementCinema.service.EmployeeService;
 
@@ -52,5 +53,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<Employee> searchEmp(String key) {
 		// TODO Auto-generated method stub
 		return EmployeeRepository.findByhoTenNVContainingOrDiaChiContainingOrChucVuContaining(key, key,key);
+	}
+	@Override
+	public Employee getEmployeeByName(String name) {
+		Optional < Employee > optional =  EmployeeRepository.findByHoTenNV(name);
+		Employee employee = null;
+        if (optional.isPresent()) {
+        	employee = optional.get();
+        }
+        return employee;
 	}
 }

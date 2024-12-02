@@ -38,7 +38,7 @@
 	            <tbody>
 	                <tr th:each="acc : ${listAccounts}">
 	                    <td th:text="${acc.email}"></td>
-	                    <td><p th:text="${acc.username}" class="hidden-text"></p></td>
+	                    <td class="text-center"><p th:text="${acc.username}" class="hidden-text"></p></td>
 	                    <td><p th:text="${acc.password}" class="hidden-text"></p></td>
 	                    <td><p th:text="${acc.role}" class="hidden-text"></p></td>
 	                    <td>

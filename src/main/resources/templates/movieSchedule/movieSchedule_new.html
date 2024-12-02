@@ -23,7 +23,7 @@
 	            <label for="phim" class="form-label">Phòng chiếu phim</label>
 	            <select th:field="*{phongChieu}" class="form-control mb-4 col-4">
 	                <option th:each="cinemaRoom : ${cinemaRooms}" th:value="${cinemaRoom.idPhong}"><p th:text="${cinemaRoom.idPhong}"></p></option>
-	            </select>
+	            </select> 
 	        </div>
 			<div class="mb-3">
 	            <label for="phim" class="form-label">Phim</label>

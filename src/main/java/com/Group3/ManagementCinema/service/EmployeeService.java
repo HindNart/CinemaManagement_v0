@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.Group3.ManagementCinema.entity.Employee;
+import com.Group3.ManagementCinema.entity.Movie;
 
 public interface EmployeeService {
 	List<Employee> getAllEmployees();
@@ -14,4 +15,5 @@ public interface EmployeeService {
 	Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	long countEmployee();
 	List<Employee> searchEmp(String key);
+	Employee getEmployeeByName(String name);
 }
