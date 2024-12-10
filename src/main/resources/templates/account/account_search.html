@@ -23,7 +23,6 @@
 	                    <th>Email</th>
 	                    <th class="hidden-text">Tên tài khoản</th>
 	                    <th class="hidden-text">Mật khẩu</th>
-	                    <th class="hidden-text">Điểm</th>
 	                    <th>Chức năng</th>
 	                </tr>
 	            </thead>
@@ -32,7 +31,6 @@
 	                    <td th:text="${acc.email}"></td>
 	                    <td><p th:text="${acc.username}" class="hidden-text"></p></td>
 	                    <td><p th:text="${acc.password}" class="hidden-text"></p></td>
-	                    <td th:text="${acc.diem}"></td>
 	                    <td>
 	                    	<a th:href="@{/showFormForUpdateAccount/{id}(id=${acc.email})}" class="btn btn-primary btn-sm"><i class="bi bi-gear-fill"></i></a>
 	                        <a th:href="@{/deleteMovie/{id}(id=${acc.email})}" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a>

@@ -1,7 +1,11 @@
 package com.Group3.ManagementCinema.controller;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -10,10 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Group3.ManagementCinema.entity.Account;
@@ -23,17 +25,14 @@ import com.Group3.ManagementCinema.entity.MovieSchedule;
 import com.Group3.ManagementCinema.entity.Rate;
 import com.Group3.ManagementCinema.entity.TicketCountByMonthDTO;
 import com.Group3.ManagementCinema.impl.RateServiceImpl;
-import com.Group3.ManagementCinema.impl.TicketServiceImpl;
 import com.Group3.ManagementCinema.service.AccountService;
 import com.Group3.ManagementCinema.service.CinemaRoomService;
 import com.Group3.ManagementCinema.service.CustomerService;
 import com.Group3.ManagementCinema.service.EmployeeService;
 import com.Group3.ManagementCinema.service.MovieScheduleService;
 import com.Group3.ManagementCinema.service.MovieService;
-import com.Group3.ManagementCinema.service.RateService;
 import com.Group3.ManagementCinema.service.TicketService;
 
-import jakarta.persistence.metamodel.SetAttribute;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -182,12 +181,34 @@ public class adminController {
     }
     
     @GetMapping("/film/{id}")
-    public String openFilm(@PathVariable(value = "id") Long idPhong, HttpServletRequest request, Model model) {
-        Movie movie = movieService.getMovieById(idPhong);
+    public String openFilm(@PathVariable(value = "id") Long idPhim, HttpServletRequest request, Model model) {
+        Movie movie = movieService.getMovieById(idPhim);
         List<MovieSchedule> movieSchedule = moviescheduleService.findByIdphim(movie);
         List<Rate> rates = rateService.getAllRates();
-        // Filter out duplicate ngayChieu
-        List<Date> uniqueDates = movieSchedule.stream().map(MovieSchedule::getNgayChieu).distinct().collect(Collectors.toList());
+        // Thời gian hiện tại
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter timeFormatter  = DateTimeFormatter.ofPattern("HH:mm"); // Thay đổi định dạng phù hợp với dữ liệu của bạn
+
+        List<MovieSchedule> filteredSchedules = movieSchedule.stream()
+            .filter(schedule -> {
+                try {
+                    // Ghép ngày hiện tại với giờ chiếu từ lịch
+                    LocalTime showTime = LocalTime.parse(schedule.getThoigianBD(), timeFormatter);
+                    LocalDateTime fullShowTime = LocalDateTime.of(LocalDate.now(), showTime);
+                    return fullShowTime.isAfter(now); // Chỉ lấy các lịch có thời gian sau hiện tại
+                } catch (Exception e) {
+                    return false; // Bỏ qua các giá trị không hợp lệ
+                }
+            })
+            .collect(Collectors.toList());
+        
+        // Lấy danh sách các ngày chiếu (không trùng lặp)
+        List<Date> uniqueDates = filteredSchedules.stream()
+		    .map(MovieSchedule::getNgayChieu) // Lấy ngày chiếu
+		    .filter(date -> !date.before(new Date())) // Loại bỏ ngày trong quá khứ, còn ngày hiện tại thì giữ lại
+		    .distinct() // Loại bỏ trùng lặp
+		    .collect(Collectors.toList());
+
         Rate newRate = new Rate();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
@@ -203,7 +224,7 @@ public class adminController {
         model.addAttribute("rates", rates);
         model.addAttribute("movie", movie);
         model.addAttribute("uniqueDates", uniqueDates);
-        model.addAttribute("movieSchedule", movieSchedule);
+        model.addAttribute("movieSchedule", filteredSchedules);
         return "film";
     }
     

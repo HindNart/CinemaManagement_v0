@@ -72,9 +72,9 @@ function validateSpecialCharacters(input) {
     <div th:if="${message}" th:text="${message}" class="alert alert-danger"></div>
     <hr> 
     <form th:action="@{/saveEmployee}" th:object="${employee}" method="POST"  onsubmit="validateForm(event)">
-        <div class="mb-3">
+        <div class="mb-3 visually-hidden">
             <label for="id" class="form-label">Mã nhân viên</label>
-            <input required type="text" th:field="*{idNhanVien}" placeholder="Mã nhân viên" class="form-control mb-4 col-4">
+            <input type="text" th:field="*{idNhanVien}" placeholder="Mã nhân viên" class="form-control mb-4 col-4">
         </div>
         <div class="mb-3">
             <label for="ten" class="form-label">Tên nhân viên</label>
