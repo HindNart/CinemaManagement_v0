@@ -58,6 +58,19 @@ public class MovieScheduleController {
 	public String saveMovieSchedule(@ModelAttribute("movieSchedule") MovieSchedule movieSchedule, Model model) {
 		if (movieScheduleService.checkMS(movieSchedule.getNgayChieu(),  movieSchedule.getThoigianBD(),  movieSchedule.getThoigianKT(), movieSchedule.getPhongChieu()) != null) {
 			model.addAttribute("exists", true);
+			List<Movie> movie = movieService.getAllMovies();
+			List<CinemaRoom> cinemaRoom = cinemaRoomService.getAllCinemaRooms();
+			model.addAttribute("cinemaRooms", cinemaRoom);
+			model.addAttribute("movies", movie);
+	        model.addAttribute("movieSchedule", movieSchedule);
+			return "movieSchedule/movieSchedule_new";
+		}else if(movieScheduleService.CheckByNgayChieuAndPhongChieu(movieSchedule.getNgayChieu(), movieSchedule.getThoigianBD(),  movieSchedule.getThoigianKT(), movieSchedule.getPhongChieu())){		
+			model.addAttribute("invalid", true);
+			List<Movie> movie = movieService.getAllMovies();
+			List<CinemaRoom> cinemaRoom = cinemaRoomService.getAllCinemaRooms();
+			model.addAttribute("cinemaRooms", cinemaRoom);
+			model.addAttribute("movies", movie);
+	        model.addAttribute("movieSchedule", movieSchedule);
 			return "movieSchedule/movieSchedule_new";
 		}else {
 			movieScheduleService.saveMovieSchedule( 

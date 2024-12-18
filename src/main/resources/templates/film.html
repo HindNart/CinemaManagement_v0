@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title th:text="${movie.tenPhim}"></title>
-<link rel="shortcut icon" type="image/png" href="/img/film.png"/>
+<link rel="shortcut icon" type="image/png" href="/img/film.png" />
 <link rel="stylesheet" href="/css/filmStyle.css">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -256,13 +256,15 @@
 <body>
 	<div id="header">
 		<div class="navbar">
-			<a class="logo ms-3" th:href="@{/userSite}" > 
-				<img src="/img/LET.png" width="125px" height="100%">
+			<a class="logo ms-3" th:href="@{/userSite}"> <img
+				src="/img/LET.png" width="125px" height="100%">
 			</a>
 			<div class="nav-content">
 				<ul>
-					<li class="fs-5 fw-medium"><a class="text-dark" th:href="@{/userSite#now-showing}">Phim đang chiếu</a></li>
-					<li class="fs-5 fw-medium"><a class="text-dark" th:href="@{/showMovieGenre}">Thể loại phim</a></li>
+					<li class="fs-5 fw-medium"><a class="text-dark"
+						th:href="@{/userSite#now-showing}">Phim đang chiếu</a></li>
+					<li class="fs-5 fw-medium"><a class="text-dark"
+						th:href="@{/showMovieGenre}">Thể loại phim</a></li>
 				</ul>
 			</div>
 			<div class="user flex">
@@ -279,7 +281,7 @@
 						<div class="dropdown-content rounded">
 							<a data-bs-toggle="modal" class="rounded"
 								data-bs-target="#exampleModal" style="cursor: pointer;">Thông
-								tin</a> <a th:href="@{/logout}" class="rounded">Đăng xuất</a>
+								tin</a> <a th:href="@{/logout/{id}(id=${account.email})}" class="rounded">Đăng xuất</a>
 						</div>
 					</div>
 				</div>
@@ -321,91 +323,92 @@
 			</div>
 		</div>
 	</div>
-	<div class="schedule-show pa-64">
-		<h3>
-			Lịch chiếu <span th:text="${movie.tenPhim}"></span>
-		</h3>
-		<div class="schedule-container" th:each="date : ${uniqueDates}">
-			<div class="schedule-list">
-				<div class="schedule-date">
-					<p class="bg-gray" th:text="${date}"></p>
+	<div class="pa-64	">
+		<div class="schedule-show ">
+			<h3>
+				Lịch chiếu <span th:text="${movie.tenPhim}"></span>
+			</h3>
+			<div class="schedule-container" th:each="date : ${uniqueDates}">
+				<div class="schedule-list">
+					<div class="schedule-date">
+						<p class="bg-gray" th:text="${date}"></p>
+					</div>
 				</div>
-			</div>
-			<div class="schedule-time-container">
-				<div class="schedule-time">
-					<p>
-						<b>2D Lồng tiếng</b>
-					</p>
-					<div class="" style="margin-left: -3px;">
-						<div th:each="schedule : ${movieSchedule}"
-							th:if="${date == schedule.ngayChieu}"
-							class="schedule-time-item btn btn-primary ms-1 me-1"
-							data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
-							th:attr="data-start-time=${schedule.thoigianBD}, data-end-time=${schedule.thoigianKT}, data-show-time=${schedule.ngayChieu}, data-room=${schedule.phongChieu.idPhong},data-room-type=${schedule.phongChieu.loaiPhong}">
-							<a class="text-white" style="text-decoration: none"
-								th:href="@{/showBuyTicket/{id}(id=${schedule.idLichChieu})}"><span
-								th:text="${schedule.thoigianBD}"></span> ~ <span
-								th:text="${schedule.thoigianKT}"></span></a>
+				<div class="schedule-time-container">
+					<div class="schedule-time">
+						<p>
+							<b>2D Lồng tiếng</b>
+						</p>
+						<div class="" style="margin-left: -3px;">
+							<div th:each="schedule : ${movieSchedule}"
+								th:if="${date == schedule.ngayChieu}"
+								class="schedule-time-item btn btn-primary ms-1 me-1"
+								data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+								th:attr="data-start-time=${schedule.thoigianBD}, data-end-time=${schedule.thoigianKT}, data-show-time=${schedule.ngayChieu}, data-room=${schedule.phongChieu.idPhong},data-room-type=${schedule.phongChieu.loaiPhong}">
+								<a class="text-white" style="text-decoration: none"
+									th:href="@{/showBuyTicket/{id}(id=${schedule.idLichChieu})}"><span
+									th:text="${schedule.thoigianBD}"></span> ~ <span
+									th:text="${schedule.thoigianKT}"></span></a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="comments pa-64">
-
-		<form action="#" th:action="@{/saveRate}" th:object="${newRate}"
-			method="post">
-			<div class="">
-				<select class="form-select w-auto mb-3" id="selectRating"
-					th:field="*{diem}" aria-label="Default select example" required>
-					<option value="10" disabled selected>Điểm</option>
-					<option th:value="1">1</option>
-					<option th:value="2">2</option>
-					<option th:value="3">3</option>
-					<option th:value="4">4</option>
-					<option th:value="5">5</option>
-					<option th:value="6">6</option>
-					<option th:value="7">7</option>
-					<option th:value="8">8</option>
-					<option th:value="9">9</option>
-					<option th:value="10">10</option>
-				</select> <label for="textareaComment" class="form-label mb-3">Bình
-					luận</label>
-				<textarea class="form-control" id="textareaComment"
-					th:field="*{binhLuan}" rows="3"></textarea>
-				<input type="hidden" th:field="*{taiKhoan}" /> <input type="hidden"
-					th:field="*{Phim}" />
-			</div>
-			<button type="submit" class="btn btn-primary mb-3 mt-3">Gửi
-				đánh giá</button>
-		</form>
-		<div class="">
-			<h3 class="comments-title">Bình luận từ người xem</h3>
-			<div class="user-comment" th:each="rate:${rates}"
-				th:if="${rate.Phim.idPhim == movie.idPhim}">
-				<div class=" flex">
-					<div class="user-avt">
-						<img
-							src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg"
-							alt="" width="50px" height="50px">
-					</div>
-					<div class="user-info">
-						<p th:text="${rate.taiKhoan.username}"></p>
-					</div>
+		<div class="comments mt-3">
+			<form action="#" th:action="@{/saveRate}" th:object="${newRate}"
+				method="post">
+				<div class="">
+					<select class="form-select w-auto mb-3" id="selectRating"
+						th:field="*{diem}" aria-label="Default select example" required>
+						<option value="10" disabled selected>Điểm</option>
+						<option th:value="1">1</option>
+						<option th:value="2">2</option>
+						<option th:value="3">3</option>
+						<option th:value="4">4</option>
+						<option th:value="5">5</option>
+						<option th:value="6">6</option>
+						<option th:value="7">7</option>
+						<option th:value="8">8</option>
+						<option th:value="9">9</option>
+						<option th:value="10">10</option>
+					</select> <label for="textareaComment" class="form-label mb-3">Bình
+						luận</label>
+					<textarea class="form-control" id="textareaComment"
+						th:field="*{binhLuan}" rows="3"></textarea>
+					<input type="hidden" th:field="*{taiKhoan}" /> <input
+						type="hidden" th:field="*{Phim}" />
 				</div>
-				<div class="mb-3">
-					<input type="hidden" class="rate-id" th:value="${rate.id}" /> <input
-						type="hidden" class="account-id"
-						th:value="${rate.taiKhoan.email	}" /> <input type="hidden"
-						class="movie-id" th:value="${rate.Phim.idPhim}" />
-					<div class="comment-rate mg-10 ">
-						🌟 <span th:text="${rate.diem}"></span>/10 •
+				<button type="submit" class="btn btn-primary mb-3 mt-3">Gửi
+					đánh giá</button>
+			</form>
+			<div class="">
+				<h3 class="comments-title">Bình luận từ người xem</h3>
+				<div class="user-comment" th:each="rate:${rates}"
+					th:if="${rate.Phim.idPhim == movie.idPhim}">
+					<div class=" flex">
+						<div class="user-avt">
+							<img
+								src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg"
+								alt="" width="50px" height="50px">
+						</div>
+						<div class="user-info">
+							<p th:text="${rate.taiKhoan.username}"></p>
+						</div>
 					</div>
-					<div class="comment-content" th:text="${rate.binhLuan}"></div>
-					<button th:if="${rate.taiKhoan.email == account.email}"
-						class="gear-icon-btn" onclick="convertToEditForm(this)">⚙️</button>
+					<div class="mb-3">
+						<input type="hidden" class="rate-id" th:value="${rate.id}" /> <input
+							type="hidden" class="account-id"
+							th:value="${rate.taiKhoan.email	}" /> <input type="hidden"
+							class="movie-id" th:value="${rate.Phim.idPhim}" />
+						<div class="comment-rate mg-10 ">
+							🌟 <span th:text="${rate.diem}"></span>/10
+						</div>
+						<div class="comment-content" th:text="${rate.binhLuan}"></div>
+						<button th:if="${rate.taiKhoan.email == account.email}"
+							class="gear-icon-btn" onclick="convertToEditForm(this)">⚙️</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -461,6 +464,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div id="footer" class=" bg-dark p-3 pt-5">
 		<div class="row p-64  ms-5 me-5 text-white border-bottom">
 			<div class="col mb-4">

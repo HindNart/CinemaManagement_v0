@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý rạp phim</title>
+    <title>Quản lý nhân viên</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/script.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -28,16 +28,16 @@
         </div>
     </div>
     <div class="scroll-table">
-        <table class="main-content-list">
+        <table class="main-content-list" id="myTable">
             <thead>
                 <tr>
-                    <th>Mã nhân viên</th>
-                    <th>Tên nhân viên</th>
-                    <th>Ngày sinh</th>
-                    <th>Địa chỉ</th>
-                    <th>Chức vụ</th>
-                    <th>Lương</th>
-                    <th>Ca làm</th>
+                    <th onclick="sortTable(0)">Mã nhân viên</th>
+                    <th onclick="sortTable(1)">Tên nhân viên</th>
+                    <th onclick="sortTable(2)">Ngày sinh</th>
+                    <th onclick="sortTable(3)">Địa chỉ</th>
+                    <th onclick="sortTable(4)">Chức vụ</th>
+                    <th onclick="sortTable(5)">Lương</th>
+                    <th onclick="sortTable(6)">Ca làm</th>
                     <th>Số điện thoại</th>
                     <th>Chức năng</th>
                 </tr>

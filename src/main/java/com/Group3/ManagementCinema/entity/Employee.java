@@ -104,6 +104,11 @@ public class Employee {
     public void setSdt(String sdt) {
         this.sdt = sdt;
     }
+    
+
+	public String getEmpId() {
+		return  getIdNhanVien().toString();
+	}
 
     
 	public Employee() {

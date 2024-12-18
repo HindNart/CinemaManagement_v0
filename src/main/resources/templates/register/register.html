@@ -44,7 +44,7 @@
 </head>
 
 <body>
-    <form class="container flex spc-btw" th:action="@{/saveAccount}" id="registerForm"  th:object="${account}" method="POST" onsubmit="validateForm(event)">
+    <form class="container flex spc-btw" th:action="@{/saveAccountCus}" id="registerForm"  th:object="${account}" method="POST" onsubmit="validateForm(event)">
         <div class="w-40 regis-content">
             <h3 class="text-center">Đăng ký</h3>
             <div th:if="${successMessage != null}">

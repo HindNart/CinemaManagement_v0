@@ -31,11 +31,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js">
 	</script>
 </head>
-<style>
-th {
-	cursor: pointer;
-}
-</style>
 <body>
 	<div id="header">
 		<div class="flex spc-btw">
@@ -51,7 +46,7 @@ th {
 						alt="" width="50px" height="50px">
 				</div>
 				<div class="user-name nav-dropdown">
-					<p th:text="${account.username}"><i class="bi bi-chevron-compact-down"></i></p> 
+					<p th:text="${account.username}"> <i class="bi bi-chevron-compact-down"></i></p> 
 					<div class="dropdown-content">
 						<a th:href="@{/logout/{id}(id=${account.email})}">Logout</a>
 					</div>
@@ -61,17 +56,7 @@ th {
 	</div>
 
 	<div id="sidebar" class="width-15">
-		<a onclick="loadContent('/showAllAccount')" id="load-cus"
-			class="text-white" href="">
-			<div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded">
-				<i class="bi bi-person-circle"></i> Tài khoản
-			</div>
-		</a> <a onclick="loadContent('/employees')" id="load-emp"
-			class="text-white" href="">
-			<div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded">
-				<i class="bi bi-people-fill"></i> Nhân viên
-			</div>
-		</a> <a onclick="loadContent('/movieSchedules')" id="load-sche" href=""
+		<a onclick="loadContent('/movieSchedules')" id="load-sche" href=""
 			class="text-white">
 			<div class="sidebar-btn shadow p-3 mb-5 bg-body-tertiary rounded">
 				<i class="bi bi-calendar-event-fill"></i> Lịch chiếu
@@ -94,67 +79,10 @@ th {
 				<h2>Dashboard</h2>
 			</div>
 			<div class="db-item">
-				<div class="mlr-20 flex row">
-					<div class="total-emp db-card col-2">
-						<p>Số lượng nhân viên</p>
-						<p>
-							<b th:text="${employeeCount}"></b>
-						</p>
-					</div>
-					<div class="total-acc db-card col-2">
-						<p>Số lượng tài khoản</p>
-						<p>
-							<b th:text="${accountCount}"></b>
-						</p>
-					</div>
-					<div class="total-movie db-card col-2">
-						<p>Số lượng phim</p>
-						<p>
-							<b th:text="${movieCount}"></b>
-						</p>
-					</div>
-					<div class="total-room db-card col-2">
-						<p>Số lượng phòng</p>
-						<p>
-							<b th:text="${cinemaRoomCount}"></b>
-						</p>
-					</div>
-				</div>
-				<div class="mlr-20 flex row" style="margin-top: 20px">
-					<div class="total-sche db-card col-2">
-						<p>Số lượng lịch chiếu</p>
-						<p>
-							<b th:text="${movieScheduleCount}"></b>
-						</p>
-					</div>
-					<div class="total-sche db-card col-2"
-						style="background-color: lightblue">
-						<p>Số lượng vé</p>
-						<p>
-							<b th:text="${ticketCount}"></b>
-						</p>
-					</div>
-					<div class="total-sche db-card col-2"
-						style="background-color: yellow">
-						<p>Tổng doanh thu</p>
-						<p>
-							<b th:text="${totalRevenue}"></b><b> VND</b>
-						</p>
-					</div>
-				</div>
-			</div>
-			<!-- <a href="/testStatis.html">Xem thêm</a>  -->
-			<div class="db-item">
-				<div class="flex">
-					<canvas id="ticketChart" width="50%"></canvas>
-				</div>
-				<div class="flex">
-					<canvas id="totalPriceTicketChart" width="50%"></canvas>
-				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<script>
         function loadContent(fragment) {
             fetch(fragment)
@@ -178,7 +106,7 @@ th {
             });
         });
     </script>
-
+    
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
 	    fetch('/countTickets')

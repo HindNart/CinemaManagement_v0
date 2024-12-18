@@ -16,4 +16,6 @@ public interface AccountService {
 	long countAccount();
 	Account checkLogin(String tk, String mk);
 	void updateAccount(Account account);
+	void saveAccountEmp(Account account);
+	void saveAccountCus(Account account);
 }

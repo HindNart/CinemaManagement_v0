@@ -18,6 +18,11 @@
 	            alert("Lịch chiếu đã tồn tại!");
         	</script>
 		</div>
+		<div th:if="${invalid}">
+			<script th:inline="javascript">
+	            alert("Thời gian chiếu không hợp lệ!");
+        	</script>
+		</div>
 		<form th:action="@{/saveMovieSchedule}" th:object="${movieSchedule}" method="POST" onsubmit="return validateForm()">
 			<div class="mb-3">
 	            <label for="phim" class="form-label">Phòng chiếu phim</label>

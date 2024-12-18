@@ -1,5 +1,7 @@
 package com.Group3.ManagementCinema.impl;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -87,5 +89,23 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	public List<MovieSchedule> findMovieSchedulesByMovieName(String movieName) {
         return movieScheduleRepository.findByPhimTenPhimContaining(movieName);
     }
+	@Override
+	public boolean CheckByNgayChieuAndPhongChieu(java.sql.Date date,String thoigianBD, String thoigianKT, CinemaRoom phongchieu) {
+		// TODO Auto-generated method stub
+		List<MovieSchedule> ms = movieScheduleRepository.findByNgayChieuAndPhongChieu(date, phongchieu);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		LocalTime parsedTime_thoigianBD = LocalTime.parse(thoigianBD, formatter);
+		LocalTime parsedTime_thoigianKT = LocalTime.parse(thoigianKT, formatter);
+		if(ms != null) {
+			for (int i = 0; i < ms.size(); i++) {
+				LocalTime parsedTime_thoigianBD_check = LocalTime.parse(ms.get(i).getThoigianBD(), formatter);
+				LocalTime parsedTime_thoigianKT_check = LocalTime.parse(ms.get(i).getThoigianKT(), formatter);
+				if(parsedTime_thoigianBD_check.isBefore(parsedTime_thoigianBD) && parsedTime_thoigianKT_check.isAfter(parsedTime_thoigianKT)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 }

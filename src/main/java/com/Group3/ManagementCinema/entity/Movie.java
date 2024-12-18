@@ -1,6 +1,8 @@
 package com.Group3.ManagementCinema.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -26,7 +28,7 @@ public class Movie {
 	@Column(name = "thoiLuong", nullable = false)
 	private int thoiLuong;
 
-	@Column(name = "moTa", nullable = false)
+	@Column(name = "moTa", nullable = false, length = 1000)
 	private String moTa;
 
 	@Column(name = "ngayPH", nullable = false)
@@ -35,13 +37,25 @@ public class Movie {
 	@Column(name = "quocGia", nullable = false)
 	private String quocGia;
 
-	@Column(name = "linkPoster", nullable = false)
+	@Column(name = "linkPoster", nullable = false, length = 1000)
 	private String linkPoster;
 
 	@Column(name = "trangthai")
 	private boolean trangthai;
 	@Transient
 	private double averageRating;
+	 // Thêm thuộc tính OneToMany
+    @OneToMany(mappedBy = "phim", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MovieSchedule> movieSchedules = new ArrayList<>();
+
+    // Getter và Setter
+    public List<MovieSchedule> getMovieSchedules() {
+        return movieSchedules;
+    }
+
+    public void setMovieSchedules(List<MovieSchedule> movieSchedules) {
+        this.movieSchedules = movieSchedules;
+    }
 
 	public double getAverageRating() {
 		return averageRating;
@@ -157,6 +171,22 @@ public class Movie {
 		this.ngayPH = ngayPH;
 		this.quocGia = quocGia;
 		this.linkPoster = linkPoster;
+	}
+	
+	public Movie(Long idPhim, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,
+			String moTa, Date ngayPH, String quocGia, String linkPoster, boolean TrangThai) {
+		super();
+		this.idPhim = idPhim;
+		this.tenPhim = tenPhim;
+		this.theLoai = theLoai;
+		this.daoDien = daoDien;
+		this.dienVien = dienVien;
+		this.thoiLuong = thoiLuong;
+		this.moTa = moTa;
+		this.ngayPH = ngayPH;
+		this.quocGia = quocGia;
+		this.linkPoster = linkPoster;
+		this.trangthai = TrangThai;
 	}
 
 	public Movie(Long idPhim, String tenPhim, String theLoai, String daoDien, String dienVien, int thoiLuong,

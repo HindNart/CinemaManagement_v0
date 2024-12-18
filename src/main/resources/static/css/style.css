@@ -1,297 +1,308 @@
 @charset "UTF-8";
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-    ;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Roboto, Helvetica, Arial, sans-serif;
+	;
 }
 
 /* General CSS */
-
 .flex {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .spc-btw {
-    justify-content: space-between;
+	justify-content: space-between;
 }
 
 .brr-50 {
-    border-radius: 50%;
+	border-radius: 50%;
 }
 
 .width-15 {
-    width: 15%;
-    float: left;
+	width: 15%;
+	float: left;
 }
 
 .width-80 {
-    width: 85%;
-    float: left;
+	width: 85%;
+	float: left;
 }
 
 body {
-    background-color: #353434;
+	background-color: #353434;
 }
 
 a {
-    text-decoration: none;
-    color: #121241;
+	text-decoration: none;
+	color: #121241;
+}
+
+.btn-danger{
+	color:red;
+}
+
+/* Màu cho dòng chẵn */
+tr:nth-child(even) {
+	background-color: #f7f7f7;
+}
+
+/* Màu cho dòng lẻ */
+tr:nth-child(odd) {
+	background-color: #ffffff;
+}
+
+/* Hover để làm nổi bật dòng */
+tr:hover {
+	background-color: #d6e4ff;
 }
 
 .text-white {
-    color: white !important;
+	color: white !important;
 }
 
-.hidden-text{
+.hidden-text {
 	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    height: 20px;
-    width:150px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 20px;
+	width: 150px;
 }
 
 /* Header CSS */
-
 #header {
-    padding: 10px 20px;
-    border-bottom: 1px solid #ccc;
+	padding: 10px 20px;
+	border-bottom: 1px solid #ccc;
 }
 
 .user {
-    align-items: center;
-
+	align-items: center;
 }
 
 .user-name {
-    margin-left: 10px;
-    padding:10px;
-    color: #ccc;
+	margin-left: 10px;
+	padding: 10px;
+	color: #ccc;
 }
 
 /* account */
 ul li {
-    float: left;
-    padding: 10px 50px;
+	float: left;
+	padding: 10px 50px;
 }
 
 .nav-dropdown {
-    position: relative;
-    display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 
 .nav-dropdown .dropdown-content {
-    display: none;
-    top: 35px;
-    right: 0px;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 100px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    border-radius: 10px;
+	display: none;
+	top: 35px;
+	right: 0px;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 100px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 10px;
 }
 
 .nav-dropdown a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
 }
 
 .nav-dropdown:hover .dropdown-content {
-    display: block;
-
+	display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: #ccc;
-    color: #000;
-    border-radius: 10px;
+	background-color: #ccc;
+	color: #000;
+	border-radius: 10px;
 }
-
 
 /* Side bar */
 #sidebar {
-    padding-top: 15px;
+	padding-top: 15px;
 }
 
 .sidebar-btn {
-    max-width: 90%;
-    display: block;
-    padding: 20px;
-    border: none;
-    border-radius: 10px;
-    color: #ccc;
-    margin: 5px auto;
-    text-align: left;
-    letter-spacing: 0.03333em;
-    cursor: pointer;
+	max-width: 90%;
+	display: block;
+	padding: 20px;
+	border: none;
+	border-radius: 10px;
+	color: #ccc;
+	margin: 5px auto;
+	text-align: left;
+	letter-spacing: 0.03333em;
+	cursor: pointer;
 }
 
 .sidebar-btn:hover {
-    background-color: rgb(178, 178, 178);
-    box-shadow: 0px 0px 5px 0px rgb(111, 111, 111);
-    color: rgb(0, 0, 0);
+	background-color: rgb(178, 178, 178);
+	box-shadow: 0px 0px 5px 0px rgb(111, 111, 111);
+	color: rgb(0, 0, 0);
 }
 
 .sidebar-btn i {
-    float: left;
-    margin-right: 20px;
+	float: left;
+	margin-right: 20px;
 }
 
 .sidebar-btn.active {
-    background-color: rgb(178, 178, 178);
-    color: rgb(0, 0, 0);
+	background-color: rgb(178, 178, 178);
+	color: rgb(0, 0, 0);
 }
 
 /* Main content CSS */
-
 .main-content {
-    background-color: #fff;
-    min-height: 700px;
-    box-shadow: 0px 0px 5px 0px rgb(111, 111, 111);
+	background-color: #fff;
+	min-height: 700px;
+	box-shadow: 0px 0px 5px 0px rgb(111, 111, 111);
 }
 
 .main-title {
-    padding: 20px;
+	padding: 20px;
+	margin-left: 20px;
+	margin-right:20px;
 }
 
 .main-content-list {
-    margin: auto !important;
-    text-align: center;
-    width: 95%;
+	margin: auto !important;
+	text-align: center;
+	width: 95%;
 }
 
 table {
-    border-collapse: collapse;
-    width: 100%;
-    border-radius: 10px;
+	border-collapse: collapse;
+	width: 100%;
+	border-radius: 10px;
 }
 
 th {
-    background-color: rgb(59, 180, 89);
+	background-color: rgb(59, 180, 89);
 }
 
-th,
-td {
-    padding: 10px;
-
+th, td {
+	padding: 10px;
 }
 
 .table-row {
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
 }
 
 thead th:first-child {
-    border-radius: 10px 0 0 0;
+	border-radius: 10px 0 0 0;
 }
 
 thead th:last-child {
-    border-radius: 0 10px 0 0;
+	border-radius: 0 10px 0 0;
 }
 
 /* Film CSS */
 .film-description {
-    width: 100px;
-    /* Đặt chiều rộng cố định cho container */
-    white-space: nowrap;
-    /* Không cho phép xuống dòng */
-    overflow: hidden;
-    /* Ẩn phần văn bản tràn ra ngoài */
-    text-overflow: ellipsis;
-    /* Hiển thị dấu "..." khi văn bản quá dài */
+	width: 100px;
+	/* Đặt chiều rộng cố định cho container */
+	white-space: nowrap;
+	/* Không cho phép xuống dòng */
+	overflow: hidden;
+	/* Ẩn phần văn bản tràn ra ngoài */
+	text-overflow: ellipsis;
+	/* Hiển thị dấu "..." khi văn bản quá dài */
 }
 
 .search-bar {
-    position: relative;
+	position: relative;
 }
 
 .search-bar input {
-    padding: 7px 12px;
-    border-radius: 15px;
-    margin-right: 10px;
+	padding: 7px 12px;
+	border-radius: 15px;
+	margin-right: 10px;
 }
 
 .search-bar .bi-search {
-    position: absolute;
-    right: 18px;
-    top: 8px;
+	position: absolute;
+	right: 18px;
+	top: 8px;
 }
 
 .scroll-table {
-    max-height: 700px !important;
-    overflow-y: auto;
+	max-height: 700px !important;
+	overflow-y: auto;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+	width: 100%;
+	border-collapse: collapse;
 }
 
 thead th {
-    position: sticky;
-    top: 0;
-    z-index: 1;
+	position: sticky;
+	top: 0;
+	z-index: 1;
 }
 
 .add-btn {
-    background-color: greenyellow;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    padding: 10px 15px;
+	background-color: greenyellow;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	padding: 10px 15px;
 }
 
 .db-item {
-    margin: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ccc;
+	margin: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ccc;
 }
 
 .db-card {
-    margin-left: 20px;
-    padding: 10px 20px;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    min-width: 200px;
+	margin-left: 20px;
+	padding: 10px 20px;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	min-width: 200px;
 }
 
 .mlr-20 {
-    margin-left: -20px;
+	margin-left: -20px;
 }
 
 .total-emp {
-    background-color: orange;
+	background-color: orange;
 }
 
 .total-cus {
-    background-color: rgb(63, 176, 78);
+	background-color: rgb(63, 176, 78);
 }
 
 .total-acc {
-    background-color: greenyellow;
+	background-color: greenyellow;
 }
 
 .total-movie {
-    background-color: rgb(222, 94, 94);
+	background-color: rgb(222, 94, 94);
 }
 
 .total-sche {
-    background-color: rgb(187, 60, 187);
+	background-color: rgb(187, 60, 187);
 }
 
 .total-room {
-    background-color: pink;
+	background-color: pink;
 }
 
 .total-statis {
-    background-color: lightblue;
+	background-color: lightblue;
 }

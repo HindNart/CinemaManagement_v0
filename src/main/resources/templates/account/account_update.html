@@ -12,21 +12,17 @@
 		<hr>
 		<h2>Cập nhật tài khoản</h2>
 		<form action="#" th:action="@{/adUpdateAccount}" th:object="${account}" method="POST">
-			<div class="mb-3 visually-hidden">
+			<div class="mb-3  ">
 				<label for="id" class="form-label">Email</label>
-				<input type="text" th:field="*{email}" placeholder="Mã phòng chiếu" class="form-control mb-4 col-4">
+				<input type="text" th:field="*{email}" placeholder="" class="form-control mb-4 col-4">
 			</div>
-			<div class="mb-3 visually-hidden">
+			<div class="mb-3  ">
                 <label for="tentaikhoan" class="form-label">Tên tài khoản</label>
                 <input required type="text" th:field="*{username}" placeholder="Tên tài khoản" class="form-control mb-4 col-4" id="tentaikhoan" name="tentaikhoan">
             </div>
-            <div class="mb-3 visually-hidden">
+            <div class="mb-3  ">
                 <label for="matkhau" class="form-label">Mật khẩu</label>
                 <input required type="text" th:field="*{password}" placeholder="Điểm" class="form-control mb-4 col-4" id="matkhau" name="matkhau">
-            </div>
-            <div class="mb-3">
-                <label for="diem" class="form-label">Điểm</label>
-                <input required type="text" th:field="*{diem}" placeholder="Điểm" class="form-control mb-4 col-4" id="diem" name="diem">
             </div>
             <div class="d-flex justify-content-between">
 				<a class="btn btn-secondary" th:href="@{/}"> Quay lại</a>

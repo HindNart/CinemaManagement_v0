@@ -18,6 +18,9 @@ public class Account {
 	@Column(name = "role")
 	private String role;
 
+	@Column(name = "status")
+	private boolean status;
+	
 	@OneToOne
 	@JoinColumn(name = "customer_id", nullable = true)
 	private Customer customer;
@@ -57,6 +60,15 @@ public class Account {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 
 	public Customer getCustomer() {
 		return customer;
@@ -74,14 +86,16 @@ public class Account {
 		this.employee = employee;
 	}
 
-	public Account(String email, String username, String password, String role, Customer customer, Employee employee) {
+	public Account(String email, String username, String password, String role, Customer customer, Employee employee, boolean status) {
 		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.role = role;
 		this.customer = customer;
 		this.employee = employee;
+		this.status = status;
 	}
+	
 
 	public Account() {
 		super();

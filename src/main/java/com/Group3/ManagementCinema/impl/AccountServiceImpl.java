@@ -29,11 +29,23 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Override
 	public void saveAccount(Account account) {
+		this.accountRepository.save(account);
+	}
+	
+	@Override
+	public void saveAccountCus(Account account) {
 		Customer customer = new Customer();
 		customer.setTenKhach(account.getUsername());
 		this.customertRepository.save(customer);
 		account.setRole("Customer");
 		account.setCustomer(customer);
+		this.accountRepository.save(account);
+	}	
+	
+	
+	@Override
+	public void saveAccountEmp(Account account) {
+		account.setRole("employee");
 		this.accountRepository.save(account);
 	}
 	

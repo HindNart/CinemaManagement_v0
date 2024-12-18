@@ -31,15 +31,15 @@
         </div>
         
         <div class="scroll-table">
-            <table class="main-content-list">
+            <table class="main-content-list" id="myTable">
                 <thead>
 	                <tr>
-	                    <th>Mã lịch chiếu phim</th>
-	                    <th>Phòng chiếu</th>
+	                    <th onclick="sortTable(0)">Mã lịch chiếu phim</th>
+	                    <th  onclick="sortTable(1)">Phòng chiếu</th>
 	                    <th>Phim</th>
-	                    <th>Thời gian bắt đầu</th>
-	                    <th>Thời gian kết thúc</th>
-	                    <th>Ngày chiếu</th>
+	                    <th onclick="sortTable(3)">Thời gian bắt đầu</th>
+	                    <th onclick="sortTable(4)">Thời gian kết thúc</th>
+	                    <th onclick="sortTable(5)">Ngày chiếu</th>
 	                    <th>Chức năng</th>
 	                </tr>
 	            </thead>

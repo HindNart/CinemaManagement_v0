@@ -1,6 +1,7 @@
 package com.Group3.ManagementCinema.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Group3.ManagementCinema.entity.Account;
 import com.Group3.ManagementCinema.entity.Customer;
+import com.Group3.ManagementCinema.entity.Employee;
 import com.Group3.ManagementCinema.service.AccountService;
 import com.Group3.ManagementCinema.service.CustomerService;
+import com.Group3.ManagementCinema.service.EmployeeService;
 
 @Controller
 public class AccountController {
@@ -24,6 +27,8 @@ public class AccountController {
 	private AccountService accountService;
 	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	private EmployeeService employeeService;
 	 @GetMapping("/showAllAccount")
 	    public String showEmployeeList(Model model) {
 	        model.addAttribute("listAccounts", accountService.getAllAccounts());
@@ -34,8 +39,9 @@ public class AccountController {
 	public String showNewAccountForm(Model model) {
 		// create model attribute to bind form data
 		Account account = new Account();
+		model.addAttribute("emps", employeeService.getAllEmployees());
 		model.addAttribute("account",  account);
-		return "/login/register.html";
+		return "account/account_new";
 	}
 	
 	@GetMapping("/searchAccount")
@@ -53,6 +59,21 @@ public class AccountController {
 			model.addAttribute("successMessage", "Đăng ký thành công!");
 		}
 		return "register/register";
+	}
+	
+	@PostMapping("/saveAccountEmp")
+	public String saveAccountEmp(@ModelAttribute("account") Account account, Employee emp, Model model) {
+		account.setRole("employee");
+		emp = employeeService.getEmployeeById(Long.parseLong(account.getUsername())) ;
+		account.setUsername(emp.getHoTenNV());
+		account.setEmployee(emp);
+		if (accountService.getAccountById(account.getEmail()) != null) {
+			model.addAttribute("exists", true);
+		}else {
+			accountService.saveAccountEmp(account);
+			model.addAttribute("message", "Đăng ký thành công!");
+		}
+		return "redirect:/showNewAccountForm";
 	}
 	@PostMapping("/updateAccount")
     public String updateAccount(@ModelAttribute("account") Account account) {

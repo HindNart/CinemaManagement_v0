@@ -11,7 +11,7 @@
 		<h1>Quản lý phim</h1>
 		<hr>
 		<h2>Thêm phim</h2>
-    	<div th:if="${message}" th:text="${message}" class="alert alert-danger"></div>
+    	<div th:if="${message}" th:text="${message}" class="alert alert-success"></div>
 		<hr>
 		<form th:action="@{/checkMovie}" th:object="${movie}" method="POST">
 			<div class="mb-3">				
@@ -58,7 +58,7 @@
 			</div>			
 			<div class="mb-3">
 				<label for="linkposter" class="form-label">Trạng thái</label>
-				<input required type="text" th:field="*{trangthai}" placeholder="Trạng thái" id="trangthai" class="form-control mb-4 col-4">
+				<input required type="hidden" th:field="*{trangthai}" placeholder="Trạng thái" id="trangthai" class="form-control mb-4 col-4">
 				<div id="linkPosterError" class="text-danger"></div>
 			</div>
 			<hr>
@@ -75,9 +75,9 @@
 			const linkPosterError = document.getElementById('linkPosterError');
 			const time = document.getElementById('time');
 			const timeError = document.getElementById('timeError');
-			if (linkPosterInput.value.length > 255) {
+			if (linkPosterInput.value.length > 1000) {
 				event.preventDefault(); // Ngăn chặn việc submit form
-				linkPosterError.textContent = "Link poster quá dài, vui lòng nhập ít hơn 255 ký tự.";
+				linkPosterError.textContent = "Link poster quá dài, vui lòng nhập ít hơn 1000 ký tự.";
 			} else {
 				linkPosterError.textContent = "";
 			}

@@ -76,7 +76,7 @@
 
 <body>
 	<!-- Header section -->
-	<div id="header" class="my-3">
+	<div id="header">
 		<div class="navbar">
 			<a class="logo ms-3" th:href="@{/userSite}"> <img
 				src="/img/LET.png" width="125px" height="100%">
@@ -103,7 +103,7 @@
 						<div class="dropdown-content rounded">
 							<a data-bs-toggle="modal" class="rounded"
 								data-bs-target="#exampleModal" style="cursor: pointer;">Thông
-								tin</a> <a th:href="@{/logout}" class="rounded">Đăng xuất</a>
+								tin</a> <a th:href="@{/logout/{id}(id=${account.email})}" class="rounded">Đăng xuất</a>
 						</div>
 					</div>
 				</div>
